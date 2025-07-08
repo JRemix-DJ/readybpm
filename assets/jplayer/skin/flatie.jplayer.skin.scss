@@ -1,0 +1,315 @@
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//  Configure Player COLOR SCHEMES
+//
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+// !!!Experimental!!!
+$player-height: 32px;
+
+// Normal Skin
+$ui-color: #232323;
+$bar-color: #0082B2;
+$text-color: #f9f9f9;
+
+// Light Skin
+$ui-light-color: #F4F4F4;
+$bar-light-color: #0082B2;
+$text-light-color: #000;
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+// CSS, don't modify
+/////////////////////////////////////////////////////////////////////////////////////////////////
+@font-face {
+	font-family: 'player-font';
+	src: url('fonts/player-font.eot?iqly2j');
+	src: url('fonts/player-font.eot?iqly2j#iefix') format('embedded-opentype'),
+		url('fonts/player-font.ttf?iqly2j') format('truetype'),
+		url('fonts/player-font.woff?iqly2j') format('woff'),
+		url('fonts/player-font.svg?iqly2j#player') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+	font-family: "player-font" !important;
+	font-style: normal !important;
+	font-weight: normal !important;
+	font-variant: normal !important;
+	text-transform: none !important;
+	speak: none;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	/* Little positioning fix */
+	margin-top: -1px;
+}
+
+.jPlayer {
+	display: block;
+	overflow: hidden;
+	color: $text-color;
+	margin: 0;
+
+	// Extras
+	a { color: $text-color; text-decoration: none; outline-style: none; outline-width: 0; }
+	* { box-sizing: content-box; -moz-box-sizing: content-box; -webkit-box-sizing: content-box; }
+
+	a.smooth {
+		transition: all 0.1s linear;
+		-webkit-transition: all 0.1s linear;
+		-moz-transition: all 0.1s linear;
+		-o-transition: all 0.1s linear;
+	}
+
+	.jPlayer-container {
+		margin: 0;
+		padding: 0;
+		line-height: 0;
+	}
+
+	&.jp-video-full > .controls {
+		position: absolute;
+		left: 0;
+		right:0;
+		bottom: 0;
+		z-index: 1000;
+	}
+
+	/* Chrome FIX for full screen */
+	&.jp-video-full,
+	&.jp-video-full object,
+	&.jp-video-full video {
+		position: fixed;
+		top: 0;
+		left:0;
+		right:0;
+		bottom:0;
+		display:block;
+		border-width: 0px;
+		z-index: 999;
+	}
+
+	&.jp-video-full .playerScreen {
+		position: static;
+	}
+
+	&.jp-video-full .playerScreen .video-play {
+		z-index: 1000;
+	}
+
+	.playerScreen {
+		cursor: pointer;
+		position: relative;
+
+		.video-play {
+			display: block;
+			position: absolute;
+			z-index: 100;
+			width: 100%;;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: rgba(darken($ui-color, 80%), 0.4);
+
+			.play-icon {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin: -60px 0 0 -60px;
+				display: block;
+				width: 120px;
+				height: 120px;
+				font-size: 6em;
+				text-align: center;
+				line-height: 140px;
+			}
+		}
+	}
+
+	.controls {
+		display: block;
+		position: relative;
+		font-size: 12px;
+		height: $player-height;
+		line-height: $player-height !important;
+		background: $ui-color;
+		padding: 0;
+		margin: 0;
+		border: 1px solid lighten($ui-color, 5%);
+
+		.progress-block {
+			display: block;
+			width: auto;
+			margin: 0 185px 0 45px;
+
+			.timer {
+				text-align: center;
+
+				&.current {
+					float: left;
+					width: 40px;
+				}
+
+				&.duration {
+					float: right;
+					width: 40px;
+				}
+			}
+
+			.progress {
+				display: block;
+				width: auto;
+				margin: 0 45px 0 45px;
+				height: 6px;
+				padding: (($player-height / 2) - 3px) 0;
+				z-index: 9;
+
+				.seekBar {
+					position: relative;
+					display: block;
+					cursor: pointer;
+					padding: 0;
+					margin: 0;
+					height: 100%;
+					background: lighten($ui-color, 10%);
+					border-radius: 2px;
+					-webkit-border-radius: 2px;
+					overflow: hidden;
+
+					.playBar {
+						display: block;
+						position: relative;
+						height: 100%;
+						padding: 0;
+						background: $bar-color;
+						border-radius: 2px;
+						-webkit-border-radius: 2px;
+					}
+				}
+			}
+		}
+
+
+		.volumeblock {
+			display: block;
+			position: absolute;
+			right: 40px;
+			top: 0;
+			width: 80px;
+			margin: 0 10px;
+			height: $player-height;
+			font-size: 0;
+
+			.volume-control {
+				display: inline-block;
+				height: 5px;
+				width: 100%;
+				cursor: pointer;
+				background: lighten($ui-color, 10%);
+				border-radius: 2px;
+				-webkit-border-radius: 2px;
+				vertical-align: middle;
+				overflow: hidden;
+
+				.volume-value {
+					display: block;
+					width: 20%;
+					height: 100%;
+					background: $bar-color;
+				}
+			}
+
+		}
+
+
+		.controlset {
+			display: block;
+			position: absolute;
+			text-align: center;
+			top: 0;
+
+			&.left {
+				left: 0;
+			}
+
+			&.right {
+				right: 0;
+			}
+
+			&.right-volume {
+				right: 140px;
+			}
+
+			.play, .pause, .fullscreen, .smallscreen, .mute, .unmute {
+				display: inline-block;
+				width: 38px;
+				height: $player-height;
+				font-size: 1.4444444444em;
+				background: transparent;
+			}
+
+			.play, .pause, .fullscreen, .smallscreen, .mute, .unmute {
+				&:hover { background: lighten($ui-color, 10%); }
+			}
+
+		}
+
+	}
+
+	// Add support for AUDIO only
+	&.audioPlayer {
+		.playerScreen .video-play { display: none !important; }
+		.controls .controlset.right { display: none; }
+		.controls .controlset.right-volume { right: 100px; }
+		.controls .progress-block { margin: 0 140px 0 40px; }
+		.controls .volumeblock { right: 5px; }
+	}
+
+	// Color scheme
+	&.light {
+		color: $text-light-color;
+
+		a { color: $text-light-color; }
+		.playerScreen .video-play { background: rgba(lighten($text-light-color, 80%), 0.4); }
+		.controls { background: $ui-light-color; border: 1px solid darken($ui-light-color, 5%); .play, .pause, .fullscreen, .smallscreen, .mute, .unmute { &:hover {  background: darken($ui-light-color, 10%); } }} 
+		.controls .volumeblock .volume-control, .controls .progress-block .progress .seekBar { background: darken($ui-light-color, 10%); }
+		.controls .volumeblock .volume-control .volume-value, .controls .progress-block .progress .seekBar .playBar { background: $bar-light-color; }
+	}
+}
+
+
+.icon-fullscreen:before {
+	content: "\e902";
+}
+.icon-fullscreen-exit:before {
+	content: "\e903";
+}
+.icon-volume:before {
+	content: "\e900";
+}
+.icon-mute:before {
+	content: "\e901";
+}
+.icon-play-circle:before {
+	content: "\e906";
+}
+.icon-play:before {
+	content: "\e904";
+}
+.icon-pause:before {
+	content: "\e905";
+}
+
+
+@media (max-width:480px) { 
+	.jPlayer .controls .progress-block { margin: 0 40px 0 40px; }
+	.jPlayer.audioPlayer .controls .progress-block { margin: 0 5px 0 40px; }
+	.jPlayer .controls .volumeblock { display: none; } 
+	.jPlayer .controls .controlset.right-volume { display: none; }
+	.jPlayer .playerScreen .video-play .play-icon { font-size: 3.5em; margin: -35px 0 0 -35px; width: 70px; height: 70px; line-height: 70px; }
+}
