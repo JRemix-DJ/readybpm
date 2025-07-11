@@ -75,7 +75,7 @@ $query_builder = TRUE;
 
 $db['another'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => '::1',
 	'username' => 'root',
 	'password' => 'admin',
 	'database' => 'remixpool',
