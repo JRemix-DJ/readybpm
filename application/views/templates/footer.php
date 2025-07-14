@@ -103,28 +103,23 @@
 </div>
 
 <footer class="doc-footer text-uppercase text-center">
-        <div class="container">
-            <ul class="style1 footer-links">
-  
-                <li><a href="<? echo base_url(); ?>pages/become_a_member/">CONVERTIRME EN EDITOR</a></li>
-                <li><a href="<? echo base_url(); ?>pages/terms_conditions/">TERMINOS Y CONDICIONES</a></li>
-
-            </ul>
-            <ul class="social-list style2 circular">
-                <li><a href="https://www.facebook.com/videoremixpool" target="_blank" class="fa fa-facebook"></a></li>
-                <li><a href="https://www.instagram.com/videoremixpool/" target="_blank" class="fa fa-instagram"></a></li>
-            
-            </ul>
-            <div class="row">
-                <div class="col-xs-12">
-                    <strong>&copy; Copyright  <? echo date('Y'); ?> Video Remix Pool</strong>
-                    <p>LOS MEJORES VIDEOREMIX PARA DJS PROFESIONALES</p>
-                    <p>Sitio web desarrollado por <a href="http://shiftandcontrol.com">Shift & Ctrl</a></p>
-                </div>
+    <div class="container">
+        <ul class="style1 footer-links">
+            <li><a href="<? echo base_url(); ?>pages/become_a_member/">CONVERTIRME EN EDITOR</a></li>
+            <li><a href="<? echo base_url(); ?>pages/terms_conditions/">TÉRMINOS Y CONDICIONES</a></li>
+        </ul>
+        <ul class="social-list style2 circular">
+            <li><a href="https://www.facebook.com/profile.php?id=61576190996039" target="_blank" class="fa fa-facebook"></a></li>
+            <li><a href="https://www.instagram.com/videoremixpool/" target="_blank" class="fa fa-instagram"></a></li>
+        </ul>
+        <div class="row">
+            <div class="col-xs-12">
+                <strong>&copy; Copyright  <? echo date('Y'); ?> ReadyBPM</strong>
+                <p>LOS MEJORES REMIX PARA DJS PROFESIONALES</p>
             </div>
         </div>
-    </footer>
-</div>
+    </div>
+</footer>
 
 
 
@@ -185,6 +180,7 @@ if(isset($_SESSION['content_type'])){
     </div>
     </div>
     </div>
+</div>
 <? 
     }else{
       ?>

@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="<? echo base_url('css/bootstrap.min.css'); ?>">
     <link rel="stylesheet" href="<? echo base_url('css/colors/blue.css'); ?>">
     <link rel="stylesheet" href="<? echo base_url('css/font-awesome.min.css'); ?>">
-    <link rel="stylesheet" href="<? echo base_url('css/newhomeblue.css'); ?>"> 
+    <link rel="stylesheet" href="<? echo base_url('css/newhomeblue.css'); ?>">
     <link rel="stylesheet" href="<? echo base_url(); ?>css/table.css?v=1.14">
     
     
@@ -23,52 +23,18 @@
 </head>
 <body>
 <div id="fb-root"></div>
-      <script>
-        window.fbAsyncInit = function() {
-          FB.init({
-            xfbml            : true,
-            version          : 'v9.0'
-          });
-        };
-        (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = 'https://connect.facebook.net/es_ES/sdk/xfbml.customerchat.js';
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));</script>
- <!-- Your Chat Plugin code -->
- <div class="fb-customerchat"
-        attribution=setup_tool
-        page_id="100765198078235"
-  logged_in_greeting="Hola !!!  Escribenos un mensaje y atenderemos tu consulta rapidamente :"
-  logged_out_greeting="Hola !!!  Escribenos un mensaje y atenderemos tu consulta rapidamente :">
-      </div>
-      <style>
-      .fb_dialog {
-    bottom: 40pt !important;
-}
-
-/* The following are for the chat box, on display and on hide */
-iframe.fb_customer_chat_bounce_in_v2 {
-    bottom: 110px !important;
-}
-iframe.fb_customer_chat_bounce_out_v2 {
-    bottom: 110px !important;
-}
-      </style>
     <section class="home-hero">
-
     </section>
     <section class="home">
         <div class="content homecontent">
-                <img  class="logo " src="<? echo base_url('images/logocorto.png?v=1.2'); ?>" alt="<? echo $title; ?>">
-            
-                <p class="information-home ">Los mejores VideoRemix para <br> DJs Profesionales, sin marcas ni sellos.</p>
+            <img id="logo" class="logo " src="<? echo base_url('images/logocorto.png?v=1.2'); ?>" alt="<? echo $title; ?>">
+
             <div id="btnvideos">
-                <a href="<? echo base_url('videos/')?>" class="btn">Acceder</a><br>
+                <a href="<? echo base_url('videos/')?>" class="btn">Start Now</a>
             </div>
-        
+
+            <p class="information-home ">Ready BPM provides exclusive content for professional DJs, carefully produced to enhance performance. By accessing, you confirm that you are an active DJ, will use the material solely for your performances, and already own the original versions of the included tracks.</p>
+
         </div>
     </section>
     <section id="cuerpo">
@@ -138,35 +104,29 @@ iframe.fb_customer_chat_bounce_out_v2 {
         </div> 
     </section>
     <div id="mc_embed_signup">
-               <div class="new_email">
-                   <p class="test-new">Nuestros videos son 100% compatibles con los</p>
-                   <p class="test-new">software más populares en el mundo DJ</p>
-               <img  class="logo " src="<? echo base_url('images/logo3.png?v=1.2'); ?>" alt="<? echo $title; ?>" style="width: 500px; max-width: 100%; margin-top: 40px;">
-               </div>                         
+        <div class="new_email">
+            <p class="test-new">Nuestros videos son 100% compatibles con los</p>
+            <p class="test-new">software más populares en el mundo DJ</p>
+            <img  class="logo " src="<? echo base_url('images/logo3.png?v=1.2'); ?>" alt="<? echo $title; ?>" style="width: 500px; max-width: 100%; margin-top: 40px;">
         </div>
+    </div>
         <footer class="doc-footer text-uppercase text-center">
-        <div class="container">
-            <ul class="style1 footer-links">
-  
-                <li><a href="<? echo base_url(); ?>pages/become_a_member/">CONVERTIRME EN EDITOR</a></li>
-                <li><a href="<? echo base_url(); ?>pages/terms_conditions/">TERMINOS Y CONDICIONES</a></li>
-
-            </ul>
-            <ul class="social-list style2 circular">
-                <li><a href="https://www.facebook.com/videoremixpool" target="_blank" class="fa fa-facebook"></a></li>
-                <li><a href="https://www.instagram.com/videoremixpool/" target="_blank" class="fa fa-instagram"></a></li>
-            
-            </ul>
-            <div class="row">
-                <div class="col-xs-12">
-                    <strong>&copy; Copyright  <? echo date('Y'); ?> Video Remix Pool</strong>
-                    <p>LOS MEJORES VIDEOREMIX PARA DJS PROFESIONALES</p>
-                    <p>Sitio web desarrollado por <a href="http://shiftandcontrol.com">Shift & Ctrl</a></p>
+            <div class="container">
+                <ul class="style1 footer-links">
+                    <li><a href="<? echo base_url(); ?>pages/become_a_member/">CONVERTIRME EN EDITOR</a></li>
+                    <li><a href="<? echo base_url(); ?>pages/terms_conditions/">TERMINOS Y CONDICIONES</a></li>
+                </ul>
+                <ul class="social-list style2 circular">
+                    <li><a href="https://www.facebook.com/profile.php?id=61576190996039" target="_blank" class="fa fa-facebook"></a></li>
+                    <li><a href="https://www.instagram.com/videoremixpool/" target="_blank" class="fa fa-instagram"></a></li>
+                </ul>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <strong>&copy; Copyright  <? echo date('Y'); ?> ReadyBPM</strong>
+                        <p>LOS MEJORES REMIX PARA DJS PROFESIONALES</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </footer>
-</div>
-
+        </footer>
 </body>
 </html>

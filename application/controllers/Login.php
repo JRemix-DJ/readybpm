@@ -249,7 +249,7 @@ class Login extends CI_Controller{
 		$this->email->message($mail);
 
 		$this->email->send();
-		return; 
+		return;
 	}
 
 	public function logout_ci()

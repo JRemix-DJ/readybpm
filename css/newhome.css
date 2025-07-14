@@ -10,7 +10,7 @@ body {
   background: #000;
 }
 .home-hero .home-hero-video {
-  position: absolute;
+  position: relative;
   top: 0;
   bottom: 0;
   left: 0;
@@ -22,11 +22,7 @@ body {
   -o-object-fit: cover;
   object-fit: cover;
 }
-img {
-  max-width: 100%;
-}
 .home {
-  position: absolute;
   top: 0;
   left: 0;
   display: flex;
@@ -40,7 +36,6 @@ img {
   grid-template-areas: "logo logo" "boton1 boton2";
   grid-template-columns: 300px 300px;
   max-width: 600px;
-  padding-left: 25px;
 }
 .home .content #logo {
   grid-area: logo;
@@ -77,3 +72,4 @@ img {
     grid-template-columns: 1fr 1fr;
   }
 }
+

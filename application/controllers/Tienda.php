@@ -52,12 +52,15 @@ class Tienda extends CI_Controller {
 		             
 		            // build paging links
 		            $data["links"] = $this->pagination->create_links();
-		        }
+		        } else {
+                    $data['products'] = [];
+                    $data['links']    = '';
+                }
 				$data['generos']=$this->genero_model->get_generos();
 				$data['users']=$this->users_model->get_all_users();
 
 				$this->load->view('templates/header', $data);
-				$this->load->view('tienda');
+				$this->load->view('tienda',        $data);
 				$this->load->view('templates/footer', $data);
 	}
 }
