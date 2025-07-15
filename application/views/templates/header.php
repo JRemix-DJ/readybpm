@@ -193,7 +193,7 @@ Header Content
                         <? } ?>
                       </ul>
                   </li>
-                  <li><a href="<? echo base_url('drops');?>">Drops</a></li>
+                    <!--<li><a href="<? echo base_url('drops');?>">Drops</a></li>-->
                   <li><a href="<? echo base_url('planes');?>">Plans</a></li>
                   <li><a href="<? echo base_url('pages/become_a_member/');?>">Be a Remixer</a></li>
                   <? if($this->session->userdata('is_logued_in')){ ?>

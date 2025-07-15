@@ -51,7 +51,7 @@ $('#myModalVideo').on('hidden.bs.modal', function (e) {
 });
 
 jQuery(function($) {
-    var base_url = "https://videoremixpool.com/";
+    var base_url = "http://localhost/readybpm/index.php/";
     "use strict";
     /*Table OF Contents
 	==========================

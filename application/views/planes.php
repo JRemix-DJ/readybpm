@@ -9,7 +9,7 @@
                    <hr>
                     <div class="clearfix text-uppercase">
                         <h1 style="padding-top: 30px">PLANES</h1>
-                        <cite class="album-author mb-20">VIDEOREMIXPOOL.COM</cite>
+                        <cite class="album-author mb-20">ReadyBPM.COM</cite>
                     </div>
                 </div>
             </div>

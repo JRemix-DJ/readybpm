@@ -8,7 +8,7 @@
                    <hr>
                     <div class="clearfix text-uppercase">
                         <h1 style="padding-top: 30px">CONVIERTETE EN UN EDITOR</h1>
-                        <cite class="album-author mb-20">VIDEOREMIXPOOL</cite>
+                        <cite class="album-author mb-20">ReadyBPM</cite>
                     </div>
                 </div>
             </div>

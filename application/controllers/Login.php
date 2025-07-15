@@ -264,7 +264,7 @@ class Login extends CI_Controller{
 		ob_start(); // ensures anything dumped out will be caught
 
 		// do stuff here
-		$url = 'https://videoremixpool.com'; // this can be set based on whatever
+		$url = 'http://localhost/readybpm'; // this can be set based on whatever
 
 		// clear out the output buffer
 		while (ob_get_status()) 

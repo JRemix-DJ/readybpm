@@ -9,7 +9,6 @@ class Response extends CI_Controller {
 		$this->load->library(array('session','form_validation'));
 		$this->load->database('default');
 	}
-
 	public function index()
 	{
 		$data['title']="Checkout - Video Remix Pool";
@@ -22,7 +21,6 @@ class Response extends CI_Controller {
 		$this->load->view('response');
 		$this->load->view('templates/footer', $data);
 	}
-
 	public function totalCarrito(){
 		$total = 0;
 		foreach($_SESSION['cart']['items'] as $item){
@@ -30,6 +28,4 @@ class Response extends CI_Controller {
 		}
 		return $total;
 	}
-
-
 }
