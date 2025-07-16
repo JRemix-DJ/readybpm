@@ -11,7 +11,7 @@ class Pages extends CI_Controller {
 	}
 
 	public function become_a_member(){
-		$data['title']="Video Remix Pool";
+		$data['title']="ReadyBPM";
 		$data['djs']=$this->products_another_model->get_djs();
 		$data['description']="Música para Djs y Vjs, los mejores remixes en un solo lugar";
 		$data['paises']=$this->get_countries();
@@ -65,8 +65,7 @@ class Pages extends CI_Controller {
 		</tr>
 		</table>
 		";
-		
-		
+
 		$config['protocol']    = 'smtp';
 		$config['smtp_host']    = SMTP_URL;
 		$config['smtp_port']    = SMTP_PORT;
@@ -80,7 +79,7 @@ class Pages extends CI_Controller {
 
 		$this->email->initialize($config);
 
-		$this->email->from('dalemasbajo@gmail.com', 'Video Remix Pool');
+		$this->email->from('dalemasbajo@gmail.com', 'ReadyBPM');
 		$this->email->to("readybpm@gmail.com");
 		// $this->email->to("mauricio@shiftandcontrol.com");
 		$this->email->subject('DJ QUIERE SER MIEMBRO');
@@ -95,10 +94,9 @@ class Pages extends CI_Controller {
 		header('Content-type: application/json; charset=utf-8');
 		echo json_encode($jsondata);
 	}
-	
-	
+
 	public function terms_conditions(){
-		$data['title']="Video Remix Pool";
+		$data['title']="ReadyBPM";
 		$data['djs']=$this->users_model->get_djs();
 		$data['description']="Música para Djs y Vjs, los mejores remixes en un solo lugar";
 		$data['paises']=$this->get_countries();
@@ -110,6 +108,4 @@ class Pages extends CI_Controller {
 		$this->load->view('templates/footer', $data);
 		
 	}
-
-
 }

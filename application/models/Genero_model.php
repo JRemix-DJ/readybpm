@@ -59,5 +59,4 @@ class Genero_model extends CI_Model {
 		$this->db->delete('generos');
 		return true;
 	}
-
 }

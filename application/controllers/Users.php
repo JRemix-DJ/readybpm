@@ -367,7 +367,6 @@ class Users extends CI_Controller
 
     public function send_registered_mail($email , $token)
     {
-
         $config['protocol'] = 'smtp';
         $config['smtp_host'] = SMTP_URL;
         $config['smtp_port'] = SMTP_PORT;
@@ -396,6 +395,4 @@ class Users extends CI_Controller
         $this->email->send();
         return;
     }
-
-
 }

@@ -17,7 +17,7 @@
     
     
 <meta property="og:image" content="<? echo base_url('images/dj_new.png'); ?>" />
-<meta property="og:title" content="Video Remix Pool" />
+<meta property="og:title" content="ReadyBPM" />
 <meta property="og:description" content="La mejor página para obtener tus remixes." />
 
 </head>
@@ -30,7 +30,7 @@
             <img id="logo" class="logo " src="<? echo base_url('images/logocorto.png?v=1.2'); ?>" alt="<? echo $title; ?>">
 
             <div id="btnvideos">
-                <a href="<? echo base_url('videos/')?>" class="btn">Start Now</a>
+                <a href="<? echo base_url('audios/')?>" class="btn">Start Now</a>
             </div>
 
             <p class="information-home ">Ready BPM provides exclusive content for professional DJs, carefully produced to enhance performance. By accessing, you confirm that you are an active DJ, will use the material solely for your performances, and already own the original versions of the included tracks.</p>

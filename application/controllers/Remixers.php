@@ -16,8 +16,8 @@ class Remixers extends CI_Controller {
 		$dj_id = $this->uri->segment(2);
 		//echo $dj_id;
 		if($this->is_dj($dj_id)){
-			$data['title']="Remixers - Video Remix Pool";
-			$data['description']="Remixers en Video Remix Pool";
+			$data['title']="Remixers - ReadyBPM";
+			$data['description']="Remixers en ReadyBPM";
 			$data['djs']=$this->products_another_model->get_djs();
 			$where = array();
 			$where['product_type_id']=3;
@@ -64,8 +64,6 @@ class Remixers extends CI_Controller {
 	             
 	            $data["links"] = $this->pagination->create_links();
 	        }
-
-
 
 			$data['generos']=$this->genero_model->get_generos();
 			$data['users']=$this->products_another_model->get_all_users();

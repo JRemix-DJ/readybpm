@@ -35,6 +35,6 @@
     <!-- ########## START: MAIN PANEL ########## -->
     <div class="sl-mainpanel">
       <nav class="breadcrumb sl-breadcrumb">
-        <a class="breadcrumb-item" href="#">VIDEOREMIXPOOL.COM</a>
+        <a class="breadcrumb-item" href="#">ReadyBPM.COM</a>
         <span class="breadcrumb-item active">Dashboard</span>
       </nav>

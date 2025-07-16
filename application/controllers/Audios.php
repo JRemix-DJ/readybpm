@@ -16,7 +16,7 @@ class Audios extends CI_Controller {
 
 	public function index()
 	{
-		$data['title']="VIDEOREMIXPOOL.COM";
+		$data['title']="ReadyBPM.COM";
 		$data['description']="Música para Djs y Vjs, los mejores remixes en un solo lugar";
 		//$data['products']=$this->products_model->get_products();
 		$data['generos']=$this->genero_model->get_generos();
@@ -83,5 +83,4 @@ class Audios extends CI_Controller {
 	{
 		$this->load->view('comingsoon');
 	}
-
 }

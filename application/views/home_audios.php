@@ -11,7 +11,7 @@
                         ?>
                          <li class="xv_slide" data-slidebg="url('')">
                             <a href="<? echo $banner->url; ?>">
-                            <img src="https://videoremixpool.com/images/banners/<? echo $banner->image; ?>" alt="">
+                            <img src="http://localhost/readybpm/images/banners/<? echo $banner->image; ?>" alt="">
                             </a>
                           </li>
                         <?

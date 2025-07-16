@@ -5,7 +5,7 @@
  */
 
  'use strict';
-var base_url = "https://videoremixpool.com/";
+var base_url = "http://localhost/readybpm/";
 
     $("#recuperar-btn").on('click', function(e){
         console.log('recuperando');
