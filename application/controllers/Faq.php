@@ -18,7 +18,7 @@ class Faq extends CI_Controller {
 
 	public function index(){
 		$data['djs']=$this->users_model->get_djs();
-		$data['title']="FAQ - Video Remix Pool";
+		$data['title']="FAQ - ReadyBPM";
 		$data['description']="Compra los mejores remixes para djs del continente";
 		$data['products']=$this->products_model->get_products();
 		$data['generos']=$this->genero_model->get_generos();

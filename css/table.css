@@ -80,7 +80,7 @@ input#mce-EMAIL {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    padding-bottom: 120px;  
+    padding-bottom: 50px;
 }
 .section_plan{
     display: flex;
@@ -150,14 +150,14 @@ input#mce-EMAIL {
 }
 
 .tabla:hover{
-    background: #488CCB ;
+    background: #171920;
     color: #f1f1f2;
     transition: .5s all;
     transform: scale(1.1);
     cursor: pointer;
 }
 .btn-default:hover{
-    background: #6da6f8 !important;
+    background: #3a3a45 !important;
     color: #f1f1f2;
     transition: .5s all;
     transform: scale(1.1);

@@ -3,7 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Admin extends CI_Controller
 {
-
     private $path_preview;
     private $path_preview_videos;
     private $path_cover;

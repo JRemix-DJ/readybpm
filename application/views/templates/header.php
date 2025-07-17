@@ -69,9 +69,8 @@
 
 
     <meta property="og:image" content="<? echo base_url('images/dj_new.png'); ?>"/>
-    <meta property="og:title" content="Video Remix Pool"/>
-    <meta property="og:description" content="La mejor página para obtener tus videos."/>
-
+    <meta property="og:title" content="ReadyBPM"/>
+    <meta property="og:description" content="La mejor página para obtener tus remix."/>
 
 </head>
 <body>

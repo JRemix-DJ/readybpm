@@ -2,7 +2,6 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Planes extends CI_Controller {
-
 	public function __construct(){
 		parent::__construct();
 		$this->load->helper(array('url', 'form')); 
@@ -13,7 +12,7 @@ class Planes extends CI_Controller {
 
 	public function index()
 	{
-		$data['title']="Planes - Video Remix Pool";
+		$data['title']="Planes - ReadyBPM";
 		$data['description']="Conoce los planes para ser miembro";
 		$data['djs']=$this->users_model->get_djs();
 		$data['generos']=$this->genero_model->get_generos();
@@ -25,7 +24,7 @@ class Planes extends CI_Controller {
 
 	public function test()
 	{
-		$data['title']="Planes - Video Remix Pool";
+		$data['title']="Planes - ReadyBPM";
 		$data['description']="Conoce los planes para ser miembro";
 		$data['djs']=$this->users_model->get_djs();
 		$data['generos']=$this->genero_model->get_generos();
@@ -34,5 +33,4 @@ class Planes extends CI_Controller {
 		$this->load->view('planes_new');
 		$this->load->view('templates/footer', $data);
 	}
-
 }

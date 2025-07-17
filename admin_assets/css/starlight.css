@@ -2081,13 +2081,13 @@ fieldset[disabled] a.btn {
 
 .btn-info {
   color: #fff;
-  background-color: #03b875;
-    border-color: #00a065;
+  background-color: #5F47F3;
+    border-color: #5F47F3;
 }
 .btn-info:hover {
   color: #fff;
-  background-color: #3d7fcb;
-  border-color: #3579c6;
+  background-color: #2d2175;
+  border-color: #2d2175;
 }
 .btn-info:focus, .btn-info.focus {
   box-shadow: 0 0 0 3px rgba(91, 147, 211, 0.5);

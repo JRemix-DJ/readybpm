@@ -3,10 +3,10 @@
 	background: #e7eaeb;
 }
 .xv-menuwrapper .dl-menu > li > a{
-	color: white;
+	color: #5F47F3;
 }
 .xv-menuwrapper .dl-menu > li > a:hover, .xv-menuwrapper .dl-menu > li.active > a{
-	color: white;
+	color: #5F47F3;
 }
 .navbar-brand{
 	height: auto !important;
@@ -77,21 +77,20 @@ a:hover{
 	color: white;
 }
 .xv-menuwrapper .dl-menu > li.cyan > a{
-	color: lightgrey !important;
+	color: #3827a8 !important;
 }
 .xv-menuwrapper .dl-menu > li.cyan > a:hover{
-	background: #2f2f2f;
+	background: #ffffff;
 }
 .panel, .panel-default{
-	border-color: #3775ff;
+	border-color: #5F47F3;
 }
 .xv-menuwrapper .dl-menu > li > a:hover, .xv-menuwrapper .dl-menu > li.active > a:hover{
-	background: #2f2f2f;
+	background: lightgrey;
 }
 
-
 .panel-default>.panel-heading{
-	background:#488CCB;;
+	background: #5F47F3;
 	border: 1px solid black;
 }
 .panel-default>.panel-heading a{
@@ -115,7 +114,7 @@ article.articleSingle a{
 	text-transform: uppercase;
 }
 .table .song-author a{
-	color: #232323;
+	color: #5F47F3;
 	font-weight: bold
 }
 
@@ -148,10 +147,10 @@ ul.pagination{
 	color: black !important;
 }
 footer, footer.doc-footer{
-	color: #6e6f6f
+	color: #5F47F3
 }
 footer a{
-	color: #6e6f6f
+	color: #5F47F3
 }
 
 .footer-links{
@@ -176,7 +175,7 @@ footer a{
 }
 
 .footer-links li a:hover{
-	color: white;
+	color: #432e8c;
 	text-decoration: none;
 }
 
@@ -199,7 +198,6 @@ table.checkout td:nth-child(2){
 	text-align: center;
 }
 
-
 .btn-default,
 .album-control:hover,
 .album-unit figure:after,
@@ -219,8 +217,9 @@ table.checkout td:nth-child(2){
 	background:#0168ff;
 }
 .navbar{
-	background: #212121;
-	border: 1px solid #212121;
+	background: #ffffff;
+	/*border: 1px solid #212121;
+	border: 1px solid #ffffff;*/
 }
 section header.style3 {
 	background-color:#212121;
@@ -287,10 +286,10 @@ article h6 a:hover,
 .pagination li.active a,
 .pagination li.active > span,
 .pagination li a:hover{
-	color:#6abbd9;
+	color:#5F47F3;
 }
 .flex-control-paging li a.flex-active{
-	background:#488CCB;
+	background:#3827a8;
 }
 .table em{
 	font-weight: bold;
@@ -303,7 +302,7 @@ article h6 a:hover,
 	color: #0148ae;
 }
 .table .singleSong-jplayer{
-	color: #488CCB;
+	color: #5F47F3;
 }
 .table th{
 	text-align: center;
@@ -355,7 +354,7 @@ textarea:focus,
 	background: #212121 !important;
 }
 .jp-audio .jp-volume-controls .jp-volume-bar .jp-volume-bar-value{
-	background: #488CCB !important;
+	background: #5F47F3 !important;
 }
 
 .pricing-table .pricing-box{
@@ -435,6 +434,29 @@ textarea:focus,
 	border-bottom: 1px solid #e2e2e2
 }
 
+.planespage .contenedor {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: stretch; /* Asegura que todos los planes en una fila tengan la misma altura */
+	gap: 30px; /* Espacio entre los planes */
+	height: auto !important; /* Anula la altura fija de 100vh */
+	padding-bottom: 50; /* Ya no necesitamos el padding aquí */
+}
+
+.planespage .tabla {
+	flex: 1 1 300px; /* Permite que las tarjetas crezcan y se encojan */
+	max-width: 350px;
+	height: auto !important; /* Anula la altura fija de 550px */
+	display: flex;
+	flex-direction: column; /* Organiza el contenido del plan verticalmente */
+	justify-content: space-between; /* Distribuye el espacio interno */
+}
+
+/* 4. (Opcional pero recomendado) Empuja el botón "Comprar" al final de la tarjeta */
+.planespage .tabla .btn-default {
+	margin-top: auto;
+}
 
 #cuerpo.planespage .container{
 	padding-top: 40px;

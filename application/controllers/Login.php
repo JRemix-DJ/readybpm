@@ -148,7 +148,7 @@ class Login extends CI_Controller{
 				$username = $this->input->post('email');
 				//$password = sha1($this->input->post('password')); //este es el ideal
 				$password = $this->input->post('password'); //este es temporal o debe serlo
-				$check_user = $this->login_model->login_user($username,$password);
+                $check_user = $this->login_model->login_user($username, $password, true);
 				if($check_user == TRUE)
 				{
 					switch($check_user->role_id){

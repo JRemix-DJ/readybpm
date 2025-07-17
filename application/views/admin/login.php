@@ -45,7 +45,7 @@
     <div class="d-flex align-items-center justify-content-center bg-sl-primary ht-100v">
 
       <div class="login-wrapper wd-300 wd-xs-350 pd-25 pd-xs-40 bg-white">
-        <div class="signin-logo tx-center tx-24 tx-bold tx-inverse"><img src="<? echo site_url(); ?>images/logo.png" alt=""></div>
+        <div class="signin-logo tx-center tx-24 tx-bold tx-inverse"><img src="<? echo site_url(); ?>images/logocorto.png" alt=""></div>
         <div class="tx-center mg-b-60">Acceso al Administrador</div>
         <? echo form_open(base_url().'login/do'); ?>
         <div class="form-group">
@@ -54,7 +54,7 @@
                     'type'=>'text',
                     'name'=>'email',
                     'class'=>'form-control',
-                    'placeholder'=>'Ingresa tu Username'
+                    'placeholder'=>'Ingresa tu Email'
                 );
                 echo form_input($input_data);
             ?>

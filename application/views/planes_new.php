@@ -1,4 +1,13 @@
-<div id="ajaxArea"> 
+<style>
+    .bg-success {
+        background-color: #20222d;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 4px;
+        display: inline-block;
+    }
+</style>
+<div id="ajaxArea">
     <div class="pageArea">
         <section class="album-header">
             <figure class="album-cover-wrap">
@@ -6,21 +15,22 @@
             </figure>
             <div class="container">
                 <div class="cover-content">
-                   <hr>
+                    <hr>
                     <div class="clearfix text-uppercase">
                         <h1 style="padding-top: 30px">PLANES</h1>
-                        <cite class="bg-success"><i class="fa fa-exclamation-triangle"></i> Hemos mejorado nuestro sistema de pagos, hazlo con confianza!</cite>
+                        <cite class="bg-success"><i class="fa fa-exclamation-triangle"></i> Hemos mejorado nuestro
+                            sistema de pagos, hazlo con confianza!</cite>
                     </div>
                 </div>
             </div>
         </section>
-    	<section id="cuerpo" class="planespage">
-    		<header class="style4 confirmacion">
-		    	<div class="container">
-		    		<div class="row">
-		    			<div class="col-xs-12">
-                            <div class="contenedor" >
-                            <? if(isset($plans)){  ?>
+        <section id="cuerpo" class="planespage">
+            <header class="style4 confirmacion">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="contenedor">
+                                <? if(isset($plans)){  ?>
                                 <? foreach($plans as $plan){ ?>
                                 <div class="tabla tabla hover ">
                                     <div class="section_plan">
@@ -33,44 +43,48 @@
                                         <span class="precio">$<? echo $plan->price; ?></span>
                                     </div>
                                     <div class="section_plan">
-                                    <span class=""><? echo $plan->duration; ?></span>
-                                    <p> &nbsp; días</p>
+                                        <span class=""><? echo $plan->duration; ?></span>
+                                        <p> &nbsp; días</p>
                                     </div>
                                     <? if ($plan->ilimitado_activo == 1) { ?>
-                                        <div class="section_plan">
-                                            <h6>Descargas Ilimitadas de Video.</h6>
-                                        </div>
+                                    <div class="section_plan">
+                                        <h6>Descargas Ilimitadas de Audios.</h6>
+                                    </div>
                                     <? }else{ ?>
                                     <div class="section_plan">
-                                    <span class="table-tokens-video"><? if($plan->tokens_video!=0 && $plan->tokens_video!=NULL){ echo $plan->tokens_video; }else{ echo '0';} ?></span>
-                                    <p> &nbsp; Descargas Video </p>
+                                        <span class="table-tokens-video"><? if ($plan->tokens_video != 0 && $plan->tokens_video != NULL) {
+                                            echo $plan->tokens_video;
+                                        } else {
+                                            echo '0';
+                                        } ?></span>
+                                        <p> &nbsp; Descargas de Audio </p>
                                     </div>
                                     <? } ?>
                                     <div class="section_plan">
-                                    <p> Renovacion Automatica </p>
-                                    </div>
-                                    
-                                    <div class="section_plan">
-                                    <p>Busqueda Avanzada </p>
+                                        <p> Renovacion Automatica </p>
                                     </div>
                                     <div class="section_plan">
-                                    <p>Nuevos Productos Diariamente </p>
+                                        <p>Busqueda Avanzada </p>
                                     </div>
                                     <div class="section_plan">
-                                    <p> Descargas con 1 Click </p>
+                                        <p>Nuevos Productos Diariamente </p>
                                     </div>
                                     <div class="section_plan">
-                                    <p>HD Video</p>
+                                        <p> Descargas con 1 Click </p>
                                     </div>
-                                    <a class="btn btn-default" href="<? echo base_url(); ?>getplan/?plan_id=<? echo $plan->id; ?>&currency=USD"><b>Comprar</b></a>   
+                                    <div class="section_plan">
+                                        <p>HQ Audio</p>
+                                    </div>
+                                    <a class="btn btn-default"
+                                       href="<? echo base_url(); ?>getplan/?plan_id=<? echo $plan->id; ?>&currency=USD"><b>Comprar</b></a>
                                 </div>
                                 <? } ?>
-                            <? } ?>
+                                <? } ?>
                             </div>
-		    			</div>
-		    		</div>
-		    	</div> 
-    		</header>
-    	</section>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </section>
     </div>
 </div>

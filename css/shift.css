@@ -49,7 +49,7 @@ img.logmarcas {
   margin-top: 15px;
 }
 div#mc_embed_signup {
-  background: #5F47F3  !important;
+  background: #272727  !important;
 }
 section#cuerpo {
   padding-bottom: 10px !important;
@@ -58,7 +58,7 @@ section#cuerpo {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 75px;
+  padding: 30px;
   flex-direction: column;
   font-family: 'Roboto', sans-serif;
   text-align: center;

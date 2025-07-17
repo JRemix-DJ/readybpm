@@ -28,12 +28,12 @@ footer, footer.doc-footer {
   color: #6e6f6f;
 }
 footer.doc-footer {
-  color: #6e6f6f;
+  color: #5F47F3;
   font-size: 11px;
-  padding-bottom: 50px;
+  padding-bottom: 20px;
   font-family: 'Source Sans Pro', sans-serif;
   letter-spacing: 1px;
-  background: #272727;
+  background: #ffffff;
   overflow: hidden;
   padding-top: 20px;
 }
@@ -73,14 +73,14 @@ section#cuerpo {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 75px;
+  padding: 30px;
   flex-direction: column;
   text-align: center;
   font-size: 2em;
   color: white;
   line-height: 25px;
   font-weight: 300;
-  background-color: #5F47F3 !important;
+  background: #272727  !important;
 }
 .home-hero .home-hero-video {
   position: absolute;
@@ -236,12 +236,10 @@ footer .copy {
   height: 40px;
   line-height: 40px;
   font-size: 150%;
-  background: #2c2c2c;
-  background: rgba(44,44,44,0.3);
+  background: #5F47F3;
 }
 .social-list.style2 li a:hover {
-  background: #2c2c2c;
-  background: #2c2c2c;
+  background: rgb(67,46,140);
 }
 .circular.social-list li a {
   border-radius: 50%;
@@ -259,7 +257,7 @@ footer .copy {
   padding: 20px 0;
 }
 .footer-links a {
-  color: #6e6f6f;
+  color: #5F47F3;
 }
 @media all and (max-width: 1280px) {
 }

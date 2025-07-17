@@ -1,3 +1,17 @@
+<!-- Estilos para corregir el hover de los géneros -->
+<style>
+    /* 1. Cambia el color del fondo al pasar el puntero */
+    .album-unit:hover figure:after {
+        background-color: rgba(95, 71, 243, 0.2) !important; /* Color #5F47F3 con 20% de opacidad */
+    }
+
+    /* 2. Elimina el ícono molesto que aparece debajo del texto */
+    .album-unit figure > figcaption:after {
+        content: "" !important;
+        display: none !important;
+    }
+</style>
+
 <div id="ajaxArea">
     <section class="album-header">
         <figure class="album-cover-wrap">
@@ -23,7 +37,6 @@
                                 foreach ($generos as $genero) { ?>
                                     <a href="<?php echo base_url(); ?>genero/<?php echo $genero->id; ?>" class="album-unit">
                                         <figure>
-                                            <!-- CORRECCIÓN AQUÍ: Usamos una imagen genérica o placeholder -->
                                             <img src="<?php echo base_url(); ?>images/generos/default.jpg" alt="<?php echo $genero->name; ?>" width="265" height="265">
                                             <figcaption>
                                                 <span></span>

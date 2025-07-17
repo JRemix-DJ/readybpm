@@ -19,7 +19,7 @@ class Audios extends CI_Controller {
 		$data['title']="ReadyBPM.COM";
 		$data['description']="Música para Djs y Vjs, los mejores remixes en un solo lugar";
 		//$data['products']=$this->products_model->get_products();
-		$data['generos']=$this->genero_model->get_generos();
+        $data['generos'] = $this->genero_model->get_gender();
 		$data['banners']=$this->banners_model->get_banners();
 		$data['djs']=$this->users_model->get_djs_audios();
 		$data['users']=$this->users_model->get_all_users();

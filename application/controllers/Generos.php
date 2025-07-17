@@ -17,7 +17,7 @@ class Generos extends CI_Controller {
         $data['title']="Géneros - ReadyBPM.COM";
         $data['description']="Géneros de los remixes en ReadyBPM";
         $data['products']=$this->products_another_model->get_products();
-        $data['generos']=$this->genero_model->get_gender(); // Usamos get_gender para obtener todos
+        $data['generos']=$this->genero_model->get_gender();
         $data['users']=$this->products_another_model->get_all_users();
         $data['djs']=$this->products_another_model->get_djs();
         $this->load->view('templates/header', $data);

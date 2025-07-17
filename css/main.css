@@ -66,7 +66,6 @@ hr{
     max-width: 1190px;
 }
 .confirmacion{
-    padding-top: 60px;
     padding-bottom: 60px;
 }
 /*==================================
@@ -518,13 +517,11 @@ label {
     height: 40px;
     line-height: 40px;
     font-size: 150%;
-    background: #2c2c2c;
-    background: rgba(44, 44, 44, 0.3);
+    background: #5F47F3;
 }
 
 .social-list.style2 li a:hover {
-    background: #2c2c2c;
-    background: rgba(44, 44, 44, 1);
+    background: #432e8c;
 }
 
 .circular.social-list li a {
@@ -1037,9 +1034,9 @@ a.navbar-brand img {
     position: relative;
 }
 
-.xv-menuwrapper .dl-menu > li.active > a {
+/*.xv-menuwrapper .dl-menu > li.active > a {
     color: #fff;
-}
+}*/
 
 .xv-menuwrapper .dl-menu > li > a {
     text-decoration: none;
@@ -1468,7 +1465,7 @@ a.navbar-brand img {
 
 .searched-for:before {
     content: attr(data-before);
-    color: #c5c8c9;
+    color: #323131;
     margin-right: 10px;
 }
 
@@ -1707,7 +1704,7 @@ a.navbar-brand img {
     visibility: visible;
 }
 .album-header{
-    height: 320px;
+    height: 280px;
     position: relative;
     padding-top: 50px;
 }
@@ -1724,7 +1721,7 @@ a.navbar-brand img {
 }
 .album-cover-wrap{
     overflow: hidden;
-    height: 320px;
+    height: 290px;
     position: absolute;
     top: -10px;
     width: 110%;
@@ -1737,7 +1734,7 @@ a.navbar-brand img {
     left: 0;
     top: 0;
     width: 100%;
-    height: 100%;
+    height: 90%;
     background: rgba(0,0,0,0.3);
     z-index: 20;
 }
@@ -1980,7 +1977,6 @@ a.navbar-brand img {
 
 section header {
     padding-bottom: 25px;
-    padding-top: 25px;
 }
 
 section header.style5 {
@@ -3312,11 +3308,9 @@ article blockquote {
     width: 25%;
 }
 
-
 .photography .xvPackeryItem:hover a{
     display: block;
 }
-
 
 .photography .xvPackeryItem a {
     background: rgba(131, 184, 31, 0) linear-gradient(to bottom, rgba(124, 171, 36, 0.93) 0%, rgba(109, 144, 44, 0.93) 65%, rgba(131,184, 31, 0.93) 100%) repeat scroll 0 0;
@@ -3411,12 +3405,12 @@ article blockquote {
 }
 
 footer.doc-footer {
-    color: #6e6f6f;
+    color: #5F47F3;
     font-size: 11px;
     padding-bottom: 50px;
     font-family: 'Source Sans Pro', sans-serif;
     letter-spacing: 1px;
-    background: #272727;
+    background: white;
     overflow: hidden;
     padding-top: 20px;
 }
@@ -3433,7 +3427,7 @@ footer strong {
 }
 
 footer a{
-    color: #6e6f6f
+    color: #5F47F3
 }
 
 /*==============================
@@ -3672,7 +3666,7 @@ ul.pagination{
         height: 100%;
     }
     .album-cover-wrap{
-        height: 310px;
+        height: 290px;
     }
     .album-grid-wrap.style3 .album-unit {
         width: 20%;
@@ -4238,7 +4232,7 @@ ul.pagination{
 
 @media (max-width: 490px) {
     div#mc_embed_signup {
-        background: #3e6ced !important;
+        background: #20222d !important;
     }
     .descargar-movil{
         margin-left: 10px;
