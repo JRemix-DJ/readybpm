@@ -8,7 +8,6 @@
             <div class="cover-content">
                 <hr>
                 <div class="clearfix text-uppercase">
-
                     <!-- CORRECCIÓN AQUÍ: Se cambió $generos por $genero -->
                     <h1 style="padding-top: 30px"><?php echo $genero->name; ?></h1>
 
@@ -17,7 +16,6 @@
             </div>
         </div>
     </section>
-
     <!--=================================
     Albums
     =================================-->

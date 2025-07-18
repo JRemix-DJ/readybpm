@@ -8,7 +8,7 @@ class Admin extends CI_Controller
     private $path_cover;
     private $path_download;
     private $path_download_videos;
-    private $file_name = ''; //SE OBTIENE POR POST
+    private $file_name = '';
     private $user_rol = '';
 
     public function __construct()
@@ -1457,40 +1457,77 @@ class Admin extends CI_Controller
 
     public function add_genero()
     {
-        if ( $this->session->userdata('is_logued_in') ) {
+        if ($this->session->userdata('is_logued_in')) {
             $name = $this->input->post('name');
-            //$description = $this->input->post('description');
-            //$id = $this->input->post('id');
+            $new_filename = null;
+
+            // --- LÓGICA PARA SUBIR LA IMAGEN ---
+            if (isset($_FILES['image']) && $_FILES['image']['name'] != '') {
+                $config['upload_path']   = './images/generos/';
+                $config['allowed_types'] = 'gif|jpg|png|jpeg';
+                $config['encrypt_name']  = TRUE; // Para evitar nombres de archivo duplicados
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('image')) {
+                    $upload_data = $this->upload->data();
+                    $new_filename = $upload_data['file_name'];
+                } else {
+                    // Opcional: manejar el error de subida
+                    $error = array('error' => $this->upload->display_errors());
+                    // Podrías mostrar el error al usuario aquí
+                }
+            }
+            // --- FIN DE LA LÓGICA DE SUBIDA ---
 
             $data = array(
-                'name' => $name ,
-                //'description'=>$description,
-                //'img'=>$newfilename,
+                'name' => $name,
+                'img'  => $new_filename // Guardamos el nombre del archivo en la BD
             );
+
             $id = $this->genero_model->create_genero($data);
             $genero = $this->genero_model->load_genero_info($id);
             $mensaje = "Genero Creado";
-            $this->print_edit_gender($id , $genero , $mensaje);
+            $this->print_edit_gender($id, $genero, $mensaje);
         } else {
-            redirect(base_url().'admin/login/');
+            redirect(base_url() . 'admin/login/');
         }
     }
 
     public function update_genero()
     {
-        if ( $this->session->userdata('is_logued_in') ) {
+        if ($this->session->userdata('is_logued_in')) {
             $name = $this->input->post('name');
             $id = $this->input->post('id');
             $data = array(
-                'name' => $name ,
-
+                'name' => $name,
             );
-            $this->genero_model->update_genero($id , $data);
-            $genero = $this->genero_model->load_genero_info($id);
-            $mensaje = "Genero Actualizado";
-            redirect(base_url().'admin/listar_generos/');
+
+            // --- LÓGICA PARA ACTUALIZAR LA IMAGEN ---
+            if (isset($_FILES['image']) && $_FILES['image']['name'] != '') {
+                $config['upload_path']   = './images/generos/';
+                $config['allowed_types'] = 'gif|jpg|png|jpeg';
+                $config['encrypt_name']  = TRUE;
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('image')) {
+                    // Opcional: borrar la imagen antigua antes de guardar la nueva
+                    $old_genero = $this->genero_model->load_genero_info($id);
+                    if ($old_genero->img && file_exists('./images/generos/' . $old_genero->img)) {
+                        unlink('./images/generos/' . $old_genero->img);
+                    }
+
+                    $upload_data = $this->upload->data();
+                    $data['img'] = $upload_data['file_name'];
+                }
+            }
+            // --- FIN DE LA LÓGICA DE ACTUALIZACIÓN ---
+
+            $this->genero_model->update_genero($id, $data);
+            redirect(base_url() . 'admin/listar_generos/');
         } else {
-            redirect(base_url().'admin/login/');
+            redirect(base_url() . 'admin/login/');
         }
     }
 
