@@ -2,7 +2,6 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Remixers extends CI_Controller {
-
 	public function __construct(){
 		parent::__construct();
 		$this->load->helper(array('url', 'form')); 
@@ -64,7 +63,6 @@ class Remixers extends CI_Controller {
 	             
 	            $data["links"] = $this->pagination->create_links();
 	        }
-
 			$data['generos']=$this->genero_model->get_generos();
 			$data['users']=$this->products_another_model->get_all_users();
 			$data['user']=$this->products_another_model->load_user_info($dj_id);

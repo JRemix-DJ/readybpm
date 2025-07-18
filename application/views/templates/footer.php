@@ -111,7 +111,7 @@
         <ul class="style1 footer-links">
             <li><a href="<? echo base_url(); ?>pages/become_a_member/">CONVERTIRME EN EDITOR</a></li>
             <li><a href="<? echo base_url(); ?>pages/terms_conditions/">TÉRMINOS Y CONDICIONES</a></li>
-            <li><a href="<? echo base_url('faq'); ?>">PREGUNTAS FRECUENTES</a></li>
+            <!--<li><a href="<? echo base_url('faq'); ?>">PREGUNTAS FRECUENTES</a></li>-->
         </ul>
         <ul class="social-list style2 circular">
             <li><a href="https://www.facebook.com/profile.php?id=61576190996039" target="_blank"

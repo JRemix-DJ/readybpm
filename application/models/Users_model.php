@@ -330,4 +330,14 @@ class Users_model extends CI_Model {
 			return false;
 		}
 	}
+    public function email_exists($email)
+    {
+        $this->db->where('email', $email);
+        $query = $this->db->get('users');
+        if ($query->num_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -7,126 +7,121 @@
         <th class="">Artista</th>
         <th class="">Version</th>
         <th class="">BPM</th>
-        <? if(isset($product_type_id)){ if($product_type_id != 5){ ?>
-        <? if(isset($genero)){ ?>
-        <? if($genero->id != 45){ ?>
-        <th class="">Genero</th>
-        <? } }else{ ?>
-        <th class="">Genero</th>
-        <? } } } ?>
+        <?php if(isset($product_type_id)){ if($product_type_id != 5){ ?>
+            <?php if(isset($genero)){ ?>
+                <?php if($genero->id != 45){ ?>
+                    <th class="">Genero</th>
+                <?php } }else{ ?>
+                <th class="">Genero</th>
+            <?php } } } ?>
 
-        <? if(isset($genero)){ ?>
-        <? if($genero->id == 45){ ?>
-        <th class="tcenter">Precio</th>
-        <? }else{ ?>
-        <? if(MONEY_PAYMENTS){ ?>
-        <? if($this->session->userdata('is_user_tokens') == false || $this->session->userdata('tokens') == 0){ ?>
-        <th class="tcenter">Comprar</th>
-        <? }else{ ?>
-        <th class="tcenter">Descargar</th>
-        <? } ?>
-        <? }else{ ?>
-        <th class="tcenter">Descargar</th>
-        <? } ?>
-        <? } ?>
-        <?  }else{ ?>
-        <? if(MONEY_PAYMENTS){ ?>
-        <? if($this->session->userdata('is_user_tokens') == false || $this->session->userdata('tokens') == 0){ ?>
-        <th class="tcenter">Comprar</th>
-        <? }else{ ?>
-        <th class="tcenter">Descargar</th>
-        <? } ?>
-        <? }else{ ?>
-        <th class="tcenter">Descargar</th>
-        <? } ?>
-        <? } ?>
+        <?php if(isset($genero)){ ?>
+            <?php if($genero->id == 45){ ?>
+                <th class="tcenter">Precio</th>
+            <?php }else{ ?>
+                <?php if(MONEY_PAYMENTS){ ?>
+                    <?php if($this->session->userdata('is_user_tokens') == false || $this->session->userdata('tokens') == 0){ ?>
+                        <th class="tcenter">Comprar</th>
+                    <?php }else{ ?>
+                        <th class="tcenter">Descargar</th>
+                    <?php } ?>
+                <?php }else{ ?>
+                    <th class="tcenter">Descargar</th>
+                <?php } ?>
+            <?php } ?>
+        <?php  }else{ ?>
+            <?php if(MONEY_PAYMENTS){ ?>
+                <?php if($this->session->userdata('is_user_tokens') == false){ ?>
+                    <th class="tcenter">Comprar</th>
+                <?php }else{ ?>
+                    <th class="tcenter">Descargar</th>
+                <?php } ?>
+            <?php }else{ ?>
+                <th class="tcenter">Descargar</th>
+            <?php } ?>
+        <?php } ?>
     </tr>
     </thead>
     <tbody>
-    <?
+    <?php
     $i = 0;
     if(!empty($products)){
-    foreach($products as $producto){
-    $i++;
-    ?>
-    <tr id="singleSongPlayer-<? echo $i; ?>" data-product="<? echo $producto->id; ?>"
-        class="song-unit singleSongPlayer player-<? echo $producto->id; ?>" data-before="<? echo $i; ?>">
-        <td class=""><?
-        $fecha = date_format(date_create($producto->time_approved) , 'm/d/Y');
-        echo $fecha;
-        ?></td>
-        <td class="">
-            <span id="singleSong-jplayer-<? echo $i; ?>" class="singleSong-jplayer"
-                  data-title="<? echo $producto->name; ?>"
-                  data-mp3="<? echo base_url(); ?>assets/products/demos/<? echo $producto->demo; ?>"><i
-                    class="fa fa-play-circle-o boton-play" aria-hidden="true"></i></span>
-        </td>
-        <td class="song-title jp-title"><? echo $producto->name; ?></td>
-
-        <td class="">
-            <? echo $producto->artist; ?>
-        </td>
-        <td class="">
-            <? if($producto->version != null){ ?>
-            <? echo $producto->version; ?>
-            <? } ?>
-        </td>
-        <td class="song-bpm ">
-            <?
-            echo $producto->bpm;
+        foreach($products as $producto){
+            $i++;
             ?>
+            <tr id="singleSongPlayer-<?php echo $i; ?>" data-product="<?php echo $producto->id; ?>"
+                class="song-unit singleSongPlayer player-<?php echo $producto->id; ?>" data-before="<?php echo $i; ?>">
+                <td class=""><?php
+                    $fecha = date_format(date_create($producto->time_approved) , 'm/d/Y');
+                    echo $fecha;
+                    ?></td>
+                <td class="">
+                    <!-- ================================================================= -->
+                    <!-- CORRECCIÓN AQUÍ: Se añade un timestamp a la URL para evitar el caché -->
+                    <!-- ================================================================= -->
+                    <span id="singleSong-jplayer-<?php echo $i; ?>" class="singleSong-jplayer"
+                          data-title="<?php echo htmlspecialchars($producto->name, ENT_QUOTES, 'UTF-8'); ?>"
+                          data-mp3="<?php echo base_url(); ?>assets/products/demos/<?php echo $producto->demo; ?>?v=<?php echo time(); ?>">
+                <i class="fa fa-play-circle-o boton-play" aria-hidden="true"></i>
+            </span>
+                </td>
+                <td class="song-title jp-title"><?php echo $producto->name; ?></td>
 
-        </td>
-        <? if($producto->gender_id != 45){ ?>
-        <? if(isset($product_type_id)){ if($product_type_id != 5){ ?>
-        <td class="song-genero jp-genero ">
-            <?
-            $key = array_search($producto->gender_id , array_column($generos , 'id'));
-            echo '<a href="'.base_url().'genero/'.$generos[$key]->id.'">'.$generos[$key]->name.'</a>';
+                <td class="">
+                    <?php echo $producto->artist; ?>
+                </td>
+                <td class="">
+                    <?php if($producto->version != null){ ?>
+                        <?php echo $producto->version; ?>
+                    <?php } ?>
+                </td>
+                <td class="song-bpm ">
+                    <?php
+                    echo $producto->bpm;
+                    ?>
+                </td>
+                <?php if($producto->gender_id != 45){ ?>
+                    <?php if(isset($product_type_id)){ if($product_type_id != 5){ ?>
+                        <td class="song-genero jp-genero ">
+                            <?php
+                            $key = array_search($producto->gender_id, array_column($generos, 'id'));
+                            if ($key !== false) {
+                                echo '<a href="'.base_url().'genero/'.$generos[$key]->id.'">'.$generos[$key]->name.'</a>';
+                            }
+                            ?>
+                        </td>
+                    <?php } } } ?>
 
-            ?>
-        </td>
-        <? } } } ?>
-        <?
-        // if(isset($this->session->userdata('is_user_tokens')==false)){
-        //     $userdata=array(
-        //         'is_user_tokens'=>false,
-        //     );
-        //     $this->session->set_userdata($userdata);
-        // }
-        ?>
-        <? //if($this->session->userdata('is_user_tokens')==false&&$this->session->userdata('role')!='is_admin'){ ?>
-        <? if($producto->gender_id == 45 || (isset($product_type_id) && $product_type_id == 5)){ ?>
-
-        <td>
-            <button class="song-btn addToCart btn btn-orange" data-id="<? echo $producto->id; ?>">
-                $<? echo $producto->price; ?></button>
-            <button class="btn btn-green anadido"><i class="fa fa-check"></i>Añadido - Ver Carrito</button>
-        </td>
-        <? }else{ ?>
-        <? if(MONEY_PAYMENTS){ ?>
-        <? if($this->session->userdata('is_user_tokens') == false){ ?>
-        <td class="tcenter">
-            <button class="song-btn addToCart btn btn-orange" data-id="<? echo $producto->id; ?>">
-                $<? echo $producto->price; ?></button>
-            <button class="btn btn-green anadido"><i class="fa fa-check"></i>Añadido</button>
-        </td>
-        <? }else{ ?>
-        <td class="tcenter">
-            <button class="song-btn downloadButton btn btn-orange" data-id="<? echo $producto->id; ?>"><i
-                    class="fa fa-download"></i></button>
-        </td>
-        <? } ?>
-        <? }else{ ?>
-        <td class="tcenter">
-            <button class="song-btn downloadButton btn btn-orange" data-id="<? echo $producto->id; ?>"><i
-                    class="fa fa-download"></i></button>
-        </td>
-        <? } ?>
-        <? } ?>
-    </tr>
-    <?
-    }
+                <?php if($producto->gender_id == 45 || (isset($product_type_id) && $product_type_id == 5)){ ?>
+                    <td>
+                        <button class="song-btn addToCart btn btn-orange" data-id="<?php echo $producto->id; ?>">
+                            $<?php echo $producto->price; ?></button>
+                        <button class="btn btn-green anadido"><i class="fa fa-check"></i>Añadido - Ver Carrito</button>
+                    </td>
+                <?php }else{ ?>
+                    <?php if(MONEY_PAYMENTS){ ?>
+                        <?php if($this->session->userdata('is_user_tokens') == false){ ?>
+                            <td class="tcenter">
+                                <button class="song-btn addToCart btn btn-orange" data-id="<?php echo $producto->id; ?>">
+                                    $<?php echo $producto->price; ?></button>
+                                <button class="btn btn-green anadido"><i class="fa fa-check"></i>Añadido</button>
+                            </td>
+                        <?php }else{ ?>
+                            <td class="tcenter">
+                                <button class="song-btn downloadButton btn btn-orange" data-id="<?php echo $producto->id; ?>"><i
+                                            class="fa fa-download"></i></button>
+                            </td>
+                        <?php } ?>
+                    <?php }else{ ?>
+                        <td class="tcenter">
+                            <button class="song-btn downloadButton btn btn-orange" data-id="<?php echo $producto->id; ?>"><i
+                                        class="fa fa-download"></i></button>
+                        </td>
+                    <?php } ?>
+                <?php } ?>
+            </tr>
+            <?php
+        }
     }else {
         echo '<tr><td colspan="8">No hemos encontrado productos.</td></tr>';
     }

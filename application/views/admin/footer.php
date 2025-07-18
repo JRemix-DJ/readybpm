@@ -45,113 +45,105 @@
     <script>
         $(document).ready(function() {
 
-            var uploader = $("#audio_uploader").uploadFile({
+            var mainUploader, manualDemoUploader;
+            var mainFile = {};
+
+            function populateAndShowForm(originalFilename, descargableFilename, demoFilename) {
+                var filename = originalFilename.replace(/\.[^/.]+$/, "");
+                var parts = filename.split(' - ');
+                if (parts.length !== 5) {
+                    alert("Error en el formato del nombre del archivo principal."); return;
+                }
+                var nombre = parts[0].trim(), artista = parts[1].trim(), generoNombre = parts[2].trim().toLowerCase(), version = parts[3].trim(), bpm = parts[4].replace(/\D/g, '').trim();
+                var generoId = null;
+                $('#genre-list span').each(function() { if ($(this).text().trim().toLowerCase() === generoNombre) { generoId = $(this).data('id'); return false; } });
+                if (!generoId) { alert("Género no encontrado: '" + parts[2].trim() + "'"); return; }
+                $('#form_name').val(nombre); $('#form_artist').val(artista); $('#form_gender').val(generoId); $('#form_version').val(version); $('#form_bpm').val(bpm);
+                $('#form_descargable').val(descargableFilename); $('#form_demo').val(demoFilename);
+                $('#product-details-form').slideDown();
+            }
+
+            $('#auto_demo_checkbox').on('change', function() {
+                if ($(this).is(':checked')) {
+                    $('#manual_demo_uploader_container').slideUp();
+                    if(mainFile.serverName){
+                        populateAndShowForm(mainFile.originalName, mainFile.serverName, mainFile.serverName);
+                    }
+                } else {
+                    $('#manual_demo_uploader_container').slideDown();
+                    $('#product-details-form').slideUp();
+                }
+            }).prop('checked', true).trigger('change'); // Iniciar con el checkbox marcado
+
+            mainUploader = $("#main_audio_uploader").uploadFile({
                 url: "<?php echo site_url('admin/subir/'); ?>",
-                fileName: "files",
-                multiple: false,
-                autoSubmit: true,
-                allowedTypes: "mp3",
-                dragDropStr: "<span><b>Arrastra y suelta un archivo MP3 aquí</b></span>",
-
-                // --- CAMBIO IMPORTANTE: Usamos formData en lugar de dynamicFormData ---
-                formData: { action: 'process_file' },
-
+                fileName: "files", multiple: false, autoSubmit: true,
+                dragDropStr: "<span><b>Arrastra el Audio Completo Aquí</b></span>",
+                onSelect: function(files) {
+                    $('#product-details-form').hide(); $('#demo-upload-section').hide();
+                    mainFile = { originalName: files[0].name };
+                    return true;
+                },
+                dynamicFormData: function() {
+                    return { action: 'process_main_file', generate_demo: $('#auto_demo_checkbox').is(':checked').toString() };
+                },
                 onSuccess: function(files, response, xhr, pd) {
                     try {
                         var data = JSON.parse(response);
                         if (data.success) {
-                            var originalFilename = files[0];
-                            var filename = originalFilename.replace(/\.[^/.]+$/, "");
-                            var parts = filename.split(' - ');
-
-                            if (parts.length !== 5) {
-                                alert("Error en el nombre del archivo: '" + originalFilename + "'\n\nEl formato debe ser:\nNombre Cancion - Artista - Genero - Version - 90 BPM.mp3");
-                                pd.statusbar.html("<span style='color:red;'>Formato de nombre incorrecto.</span>");
-                                return;
+                            mainFile.serverName = data.filename;
+                            pd.statusbar.find('.ajax-file-upload-progress, .ajax-file-upload-red').hide();
+                            pd.statusbar.append("<span style='color:green; margin-left:10px;'>¡Archivo principal procesado!</span>");
+                            $('#demo-upload-section').slideDown();
+                            if ($('#auto_demo_checkbox').is(':checked')) {
+                                populateAndShowForm(mainFile.originalName, mainFile.serverName, mainFile.serverName);
                             }
+                        } else { pd.statusbar.html("<span style='color:red;'>" + data.error + "</span>"); }
+                    } catch (e) { pd.statusbar.html("<span style='color:red;'>Error del servidor.</span>"); }
+                }
+            });
 
-                            var nombre = parts[0].trim();
-                            var artista = parts[1].trim();
-                            var generoNombre = parts[2].trim().toLowerCase();
-                            var version = parts[3].trim();
-                            var bpm = parts[4].replace(/\D/g, '').trim();
-
-                            var generoId = null;
-                            $('#genre-list span').each(function() {
-                                if ($(this).text().trim().toLowerCase() === generoNombre) {
-                                    generoId = $(this).data('id');
-                                    return false;
-                                }
-                            });
-
-                            if (!generoId) {
-                                alert("Género no encontrado: '" + parts[2].trim() + "'");
-                                pd.statusbar.html("<span style='color:red;'>Género no válido.</span>");
-                                return;
-                            }
-
-                            $('#form_name').val(nombre);
-                            $('#form_artist').val(artista);
-                            $('#form_gender').val(generoId);
-                            $('#form_version').val(version);
-                            $('#form_bpm').val(bpm);
-
-                            $('#form_descargable').val(data.descargable_filename);
-                            $('#form_demo').val(data.demo_filename);
-
-                            pd.statusbar.hide();
-                            $('#product-details-form').slideDown();
-                        } else {
-                            pd.statusbar.html("<span style='color:red;'>" + data.error + "</span>");
-                        }
-                    } catch (e) {
-                        pd.statusbar.html("<span style='color:red;'>Error inesperado del servidor.</span>");
-                        console.error("Respuesta del servidor no es JSON válido:", response);
-                    }
-                },
-                onError: function(files, status, errMsg, pd) {
-                    pd.statusbar.html("<span style='color:red;'>Error de conexión al subir.</span>");
+            manualDemoUploader = $("#manual_demo_uploader").uploadFile({
+                url: "<?php echo site_url('admin/subir/'); ?>",
+                fileName: "files", multiple: false, autoSubmit: true,
+                dragDropStr: "<span><b>Arrastra el Demo Manual Aquí</b></span>",
+                dynamicFormData: function() { return { action: 'process_demo_file' }; },
+                onSuccess: function(files, response, xhr, pd) {
+                    try {
+                        var data = JSON.parse(response);
+                        if (data.success) {
+                            pd.statusbar.find('.ajax-file-upload-progress, .ajax-file-upload-red').hide();
+                            pd.statusbar.append("<span style='color:green; margin-left:10px;'>¡Demo manual subido!</span>");
+                            populateAndShowForm(mainFile.originalName, mainFile.serverName, data.filename);
+                        } else { pd.statusbar.html("<span style='color:red;'>" + data.error + "</span>"); }
+                    } catch (e) { pd.statusbar.html("<span style='color:red;'>Error del servidor.</span>"); }
                 }
             });
 
             $('#save-product-btn').on('click', function() {
                 var btn = $(this);
                 btn.prop('disabled', true).text('Guardando...');
-
                 $.ajax({
-                    url: "<?php echo site_url('admin/subir/'); ?>",
-                    type: "POST",
+                    url: "<?php echo site_url('admin/subir/'); ?>", type: "POST",
                     data: {
-                        action: 'save_product',
-                        descargable: $('#form_descargable').val(),
-                        demo: $('#form_demo').val(),
-                        video_name: $('#form_name').val(),
-                        video_artist: $('#form_artist').val(),
-                        gender_id: $('#form_gender').val(),
-                        version: $('#form_version').val(),
-                        bpm: $('#form_bpm').val(),
-                        price: '1.99',
-                        type: '1',
-                        description: ''
+                        action: 'save_product', descargable: $('#form_descargable').val(), demo: $('#form_demo').val(),
+                        video_name: $('#form_name').val(), video_artist: $('#form_artist').val(),
+                        gender_id: $('#form_gender').val(), version: $('#form_version').val(), bpm: $('#form_bpm').val(),
+                        price: '1.99', type: '1', description: ''
                     }
                 }).done(function(response){
                     if(response === 'true'){
                         alert('¡Producto guardado con éxito!');
-                        $('#product-details-form').slideUp();
-                        uploader.reset();
-                    } else {
-                        alert('Error al guardar en la base de datos.');
-                    }
-                }).fail(function(){
-                    alert('Error de conexión al guardar.');
-                }).always(function(){
-                    btn.prop('disabled', false).text('Guardar Producto');
-                });
+                        location.reload();
+                    } else { alert('Error al guardar en la base de datos.'); }
+                }).fail(function(){ alert('Error de conexión al guardar.');
+                }).always(function(){ btn.prop('disabled', false).text('Guardar Producto'); });
             });
 
             $('#cancel-product-btn').on('click', function() {
                 $('#product-details-form').slideUp();
-                uploader.reset();
+                mainUploader.reset(); manualDemoUploader.reset();
+                $('#demo-upload-section').hide();
             });
         });
     </script>

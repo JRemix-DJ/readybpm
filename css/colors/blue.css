@@ -319,7 +319,7 @@ input[type="email"]:focus,
 input[type="password"]:focus,
 textarea:focus, 
 .article-slider .owl-nav > div:hover{
-	border-color:#6abbd9;
+	border-color: #5F47F3;
 }
 .abc{
 	 border-right-color:#6abbd9;
@@ -348,7 +348,7 @@ textarea:focus,
 }
 
 .jp-audio .jp-progress .jp-seek-bar .jp-play-bar{
-	background-color: #488CCB !important;
+	background-color: #5F47F3 !important;
 }
 .jp-audio .jp-progress{
 	background: #212121 !important;

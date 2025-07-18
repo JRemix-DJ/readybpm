@@ -1,5 +1,5 @@
-    <div style="padding-left: 50px; width:fit-content; box-sizing: border-box;"><br><br>
-       TÉRMINOS Y CONDICIONES: <br>
+    <div style="padding: 50px; width:fit-content; box-sizing: border-box;"><br><br>
+       <strong>TÉRMINOS Y CONDICIONES:</strong><br>
 
 
         <br>•	Al ser parte de Ready BPM, certificas que aceptas todos los términos aquí descritos. Nuestro contenido es propiedad exclusiva del sitio, y queda estrictamente prohibido copiarlo, revenderlo o redistribuirlo. En caso de incumplimiento, podremos cancelar tu cuenta sin previo aviso y sin derecho a reembolso.<br>
