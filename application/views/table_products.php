@@ -7,36 +7,28 @@
         <th class="">Artista</th>
         <th class="">Version</th>
         <th class="">BPM</th>
-        <?php if(isset($product_type_id)){ if($product_type_id != 5){ ?>
-            <?php if(isset($genero)){ ?>
-                <?php if($genero->id != 45){ ?>
-                    <th class="">Genero</th>
-                <?php } }else{ ?>
-                <th class="">Genero</th>
-            <?php } } } ?>
-
-        <?php if(isset($genero)){ ?>
-            <?php if($genero->id == 45){ ?>
-                <th class="tcenter">Precio</th>
-            <?php }else{ ?>
+        <?php if(isset($this->session->userdata['is_logued_in'])){ ?>
+            <?php if($this->session->userdata('is_user_unlimited')){ ?>
+                <th class="tcenter">Descargar</th>
+            <?php } else { ?>
                 <?php if(MONEY_PAYMENTS){ ?>
                     <?php if($this->session->userdata('is_user_tokens') == false || $this->session->userdata('tokens') == 0){ ?>
                         <th class="tcenter">Comprar</th>
-                    <?php }else{ ?>
+                    <?php } else { ?>
                         <th class="tcenter">Descargar</th>
                     <?php } ?>
-                <?php }else{ ?>
+                <?php } else { ?>
                     <th class="tcenter">Descargar</th>
                 <?php } ?>
             <?php } ?>
-        <?php  }else{ ?>
+        <?php } else { ?>
             <?php if(MONEY_PAYMENTS){ ?>
-                <?php if($this->session->userdata('is_user_tokens') == false){ ?>
+                <?php if($this->session->userdata('is_user_tokens') == false || $this->session->userdata('tokens') == 0){ ?>
                     <th class="tcenter">Comprar</th>
-                <?php }else{ ?>
+                <?php } else { ?>
                     <th class="tcenter">Descargar</th>
                 <?php } ?>
-            <?php }else{ ?>
+            <?php } else { ?>
                 <th class="tcenter">Descargar</th>
             <?php } ?>
         <?php } ?>

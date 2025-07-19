@@ -5,8 +5,8 @@ class Products extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
-		$this->load->helper(array('url', 'form')); 
-		$this->load->library(array('session','form_validation', 'pagination'));
+        $this->load->helper(array('url', 'form', 'download'));
+        $this->load->library(array('session','form_validation', 'pagination'));
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger" role="alert">', '</div>');
 		$this->load->model(array('products_model', 'genero_model', 'orders_model', 'users_model'));
 		$this->load->database('default');
@@ -389,109 +389,77 @@ class Products extends CI_Controller {
 
 	}
 
+    public function descargar_producto(){
+        if(!$this->session->userdata('is_logued_in')){
+            die("Acceso denegado. Debes iniciar sesión para descargar.");
+        }
 
-	public function descargar_producto(){
-		
-		if($this->session->userdata('is_logued_in')){
-			$user_id = $this->session->userdata('id_usuario');
-			$tokens= $this->users_model->hasTokens($user_id);
-			$product_id=$this->uri->segment(3);
-			if($tokens==false){
-				$tokenstotal=0;
-			}else{
-				$tokenstotal=$tokens[0]->total;
-			}
-			if($tokenstotal>0||$this->users_model->isUserFile($user_id, $product_id)||$this->session->userdata('is_user_unlimited')==true){
-				$product = $this->products_model->load_product_info($product_id);
-				$genero = $this->genero_model->load_genero_info($product->gender_id);
-				
-				if($product->product_type_id==1){
-					$ext = pathinfo($product->descargable, PATHINFO_EXTENSION);
-						$file=$product->name.' - '.$product->artist.' - '.$genero->name.' - '.$product->version.' - '.$product->bpm.'bpm - VRP.mp3';
-				}else{
-					$ext = pathinfo($product->descargable, PATHINFO_EXTENSION);
-					$file=$product->name.' - '.$product->artist.' - '.$genero->name.' - '.$product->version.' - '.$product->bpm.'bpm - VRP .'.$ext;
-				}
-				
-				$tamano=@filesize('/var/www/videoremixpool.com/assets/products/descargables/'.$product->descargable);
-				$file_url='/var/www/videoremixpool.com/assets/products/descargables/'.$product->descargable;
-				$tamano=@filesize($file_url);
-				$today = date('Y-m-d');
-				$user_products = $this->users_model->get_user_products($user_id);
-				$user_product_ids = array();
-				foreach($user_products as $user_product){
-					$user_product_ids[] = $user_product->product_id;
-				}
-				//print_r($user_product_ids);
-				//echo $product_id;
-				if(!in_array($product_id, $user_product_ids)&& !$this->session->userdata('is_user_unlimited')){
-					$this->reduce_tokens($user_id);
-				}
+        $user_id = $this->session->userdata('id_usuario');
+        $product_id = $this->uri->segment(3);
 
-				$data = array(
-					'user_id' 	=> 	$user_id,
-					'product_id'	=> $product_id,
-					'downloads_left'	=>	3,
-					'since'		=> $today
-				);
-				$this->users_model->add_file_to_user($data);
-				$data = array(
-					'product_id'	=>	$product_id,
-					'user_id'		=>	$user_id,
-					'date'			=>	$today
-				);
-				$this->products_model->add_download($data);
-				$owner_id = $product->owner_id;
-				$this->add_payment_to_owner_tokens($product_id, $owner_id, $user_id); 
-				if(file_exists($file_url)) {
-					session_write_close();
-					header("Pragma: no-cache");
-					header('Expires: 0');
-					header('Access-Control-Allow-Origin: *');
-					header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-					header("Last-Modified: " . gmdate("D, d M Y H:i:s T", filemtime($file_url))); 
-					header('Cache-Control: private',false);
-					header('Content-Type: application/octet-stream');
-					header('Content-Disposition: attachment; filename="'.$file.'"');
-					header('Content-Transfer-Encoding: binary');
-					header('Content-Length: '.$tamano);
-				// 	// reason: it's unreliable to download whole file at once
-				// 	// $chunksize = 1 * (1024 * 1024);
-				// 	// $fp = fopen($file_url,'rb'); 
-				// 	// $buffer = ''; 
-				// 	// while (!feof($fp)) 
-				// 	// 	{ 
-				// 	// 	$buffer = fread($fp, $chunksize); 
-				// 	// 	echo $buffer; 
-				// 	// 	ob_flush(); 
-				// 	// 	flush(); 
-				// 	// 	} 
-				// 	// fclose($fp); 
-				// 	// // resume original code here:
-				// 	// if ( !$fp ) {
-				// 	//     echo "File Not Found";
-				// 	//     exit();
-				// 	// }
-				// 	// if ( !fpassthru($fp) ) {
-				// 	//     echo "There was an error!";
-				// 	//     exit();
-				// 	// }
-					ob_clean();
-					flush();
-					readfile($file_url);
-					exit;
-					header("Connection: close");
-					exit();  
-				}else{
-					echo "File Not Found!!";	
-				}
-			}else{
-				redirect(base_url());
-			}
-		}else{
-			redirect(base_url());
-		}
-	}
+        if(!$product_id){
+            die("Error: No se ha especificado un producto para descargar.");
+        }
+
+        // Usamos la función correcta para obtener tokens ACTIVOS
+        $tokenstotal = $this->users_model->hasTokensVideo($user_id);
+        $is_unlimited = $this->users_model->isUnlimited($user_id);
+
+        // Comprobar si el usuario tiene permiso para descargar
+        if($tokenstotal > 0 || $this->users_model->isUserFile($user_id, $product_id) || $this->session->userdata('is_user_unlimited') == true){
+
+            $product = $this->products_model->load_product_info($product_id);
+            if(!$product){
+                die("Error: El producto solicitado no existe.");
+            }
+
+            $genero = $this->genero_model->load_genero_info($product->gender_id);
+            $genero_name = ($genero) ? $genero->name : 'Genero';
+
+            // Construir un nombre de archivo amigable para el usuario
+            $ext = pathinfo($product->descargable, PATHINFO_EXTENSION);
+            $file_name_formatted = "{$product->name} - {$product->artist} - {$genero_name} - {$product->version} - {$product->bpm}BPM - ReadyBPM.{$ext}";
+
+            $file_path = FCPATH . 'assets/products/descargables/' . $product->descargable;
+
+            if(file_exists($file_path)) {
+                // Lógica para descontar tokens y registrar la descarga
+                $user_products = $this->users_model->get_user_products($user_id);
+                $user_product_ids = array_column($user_products, 'product_id');
+
+                if(!in_array($product_id, $user_product_ids) && $is_unlimited == false){
+                    // Descontamos tokens de VIDEO, según solicitado
+                    $this->reduce_tokens_video($user_id);
+                }
+
+                $today = date('Y-m-d');
+                $data_user_file = array(
+                    'user_id' => $user_id,
+                    'product_id' => $product_id,
+                    'downloads_left' => 3,
+                    'since' => $today
+                );
+                $this->users_model->add_file_to_user($data_user_file);
+
+                $data_download = array(
+                    'product_id' => $product_id,
+                    'user_id' => $user_id,
+                    'date' => $today
+                );
+                $this->products_model->add_download($data_download);
+
+                // Usar el helper de CodeIgniter para forzar la descarga del archivo
+                force_download($file_name_formatted, file_get_contents($file_path));
+
+            } else {
+                die("Error: El archivo físico no se encuentra en el servidor.");
+            }
+
+        } else {
+            // Si no tiene tokens, detenemos la ejecución con un mensaje claro.
+            die("No tienes descargas disponibles. Por favor, adquiere un plan.");
+        }
+    }
 
 	public function descargar_producto_video(){
 		
@@ -604,18 +572,16 @@ class Products extends CI_Controller {
 		$this->users_model->update_tokens_video($user_id); 
 	}
 
-	function add_payment_to_owner_tokens($product_id, $owner_id, $user_id){
-		$amount = 0.05;
-		$date = date("Y-m-d"); 
-		$data = array(
-			'date'			=>	$date,
-			'user_id'		=>	$user_id,
-			'amount'		=>	$amount,
-			'product_id'	=>	$product_id,
-			'owner_id'		=>	$owner_id
-		);
-		$this->orders_model->insert_payment_tokens($data);
-	}
-
-
+    function add_payment_to_owner_tokens($product_id, $owner_id, $user_id){
+        $amount = 0.05;
+        $date = date("Y-m-d");
+        $data = array(
+            'date' => $date,
+            'user_id' => $user_id,
+            'amount' => $amount,
+            'product_id' => $product_id,
+            'owner_id' => $owner_id
+        );
+        $this->orders_model->insert_payment_tokens($data);
+    }
 }

@@ -257,8 +257,6 @@ class Users_model extends CI_Model {
 		}
 	}
 
-	
-
 	public function isUnlimited($user_id){
 		$today = date('Y-m-d');
 		$query = $this->db->query("SELECT * FROM unlimited_users WHERE end_date>='$today' AND user_id='$user_id'");
@@ -269,33 +267,61 @@ class Users_model extends CI_Model {
 		}
 	}
 
+    public function update_tokens($user_id){
+        $today = date('Y-m-d');
 
-	public function update_tokens($user_id){
-		$today = date('Y-m-d');
-		$this->db->where('user_id', $user_id);
-		$this->db->where('expiration >=', $today);
-		$this->db->where('tokens >=', 1);
-		
-		//$this->db->where('expiration <', '$today');
-		$this->db->set('tokens', '`tokens`-1', FALSE);
-		$this->db->limit(1);
-		$this->db->update('user_tokens');
-		$this->db->order_by('expiration', 'ASC');
-	}
+        // Paso 1: Encontrar el ID del paquete de tokens de audio correcto (el que expira antes)
+        $this->db->select('id');
+        $this->db->from('user_tokens');
+        $this->db->where('user_id', $user_id);
+        $this->db->where('expiration >=', $today);
+        $this->db->where('tokens >', 0);
+        $this->db->order_by('expiration', 'ASC');
+        $this->db->limit(1);
 
-	public function update_tokens_video($user_id){
-		$today = date('Y-m-d');
-		$this->db->where('user_id', $user_id);
-		$this->db->where('expiration >=', $today);
-		$this->db->where('tokens_video >=', 1);
-		
-		//$this->db->where('expiration <', '$today');
-		$this->db->set('tokens_video', '`tokens_video`-1', FALSE);
-		$this->db->limit(1);
-		$this->db->update('user_tokens_video');
-		$this->db->order_by('expiration', 'ASC');
-	}
+        $query = $this->db->get();
+        $result = $query->row();
 
+        // Paso 2: Si se encontró un paquete, actualizarlo por su ID específico
+        if ($result) {
+            $token_bundle_id = $result->id;
+
+            $this->db->where('id', $token_bundle_id);
+            $this->db->set('tokens', 'tokens - 1', FALSE);
+            $this->db->update('user_tokens');
+            return true; // Éxito
+        }
+
+        return false; // No se encontraron tokens para descontar
+    }
+
+    public function update_tokens_video($user_id){
+        $today = date('Y-m-d');
+
+        // Paso 1: Encontrar el ID del paquete de tokens de video correcto (el que expira antes)
+        $this->db->select('id');
+        $this->db->from('user_tokens_video');
+        $this->db->where('user_id', $user_id);
+        $this->db->where('expiration >=', $today);
+        $this->db->where('tokens_video >', 0);
+        $this->db->order_by('expiration', 'ASC');
+        $this->db->limit(1);
+
+        $query = $this->db->get();
+        $result = $query->row();
+
+        // Paso 2: Si se encontró un paquete, actualizarlo por su ID específico
+        if ($result) {
+            $token_bundle_id = $result->id;
+
+            $this->db->where('id', $token_bundle_id);
+            $this->db->set('tokens_video', '`tokens_video`-1', FALSE);
+            $this->db->update('user_tokens_video');
+            return true; // Éxito
+        }
+
+        return false; // No se encontraron tokens para descontar
+    }
 
 	public function get_available_tokens($user_id){
 		$today = date('Y-m-d');
