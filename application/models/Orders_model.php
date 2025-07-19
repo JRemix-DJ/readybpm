@@ -3,7 +3,6 @@
  * 
  */
 class Orders_model extends CI_Model {
-
 	public function __construct() {
 		parent::__construct();
 	}
@@ -23,7 +22,6 @@ class Orders_model extends CI_Model {
 			return $query->row();
 		}
 	}
-
 
 	public function get_by_txn_id($txn_id){
 		$this->db->where('txn_id',$txn_id);
@@ -105,7 +103,6 @@ class Orders_model extends CI_Model {
 		//$this->create_order_items($insert_id);
 		return $insert_id;
 	}
-
 
 	public function insert_tokens_to_user($data){
 		$this->db->insert('user_tokens',$data);
@@ -215,8 +212,6 @@ class Orders_model extends CI_Model {
 		return true;
 	}
 
-	
-
 	public function insert_payment($data){
 		$this->db->insert('pagos',$data);
 		$insert_id = $this->db->insert_id();
@@ -281,4 +276,17 @@ class Orders_model extends CI_Model {
 		return true;
 	}
 
+    public function get_order($user_id, $amount){
+        $this->db->where('user_id', $user_id);
+        $this->db->where('status', 0); // 0 = Pendiente
+        $this->db->where('total_price', $amount);
+        $this->db->order_by('id', 'DESC'); // La más reciente
+        $this->db->limit(1);
+        $query = $this->db->get('orders');
+
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        }
+        return null;
+    }
 }

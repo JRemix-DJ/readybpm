@@ -2,7 +2,6 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Payment extends CI_Controller {
-
 	public function __construct(){
 		parent::__construct();
 		$this->load->helper(array('url', 'form')); 
@@ -75,7 +74,7 @@ class Payment extends CI_Controller {
 	}
 
 	public function cancelar(){
-		$data['title']="Pago Cancelado - Video Remix Pool";
+		$data['title']="Pago Cancelado - ReadyBPM";
 		$data['description']="Detalles de tu pago";
 		$data['products']=$this->products_model->get_products();
 		$data['generos']=$this->genero_model->get_generos();
@@ -87,7 +86,7 @@ class Payment extends CI_Controller {
 	}
 
 	public function plan_cancelar(){
-		$data['title']="Pago Cancelado - Video Remix Pool";
+		$data['title']="Pago Cancelado - ReadyBPM";
 		$data['description']="Detalles de tu pago";
 		$data['products']=$this->products_model->get_products();
 		$data['generos']=$this->genero_model->get_generos();
@@ -101,7 +100,7 @@ class Payment extends CI_Controller {
 
 	public function finalizado(){
 		$this->session->unset_userdata('cart');
-		$data['title']="Pago Finalizado - Video Remix Pool";
+		$data['title']="Pago Finalizado - ReadyBPM";
 		$data['description']="Detalles de tu pago";
 		$data['products']=$this->products_model->get_products();
 		$data['generos']=$this->genero_model->get_generos();
@@ -114,7 +113,7 @@ class Payment extends CI_Controller {
 
 	public function plan_finalizado(){
 		//$this->session->unset_userdata('cart');
-		$data['title']="Pago Finalizado - Video Remix Pool";
+		$data['title']="Pago Finalizado - ReadyBPM";
 		$data['description']="Detalles de tu pago";
 		$data['products']=$this->products_model->get_products();
 		$data['generos']=$this->genero_model->get_generos();
@@ -157,8 +156,6 @@ class Payment extends CI_Controller {
 	}
 
 	public function plan_realizado(){
-		
-
 		if ( ! count($_POST)) {
             throw new Exception("Missing POST Data");
         }
@@ -227,7 +224,6 @@ class Payment extends CI_Controller {
 			}
 		}	
 	}
-
 
 	function test_admin($txn_id='oscareyes071313'){
 		$order = $this->orders_model->load_order_info(967);
@@ -417,26 +413,46 @@ class Payment extends CI_Controller {
         // 1. Recibir los datos que envía Tukuy y guardarlos en un log para depuración
         $post_data = file_get_contents('php://input');
         $log_message = "[" . date('Y-m-d H:i:s') . "] Datos recibidos de Tukuy: " . $post_data . "\n";
-        file_put_contents(APPPATH . 'logs/tukuy_log.txt', $log_message, FILE_APPEND);
+
+        // Asegúrate de que la carpeta application/logs/ exista y tenga permisos de escritura (755)
+        file_put_contents(APPPATH . 'logs/tukuy_webhook.log', $log_message, FILE_APPEND);
 
         $data = json_decode($post_data);
 
-        if (!isset($data->success) || !isset($data->external_id) || !isset($data->transaction_details)) {
-            // Si faltan datos, no es una petición válida.
+        // 2. Validar que los datos esenciales existan
+        if (!isset($data->state) || !isset($data->id) || !isset($data->customer->email) || !isset($data->amount)) {
+            file_put_contents(APPPATH . 'logs/tukuy_webhook.log', "[ERROR] Petición inválida o faltan datos (state, id, customer.email, amount).\n", FILE_APPEND);
             return;
         }
 
-        if ($data->success == "done") {
-            $order_id = $data->external_id;
-            $order = $this->orders_model->load_order_info($order_id);
+        // 3. Comprobar si el pago fue exitoso
+        // 2. Comprobar si el pago fue exitoso
+        if ($data->state == "done") {
+            $customer_email = $data->customer->email;
+            $transaction_id = $data->id;
+            $amount_paid = $data->amount;
 
-            if ($order && $order->status == 0) {
-                $update_data = [
-                    'status' => 1,
-                    'txn_id' => $data->transaction_details
-                ];
-                $this->orders_model->update_order($order_id, $update_data);
-                $this->add_tokens_to_user($order_id);
+            // 3. Buscar al usuario por su email
+            $user = $this->users_model->get_user_by_email($customer_email);
+
+            if ($user) {
+                // 4. Buscar la última orden pendiente de este usuario que coincida con el monto
+                $order = $this->orders_model->get_order($user->id, $amount_paid);
+
+                if ($order) {
+                    $order_id = $order->id;
+                    $update_data = [
+                        'status' => 1,
+                        'txn_id' => $transaction_id
+                    ];
+                    $this->orders_model->update_order($order_id, $update_data);
+                    $this->add_tokens_to_user($order_id);
+                    file_put_contents(APPPATH . 'logs/tukuy_webhook.log', "[SUCCESS] Orden #{$order_id} activada para el usuario {$customer_email} por el monto de {$amount_paid}.\n", FILE_APPEND);
+                } else {
+                    file_put_contents(APPPATH . 'logs/tukuy_webhook.log', "[INFO] Se recibió pago de {$customer_email} por {$amount_paid}, pero no se encontró una orden pendiente que coincida.\n", FILE_APPEND);
+                }
+            } else {
+                file_put_contents(APPPATH . 'logs/tukuy_webhook.log', "[ERROR] Se recibió pago, pero no se encontró ningún usuario con el email {$customer_email}.\n", FILE_APPEND);
             }
         }
     }
@@ -647,5 +663,4 @@ class Payment extends CI_Controller {
 		echo $mail;
 		$this->email->send();
 	}
-
 }

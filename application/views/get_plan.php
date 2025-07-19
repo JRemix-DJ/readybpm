@@ -64,10 +64,8 @@
                             <div class="content">
                                 <div class="payment_options" style="margin-bottom: 50px;">
                                     <?php
-                                    // --- LÓGICA PARA CONSTRUIR EL ENLACE DE TUKUY ---
                                     if(isset($plan) && !empty($plan->url_pago)){
                                         // Creamos una orden PENDIENTE en nuestra base de datos ANTES de ir a pagar.
-                                        // Esto nos da un ID único para rastrear la transacción.
                                         $order_data = [
                                             'user_id' => $this->session->userdata('id_usuario'),
                                             'plan_id' => $plan->id,
@@ -78,28 +76,30 @@
                                         $this->db->insert('orders', $order_data);
                                         $order_id = $this->db->insert_id();
 
-                                        // Construimos la URL de pago para Tukuy con los parámetros necesarios
+                                        // --- CORRECCIÓN AQUÍ ---
+                                        // Construimos la URL de pago para Tukuy con los parámetros correctos
                                         $tukuy_url = $plan->url_pago;
                                         $tukuy_params = http_build_query([
-                                            'external_id' => $order_id, // Nuestro ID de orden para rastrear
                                             'amount' => $plan->price,
                                             'email' => $this->session->userdata('email'),
-                                            'return_url' => base_url('payment/tukuy_finalizado') // Página de "gracias"
+                                            'return_url' => base_url('payment/tukuy_finalizado'),
+                                            'metadata' => [
+                                                'ext_order' => $order_id // Nuestro ID de orden para el webhook
+                                            ]
                                         ]);
                                         ?>
                                         <div class="item">
                                             <a href="<?php echo $tukuy_url . '?' . $tukuy_params; ?>" class="button btn btn-default">
-                                                PAGAR CON TARJETA DE CRÉDITO / DÉBITO (Tukuy)
+                                                PAGAR CON TARJETA DE CRÉDITO / DÉBITO
                                             </a>
                                             <div class="item-icons-card">
                                                 <i class="fa fa-brands fa-cc-visa"></i>
                                                 <i class="fa fa-brands fa-cc-mastercard"></i>
-                                                <i class="fa fa-brands fa-cc-amex"></i>
                                             </div>
                                         </div>
                                     <?php } else { ?>
                                         <div class="item">
-                                            NO HAY MÉTODOS DE PAGO DISPONIBLES PARA ESTE PLAN
+                                            NO HAY MÉTODOS DE PAGO DISPONIBLES
                                         </div>
                                     <?php } ?>
                                 </div>
