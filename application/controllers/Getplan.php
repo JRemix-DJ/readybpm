@@ -13,7 +13,7 @@ class Getplan extends CI_Controller {
 	public function index()
 	{
 		if($this->session->userdata('is_logued_in')){
-			$data['title']="Checkout - Video Remix Pool";
+			$data['title']="Checkout - ReadyBPM";
 			$data['description']="Finaliza tu pago";
 			$data['products']=$this->products_model->get_products();
 			$data['generos']=$this->genero_model->get_generos();
@@ -89,7 +89,6 @@ class Getplan extends CI_Controller {
 		echo $order_id;
 	}
 
-
 	public function totalCarrito(){
 		$total = 0;
 		if(isset($_SESSION['cart'])){ 
@@ -99,6 +98,4 @@ class Getplan extends CI_Controller {
 		}
 		return $total;
 	}
-
-
 }

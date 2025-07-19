@@ -142,11 +142,12 @@
   top: 50%;
   left: 10px;
   height: 30%;
-  width: 75px;
+  width: 65px;
   cursor: pointer;
 }
 .jp-audio .jp-volume-controls .jp-volume-bar .jp-volume-bar-value {
   height: 100%;
+  width: 65px;
   background-color: #f06c40;
 }
 

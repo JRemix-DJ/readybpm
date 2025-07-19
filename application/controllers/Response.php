@@ -13,7 +13,7 @@ class Response extends CI_Controller {
 	{
 		$data['title']="Checkout - Video Remix Pool";
 		$data['description']="Finaliza tu pago";
-		$data['products']=$this->products_model->get_products();
+        $data['plans']=$this->plan_model->get_plans();
 		$data['generos']=$this->genero_model->get_generos();
 		$data['users']=$this->users_model->get_all_users();
 		$data['cart_total'] = $this->totalCarrito();

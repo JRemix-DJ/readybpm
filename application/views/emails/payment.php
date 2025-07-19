@@ -147,7 +147,7 @@
             <tr>
               <th class="column" width="640" style="padding-left: 30px; padding-right: 30px; text-align: left;">
                 <a href="http://example.com" style="text-decoration: none;">
-                  <img class="mobile-center" src="https://videoremixpool.com/images/logo.png" width="105" alt="VIDEOREMIXPOOL.COM - Recibo de Pago" style="border: 0; width: 100%; max-width: 105px;">
+                  <img class="mobile-center" src="http://localhost/readybpm/images/logocorto.png" width="105" alt="ReadyBPM.COM - Recibo de Pago" style="border: 0; width: 100%; max-width: 105px;">
                 </a>
               </th>
             </tr>
@@ -221,7 +221,7 @@
             <tr class="mobile-valign-top">
               <th class="column mobile-4" width="145" style="padding-left: 30px; padding-right: 10px; text-align: left;">
                 <a href="#" style="display: inline-block; text-decoration: none;">
-                  <img src="https://videoremixpool.com/images/favicon.png" width="100" alt="<? echo $item->name; ?>" style="border: 0; width: 100%; max-width: 100px;">
+                  <img src="http://localhost/readybpm/images/favicon.png" width="100" alt="<? echo $item->name; ?>" style="border: 0; width: 100%; max-width: 100px;">
                 </a>
               </th>
               <th class="column mobile-8" width="255" style="padding-left: 10px; padding-right: 10px; font-weight: 400; text-align: left;">
@@ -336,21 +336,21 @@
                 <table class="row" cellpadding="0" cellspacing="0">
                   <tr valign="top" style="vertical-align: top;">
                     <th class="column mobile-padding-bottom" width="255" style="padding-top: 10px; padding-right: 10px; text-align: left;">
-                      <a href="https://videoremixpool.com">
-                        <img src="https://videoremixpool.com/images/icon-white.png" width="78" alt="VIDEOREMIXPOOL.COM" style="border: 0; width: 100%; max-width: 38px;">
+                      <a href="http://localhost/readybpm">
+                        <img src="http://localhost/readybpm/images/icon-white.png" width="78" alt="ReadyBPM.COM" style="border: 0; width: 100%; max-width: 38px;">
                       </a>
                     </th>
                     <th class="column mobile-text-left" width="365" style="padding-left: 10px;">
                       <table align="right" class="mobile-left" cellpadding="10" cellspacing="0">
                         <tr>
                           <td style="padding-left: 0;">
-                            <a href="http://facebook.com/videoremixpool/" style="text-decoration: none;">
-                              <img src="https://videoremixpool.com/images/icons/facebook.png" width="24" alt="Twitter" style="border: 0; width: 100%; max-width: 24px;">
+                            <a href="https://www.facebook.com/profile.php?id=61576190996039" style="text-decoration: none;">
+                              <img src="http://localhost/readybpm/images/facebook.png" width="24" alt="Twitter" style="border: 0; width: 100%; max-width: 24px;">
                             </a>
                           </td>
                           <td>
-                            <a href="http://twitter.com/videoremixpool/" style="text-decoration: none;">
-                              <img src="https://videoremixpool.com/images/icons/twitter.png" width="24" alt="Facebook" style="border: 0; width: 100%; max-width: 24px;">
+                            <a href="https://www.instagram.com/readybpm/" style="text-decoration: none;">
+                              <img src="http://localhost/readybpm/images/instagram.png" width="24" alt="Facebook" style="border: 0; width: 100%; max-width: 24px;">
                             </a>
                           </td>
                         </tr>
@@ -370,15 +370,15 @@
                 <table class="row" cellpadding="0" cellspacing="0">
                   <tr valign="top" style="vertical-align: top;">
                     <th class="column mobile-6" width="200" style="padding-right: 10px; color: #969AA1; font-weight: 400; text-align: left;">
-                      <div class="sans-serif" style="font-size: 14px; font-weight: 700; margin-bottom: 15px;">VIDEOREMIXPOOL.COM</div>
+                      <div class="sans-serif" style="font-size: 14px; font-weight: 700; margin-bottom: 15px;">ReadyBPM.COM</div>
                     </th>
                     <th class="column mobile-6" width="420" style="padding-left: 10px; font-weight: 400; text-align: left;">
                       <div class="sans-serif" style="line-height: 100%; margin-bottom: 15px;">
-                        <a href="https://videoremixpool.com/faq/" style="color: #969AA1; text-decoration: none;">FAQ</a>
+                        <a href="http://localhost/readybpm/" style="color: #969AA1; text-decoration: none;">Visitar Sitio Web</a>
                       </div>
-                      <div class="sans-serif" style="line-height: 100%; margin-bottom: 15px;">
-                        <a href="https://videoremixpool.com" style="color: #969AA1; text-decoration: none;">Visitar Sitio Web</a>
-                      </div>
+                        <div class="sans-serif" style="line-height: 100%; margin-bottom: 15px;">
+                            <a href="http://localhost/readybpm/pages/terms_conditions/" style="color: #969AA1; text-decoration: none;">Terminos &amp; Condiciones</a>
+                        </div>
                     </th>
                   </tr>
                 </table>
@@ -388,22 +388,19 @@
                 <table class="row" cellpadding="0" cellspacing="0">
                   <tr>
                     <th class="column" width="640" style="color: #969AA1; font-weight: 400; text-align: left;">
-                      <div class="sans-serif">&copy; VideoRemixPool. Todos los derechos reservados <a href="https://videoremixpool.com" style="color: #969AA1; text-decoration: none;">Terminos &amp; Condiciones</a></div>
+                      <div class="sans-serif">&copy; ReadyBPM. Todos los derechos reservados</div>
                     </th>
                   </tr>
                   <tr>
                     <td class="spacer" height="30" style="font-size: 30px; line-height: 30px; mso-line-height-rule: exactly;">&nbsp;</td>
                   </tr>
                 </table>
-
               </th>
             </tr>
           </table>
           <!-- /Footer 1 -->
-
         </td>
       </tr>
     </table>
-
   </body>
 </html>

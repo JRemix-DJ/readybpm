@@ -26,7 +26,7 @@ class Micuenta extends CI_Controller {
 	public function index()
 	{
 		if($this->session->userdata('is_logued_in')){
-			$data['title']="Mi Cuenta - Video Remix Pool";
+			$data['title']="Mi Cuenta - ReadyBPM";
 			$data['description']="Detalles de tu cuenta";
 			$data['products']=$this->products_model->get_products();
 			$data['generos']=$this->genero_model->get_generos();
@@ -129,7 +129,7 @@ class Micuenta extends CI_Controller {
 			if($this->session->userdata('is_logued_in')){
 				$user_id = $this->session->userdata('id_usuario');
 				$product_id=$_POST['product_id'];
-				$tokens= $this->users_model->hasTokens($this->session->userdata('id_usuario'));
+				$tokens= $this->users_model->hasTokensVideo($this->session->userdata('id_usuario'));
 				if($tokens==false){
 					$tokenstotal = 0;
 				}else{
@@ -137,7 +137,7 @@ class Micuenta extends CI_Controller {
 				}
 				if($tokenstotal>0||$this->orders_model->user_files($user_id, $product_id)||$this->session->userdata('is_user_unlimited')){
 					$jsondata['success']=true;
-					$tokens = $this->users_model->hasTokens($this->session->userdata('id_usuario'));
+					$tokens = $this->users_model->hasTokensVideo($this->session->userdata('id_usuario'));
 					$jsondata['total_tokens']=$tokenstotal;
 					$jsondata['is_unlimited']=$this->session->userdata('is_user_unlimited');
 					$this->session->set_userdata('tokens', $tokenstotal);

@@ -162,8 +162,8 @@ Preloading Splash Screen
                          style="line-height: 1em; display: grid; align-content: center;">
                 <span style="line-height: 1em;" id="tokens_total">
                  <span id="cantidad_tokens_video"><? echo $this->session->userdata('tokens_video'); ?></span> <small
-                            style="font-size: 0.5em">DESCARGAS VIDEO</small> <br>                <span
-                            style="font-size: 0.6em">DISPONIBLES</span>
+                            style="font-size: 1em">DESCARGAS</small> <br>                <span
+                            style="font-size: 1em">DISPONIBLES</span>
                 </span>
                 </section>
             <? } ?>

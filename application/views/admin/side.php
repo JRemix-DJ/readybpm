@@ -125,10 +125,10 @@
             </div>
         </a>
         <ul class="sl-menu-sub nav flex-column">
-            <li class="nav-item"><a href="<? echo base_url() . 'admin/listar_ordenes/';?>" class="nav-link">Mostrar
-                Ordenes</a></li>
             <li class="nav-item"><a href="<? echo base_url() . 'admin/listar_ordenes_tokens/';?>" class="nav-link">Mostrar
-                Ordenes Tokens</a></li>
+                Ordenes</a></li>
+            <!--<li class="nav-item"><a href="<? echo base_url() . 'admin/listar_ordenes_tokens/';?>" class="nav-link">Mostrar
+                Ordenes Tokens</a></li>-->
         </ul>
         <? if($this->session->userdata('role') == 'is_admin'){ ?>
         <a href="<? echo base_url() . 'admin/pagos/'?>" class="sl-menu-link">

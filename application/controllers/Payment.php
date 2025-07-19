@@ -13,7 +13,7 @@ class Payment extends CI_Controller {
 
 	public function index()
 	{
-		$data['title']="Payment - Video Remix Pool";
+		$data['title']="Payment - ReadyBPM";
 		$data['description']="Detalles de tu pago";
 		$data['products']=$this->products_model->get_products();
 		$data['generos']=$this->genero_model->get_generos();
@@ -23,6 +23,21 @@ class Payment extends CI_Controller {
 		$this->load->view('payment');
 		$this->load->view('templates/footer', $data);
 	}
+
+    /**
+     * Página de "Gracias": A esta página es redirigido el usuario después de pagar.
+     * URL: http://tusitio.com/payment/tukuy_finalizado
+     */
+    public function tukuy_finalizado()
+    {
+        $data['title'] = "Pago Finalizado - ReadyBPM";
+        $data['description'] = "Gracias por tu compra.";
+        $data['generos'] = $this->genero_model->get_gender();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('finalizado');
+        $this->load->view('templates/footer', $data);
+    }
 
 	public function aplicar_orden(){
 		if($this->session->userdata('is_logued_in')){
@@ -284,90 +299,147 @@ class Payment extends CI_Controller {
 		}
 	}
 
-	function add_tokens_to_user($order_id, $renovacion=NULL){
-		$order = $this->orders_model->load_order_info($order_id);
-		$plan = $this->plan_model->load_plan_info($order->plan_id);
-		$plus_days_string = "+".$plan->duration." days";
-		//echo $plus_days_string;
-		$expiration = date("Y-m-d", strtotime($plus_days_string));
-		if($plan->tokens!=NULL && $plan->tokens!=0){
-			$data = array(
-				'tokens'		=>	$plan->tokens,
-				'order_id'		=>	$order->id,
-				'user_id'		=>	$order->user_id,
-				'expiration'	=> 	$expiration
-			);
-			$this->orders_model->insert_tokens_to_user($data);
-		}
+    /**
+     * Función para activar los beneficios del plan para un usuario.
+     * (Esta es una versión simplificada de tu función original)
+     * function add_tokens_to_user($order_id, $renovacion=NULL){
+     * $order = $this->orders_model->load_order_info($order_id);
+     * $plan = $this->plan_model->load_plan_info($order->plan_id);
+     * $plus_days_string = "+".$plan->duration." days";
+     * //echo $plus_days_string;
+     * $expiration = date("Y-m-d", strtotime($plus_days_string));
+     * if($plan->tokens!=NULL && $plan->tokens!=0){
+     * $data = array(
+     * 'tokens'        =>    $plan->tokens,
+     * 'order_id'        =>    $order->id,
+     * 'user_id'        =>    $order->user_id,
+     * 'expiration'    =>    $expiration
+     * );
+     * $this->orders_model->insert_tokens_to_user($data);
+     * }
+     *
+     * if($plan->tokens_video!=NULL && $plan->tokens_video!=0){
+     * $data = array(
+     * 'tokens_video'        =>    $plan->tokens_video,
+     * 'order_id'        =>    $order->id,
+     * 'user_id'        =>    $order->user_id,
+     * 'expiration'    =>    $expiration
+     * );
+     * $this->orders_model->insert_tokens_video_to_user($data);
+     * }
+     *
+     * if($plan->ilimitado_activo == 1){
+     * $plus_days_string_ilimitado = "+".$plan->ilimitado_dias." days";
+     * $expiration_ilimitado = date("Y-m-d", strtotime($plus_days_string_ilimitado));
+     * if($plan->ilimitado_activo==1){
+     * $data_ilimitado = array(
+     * 'end_date' => $expiration_ilimitado,
+     * 'user_id'        => $order->user_id,
+     * 'order_id'        =>    $order->id
+     * );
+     * $this->orders_model->add_unlimited($data_ilimitado);
+     * }
+     * }
+     *
+     * }
+     */
+    public function activar_manualmente($order_id = null)
+    {
+        // Proteger esta función para que solo los admins puedan usarla
+        if (!$this->session->userdata('is_logued_in') || $this->session->userdata('role') !== 'is_admin') {
+            echo "Acceso denegado.";
+            return;
+        }
 
-		if($plan->tokens_video!=NULL && $plan->tokens_video!=0){
-			$data = array(
-				'tokens_video'		=>	$plan->tokens_video,
-				'order_id'		=>	$order->id,
-				'user_id'		=>	$order->user_id,
-				'expiration'	=> 	$expiration
-			);
-			$this->orders_model->insert_tokens_video_to_user($data);
-		}
+        if (!$order_id) {
+            echo "Por favor, proporciona un ID de orden. Ejemplo: /payment/activar_manualmente/5";
+            return;
+        }
 
-		if($plan->ilimitado_activo == 1){
-			$plus_days_string_ilimitado = "+".$plan->ilimitado_dias." days";
-			$expiration_ilimitado = date("Y-m-d", strtotime($plus_days_string_ilimitado));
-			if($plan->ilimitado_activo==1){
-				$data_ilimitado = array(
-					'end_date' => $expiration_ilimitado,
-					'user_id'		=> $order->user_id,
-					'order_id'		=>	$order->id
-				);
-				$this->orders_model->add_unlimited($data_ilimitado);
-			}
-		}
-		
-	}
+        $order = $this->orders_model->load_order_info($order_id);
+        if ($order && $order->status == 0) {
+            $update_data = [
+                'status' => 1,
+                'txn_id' => 'MANUAL_' . time()
+            ];
+            $this->orders_model->update_order($order_id, $update_data);
+            $this->add_tokens_to_user($order_id);
+            echo "¡Éxito! La orden #{$order_id} ha sido activada manualmente.";
+        } else {
+            echo "Error: No se encontró una orden pendiente con el ID #{$order_id}.";
+        }
+    }
 
+    private function add_tokens_to_user($order_id)
+    {
+        $order = $this->orders_model->load_order_info($order_id);
+        if (!$order || !$order->plan_id) {
+            return;
+        }
 
-	public function done_tukuy(){
-		$post  = file_get_contents('php://input');
-		$data = json_decode($post);
-		$plan = $this->plan_model->load_plan_info_by_amount($data->amount);
-		$where = [
-			'email'=> $data->client_email
-		];
-		$user = $this->users_model->get_user_where_array($where);
-		if(!$plan||!$user){
-			$title = "VRP - NUEVO PAGO DE ".$data->client_name." - No se ha podido aplicar";
-			$mensaje = "
-			Detalles de la transacción:<br>
-			Monto: ".$data->amount."<br>
-			Email: ".$data->client_email."<br>
-			Nombre: ".$data->client_name."<br>
-			Fecha: ".$data->date."<br>
-			Transaction Details: ".$data->transaction_details."<br>
-			Plan: ".$data->plan."<br>
-			Success: ".$data->success."<br>
-			";
-			$this->send_received_message($title, $mensaje);
-			return;
-		}
-		if($data->success=="done"){
-			$data_order = array(
-				'user_id'		=>	$user->id,
-				'date_order'	=> 	date("Y-m-d H:i:s"),
-				'total_price'	=> 	$plan->price,
-				'status'		=> 	1,
-				'is_plan'		=>	1,
-				'plan_id'		=>	$plan->id,
-				'txn_id'		=> 	$data->transaction_details
-			);
-			$order_id = $this->orders_model->create_order_plan($data_order);
-			$this->add_tokens_to_user($order_id);
-			$this->send_notification_mail($order_id, $renovacion = 0);
-			$this->send_received_message("VRP - SE PROCESO EL PAGO", json_encode($post));
-			return;
-		}
+        $plan = $this->plan_model->load_plan_info($order->plan_id);
+        if (!$plan) {
+            return;
+        }
 
-	}
+        $plus_days_string = "+" . $plan->duration . " days";
+        $expiration = date("Y-m-d", strtotime($plus_days_string));
 
+        if ($plan->tokens_video != NULL && $plan->tokens_video != 0) {
+            $data = array(
+                'tokens_video' => $plan->tokens_video,
+                'order_id'     => $order->id,
+                'user_id'      => $order->user_id,
+                'expiration'   => $expiration
+            );
+            $this->orders_model->insert_tokens_video_to_user($data);
+        }
+
+        if ($plan->ilimitado_activo == 1) {
+            $plus_days_string_ilimitado = "+" . $plan->ilimitado_dias . " days";
+            $expiration_ilimitado = date("Y-m-d", strtotime($plus_days_string_ilimitado));
+            $data_ilimitado = array(
+                'end_date' => $expiration_ilimitado,
+                'user_id'  => $order->user_id,
+                'order_id' => $order->id
+            );
+            $this->orders_model->add_unlimited($data_ilimitado);
+        }
+    }
+
+    /**
+     * Webhook: Punto de entrada para la confirmación de pago de Tukuy.
+     * Esta URL la debes configurar en tu panel de Tukuy.
+     * URL: http://tusitio.com/payment/done_tukuy
+     */
+    public function done_tukuy()
+    {
+        // 1. Recibir los datos que envía Tukuy y guardarlos en un log para depuración
+        $post_data = file_get_contents('php://input');
+        $log_message = "[" . date('Y-m-d H:i:s') . "] Datos recibidos de Tukuy: " . $post_data . "\n";
+        file_put_contents(APPPATH . 'logs/tukuy_log.txt', $log_message, FILE_APPEND);
+
+        $data = json_decode($post_data);
+
+        if (!isset($data->success) || !isset($data->external_id) || !isset($data->transaction_details)) {
+            // Si faltan datos, no es una petición válida.
+            return;
+        }
+
+        if ($data->success == "done") {
+            $order_id = $data->external_id;
+            $order = $this->orders_model->load_order_info($order_id);
+
+            if ($order && $order->status == 0) {
+                $update_data = [
+                    'status' => 1,
+                    'txn_id' => $data->transaction_details
+                ];
+                $this->orders_model->update_order($order_id, $update_data);
+                $this->add_tokens_to_user($order_id);
+            }
+        }
+    }
 
 	public function send_received_message($title, $data)
 	{
