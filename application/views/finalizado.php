@@ -19,7 +19,7 @@
                 <div class="col-xs-12">
                     <div class="album-grid-wrap style2">
                         <div class="album-grid text-uppercase clearfix">
-                            <h3>GRACIAS POR TU PAGO, TU PLAN SE ACTUALIZARÁ AUTOMÁTICAMENTE.</h3>
+                            <h3>GRACIAS POR TU PAGO, TU PLAN SE ACTIVARÁ AUTOMÁTICAMENTE.</h3>
                         </div><!--album-grid-->
                     </div><!--album-grid-wrap-->
                 </div><!--column-->
