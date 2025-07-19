@@ -51,7 +51,7 @@ $('#myModalVideo').on('hidden.bs.modal', function (e) {
 });
 
 jQuery(function($) {
-    var base_url = "http://localhost/readybpm/index.php/";
+    var base_url = "https://readybpm.com/index.php/";
     "use strict";
     /*Table OF Contents
 	==========================

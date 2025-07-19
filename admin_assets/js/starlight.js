@@ -5,7 +5,7 @@
  */
 
  'use strict';
-var base_url = "http://localhost/readybpm/";
+var base_url = "https://readybpm.com/";
 
     $("#recuperar-btn").on('click', function(e){
         console.log('recuperando');

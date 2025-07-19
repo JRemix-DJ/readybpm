@@ -5,7 +5,7 @@
         <p><? echo $description; ?></p>
     </div><!-- sl-page-title -->
     <div class="top_btn">
-        <a href="http://localhost/readybpm/admin/nuevo_producto/" class="btn btn-success">
+        <a href="https://readybpm.com/admin/nuevo_producto/" class="btn btn-success">
             Añadir Nuevo
         </a>
     </div>
