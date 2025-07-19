@@ -5,9 +5,9 @@ window.onscroll = function() {
     if(window.pageYOffset>100){
         var currentScrollPos = window.pageYOffset;
         if (prevScrollpos > currentScrollPos) {
-          document.getElementById("sticktop").style.top = "0";
+            document.getElementById("sticktop").style.top = "0";
         } else {
-          document.getElementById("sticktop").style.top = "-100px";
+            document.getElementById("sticktop").style.top = "-100px";
         }
         prevScrollpos = currentScrollPos;
     }
@@ -31,16 +31,16 @@ $('#pagar_tarjeta').on('click', function(e){
         dataType: "html",
         url: base_url+"getplan/create_order/"
     })
-    .done(function(){
-    
-        console.log('go');
-        var r = confirm('Recuerda utilizar el mismo email ['+email_user+'] En el siguiente formulario. De esta forma tu plan será aplicado al instante. De lo contrario podría tardar unos minutos.');
-        if(r==true){
-            window.location = $(self).attr('href');
-        }else{
-            alert('Debes dar click en OK o Aceptar en la caja de confirmación, por favor procede de nuevo');
-        }
-    })
+        .done(function(){
+
+            console.log('go');
+            var r = confirm('Recuerda utilizar el mismo email ['+email_user+'] En el siguiente formulario. De esta forma tu plan serÃ¡ aplicado al instante. De lo contrario podrÃ­a tardar unos minutos.');
+            if(r==true){
+                window.location = $(self).attr('href');
+            }else{
+                alert('Debes dar click en OK o Aceptar en la caja de confirmaciÃ³n, por favor procede de nuevo');
+            }
+        })
     console.log('end');
 });
 
@@ -79,28 +79,28 @@ jQuery(function($) {
     ========================*/
     var xv_ww = $(window).width(),
         xv_slideshow = true;
-    
+
     // $('#ajaxArea').ajaxify({
     //     forms: false,
     //     requestDelay:500
     // });
-    
-	$(window).on('pronto.render', function(event, eventInfo){
+
+    $(window).on('pronto.render', function(event, eventInfo){
         $('html, body').animate({scrollTop: 0});
-		suonoApp();
-		$('.pageLoader').removeClass("active");
-	});
-	
+        suonoApp();
+        $('.pageLoader').removeClass("active");
+    });
+
     $(window).on('pronto.request', function(event, eventInfo){
-		$('.pageLoader').addClass("active");
-	});
-    
+        $('.pageLoader').addClass("active");
+    });
+
     /*====================
     Main
     =====================*/
 
     $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
+        $('[data-toggle="tooltip"]').tooltip()
     })
     function contactemaps(selector_map, address, type, zoom_lvl, map_theme) {
         var map = new google.maps.Map(document.getElementById(selector_map), {
@@ -138,84 +138,40 @@ jQuery(function($) {
             dataType: "json",
             url: base_url+"micuenta/descargar_producto_video/"
         })
-        .done(function(data){
-            if(data.success){
-                console.log(data);
-                var parent_div = '.player-'+product_id;
-                $(parent_div).addClass('archivo_cliente');
-                if(!data.is_unlimited){
-                    $('#cantidad_tokens_video').html(data.total_tokens);
-                }
-                window.location.assign(base_url+'products/descargar_producto_video/'+product_id);
-                $.ajax({
-                    type: "POST",
-                    //contentType: "application/json",
-                    dataType: "json",
-                    url: base_url+"micuenta/hasTokensPostVideo/"
-                }).done(function(data2){
-                    console.log(data2);
-                    if(!data.is_unlimited){
-                        $('#cantidad_tokens_video').html(data2.tokens_video);
-                    }
-                }).fail(function(){
-                    console.log('No se pudo actualizar los tokens');
-                    //alert('Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com. Código: ERR-P-HTPV');
-                });
-            }else{
-                if(data.message=="NOTOKENS"){
-                    console.log('entro no tokens');
-                    $('#messagesModal').modal('show');
-                    $('#messagesModal .modal-title').empty();
-                    $('#messagesModal .modal-title').append('<i class="fa fa-exclamation-triangle"></i> NO POSEES DESCARGAS DISPONIBLES PARA VIDEO');
-                    $('#messagesModal .modal-body').empty();
-                    $('#messagesModal .modal-body').append('Obtén uno de nuestros planes de DESCARGAS en el siguiente enlace para que continues disfrutando de nuestro contenido<br> <a href="'+base_url+'planes/" class="btn btn-default">Comprar Planes</a>');
-
-                }
-                if(data.message=="NOLOGGUEDIN"){
-                    $('#myModal').modal('show');
-                    $('#myModal .modal-body .alert').remove();
-                    $('#myModal .modal-body').append('<div class="alert alert-danger">Necesitas estar logueado y adquirir uno de nuestros planes para poder descargar este contenido</div>');
-                }
-                console.log(data.message);
-                //alert(data.message);
-            }
-        })
-        .fail(function(){ 
-            alert('Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com. Código: ERR-MC-DPV');
-        });
-    });
-
-
-
-    $('.downloadButton').on('click', function(e){
-        e.preventDefault();
-        var product_id = $(this).data('id');
-        var promise = $.ajax({
-                data:{
-                    product_id : product_id,
-                },
-                type: "POST",
-                dataType: "json",
-                async: true,
-                url: base_url+"micuenta/descargar_producto/"
-            })
             .done(function(data){
                 if(data.success){
                     console.log(data);
                     var parent_div = '.player-'+product_id;
                     $(parent_div).addClass('archivo_cliente');
                     if(!data.is_unlimited){
-                        $('#cantidad_tokens').html(data.total_tokens);
+                        $('#cantidad_tokens_video').html(data.total_tokens);
                     }
-                    window.location.assign(base_url+'products/descargar_producto/'+product_id);
+                    window.location.assign(base_url+'products/descargar_producto_video/'+product_id);
+                    setTimeout(function() {
+                        location.reload();
+                    }, 2000);
+                    $.ajax({
+                        type: "POST",
+                        //contentType: "application/json",
+                        dataType: "json",
+                        url: base_url+"micuenta/hasTokensPostVideo/"
+                    }).done(function(data2){
+                        console.log(data2);
+                        if(!data.is_unlimited){
+                            $('#cantidad_tokens_video').html(data2.tokens_video);
+                        }
+                    }).fail(function(){
+                        console.log('No se pudo actualizar los tokens');
+                        //alert('Algo extraÃ±o ha ocurrido ðŸ¤” envÃ­a un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com. CÃ³digo: ERR-P-HTPV');
+                    });
                 }else{
                     if(data.message=="NOTOKENS"){
                         console.log('entro no tokens');
                         $('#messagesModal').modal('show');
                         $('#messagesModal .modal-title').empty();
-                        $('#messagesModal .modal-title').append('<i class="fa fa-exclamation-triangle"></i> NO POSEES DESCARGAS DISPONIBLES');
+                        $('#messagesModal .modal-title').append('<i class="fa fa-exclamation-triangle"></i> NO POSEES DESCARGAS DISPONIBLES PARA VIDEO');
                         $('#messagesModal .modal-body').empty();
-                        $('#messagesModal .modal-body').append('Obtén uno de nuestros planes de DESCARGAS en el siguiente enlace para que continues disfrutando de nuestro contenido<br> <a href="'+base_url+'planes/" class="btn btn-default">Comprar Planes</a>');
+                        $('#messagesModal .modal-body').append('ObtÃ©n uno de nuestros planes de DESCARGAS en el siguiente enlace para que continues disfrutando de nuestro contenido<br> <a href="'+base_url+'planes/" class="btn btn-default">Comprar Planes</a>');
 
                     }
                     if(data.message=="NOLOGGUEDIN"){
@@ -227,8 +183,58 @@ jQuery(function($) {
                     //alert(data.message);
                 }
             })
-            .fail(function(){ 
-                alert('Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com. Codigo: ERR-MC-DP');
+            .fail(function(){
+                alert('Algo extraÃ±o ha ocurrido ðŸ¤” envÃ­a un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com. CÃ³digo: ERR-MC-DPV');
+            });
+    });
+
+
+
+    $('.downloadButton').on('click', function(e){
+        e.preventDefault();
+        var product_id = $(this).data('id');
+        var promise = $.ajax({
+            data:{
+                product_id : product_id,
+            },
+            type: "POST",
+            dataType: "json",
+            async: true,
+            url: base_url+"micuenta/descargar_producto/"
+        })
+            .done(function(data){
+                if(data.success){
+                    console.log(data);
+                    var parent_div = '.player-'+product_id;
+                    $(parent_div).addClass('archivo_cliente');
+                    if(!data.is_unlimited){
+                        $('#cantidad_tokens').html(data.total_tokens);
+                    }
+                    window.location.assign(base_url+'products/descargar_producto/'+product_id);
+                    setTimeout(function() {
+                        location.reload();
+                    }, 2000);
+                }else{
+                    if(data.message=="NOTOKENS"){
+                        console.log('entro no tokens');
+                        $('#messagesModal').modal('show');
+                        $('#messagesModal .modal-title').empty();
+                        $('#messagesModal .modal-title').append('<i class="fa fa-exclamation-triangle"></i> NO POSEES DESCARGAS DISPONIBLES');
+                        $('#messagesModal .modal-body').empty();
+                        $('#messagesModal .modal-body').append('ObtÃ©n uno de nuestros planes de DESCARGAS en el siguiente enlace para que continues disfrutando de nuestro contenido<br> <a href="'+base_url+'planes/" class="btn btn-default">Comprar Planes</a>');
+
+                    }
+                    if(data.message=="NOLOGGUEDIN"){
+                        $('#myModal').modal('show');
+                        $('#myModal .modal-body .alert').remove();
+                        $('#myModal .modal-body').append('<div class="alert alert-danger">Necesitas estar logueado y adquirir uno de nuestros planes para poder descargar este contenido</div>');
+                    }
+                    console.log(data.message);
+                    //alert(data.message);
+                }
+            })
+            .fail(function(){
+                alert('Algo extraÃ±o ha ocurrido ðŸ¤” envÃ­a un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com. Codigo: ERR-MC-DP');
             });
         promise.then(function(){
             $.ajax({
@@ -249,7 +255,7 @@ jQuery(function($) {
                     }
                 }
             }).fail(function(){
-                //alert('Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com. Código: ERR-MC-HTP');
+                //alert('Algo extraÃ±o ha ocurrido ðŸ¤” envÃ­a un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com. CÃ³digo: ERR-MC-HTP');
             });
         })
     });
@@ -269,20 +275,20 @@ jQuery(function($) {
             //contentType: "application/json",
             url: base_url+"cart/acciones/add_to_cart/"
         })
-        .done(function(data){
-            if(data.success){
-                //console.log('añadido');
-                //console.log(data);
-                updateMiniCart(data.cart_count);
-                console.log(data.cart_count);
-                showAddedToCart(producto, button_position, box_width);
-            }else{
-                alert(data.message);
-            }
-        })  
-        .fail(function(){
-            alert('Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com');
-        });
+            .done(function(data){
+                if(data.success){
+                    //console.log('aÃ±adido');
+                    //console.log(data);
+                    updateMiniCart(data.cart_count);
+                    console.log(data.cart_count);
+                    showAddedToCart(producto, button_position, box_width);
+                }else{
+                    alert(data.message);
+                }
+            })
+            .fail(function(){
+                alert('Algo extraÃ±o ha ocurrido ðŸ¤” envÃ­a un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com');
+            });
     });
 
     function showAddedToCart(id, button_position, box_width){
@@ -320,17 +326,17 @@ jQuery(function($) {
             //contentType: "application/json",
             url: base_url+"cart/applyCupon/"
         })
-        .done(function(data){
-            if(data.success){
-                alert(data.message);
-                location.reload();
-            }else{
-                alert(data.message);
-            }
-        })
-        .fail(function(){ 
-            alert('Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com');
-        });
+            .done(function(data){
+                if(data.success){
+                    alert(data.message);
+                    location.reload();
+                }else{
+                    alert(data.message);
+                }
+            })
+            .fail(function(){
+                alert('Algo extraÃ±o ha ocurrido ðŸ¤” envÃ­a un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com');
+            });
     });
 
     $('#removeCupon').on('click', function(e){
@@ -341,17 +347,17 @@ jQuery(function($) {
             //contentType: "application/json",
             url: base_url+"cart/removeCupon/"
         })
-        .done(function(data){
-            if(data.success){
-                alert(data.message);
-                location.reload();
-            }else{
-                alert(data.message);
-            }
-        })
-        .fail(function(){ 
-            alert('Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com');
-        });
+            .done(function(data){
+                if(data.success){
+                    alert(data.message);
+                    location.reload();
+                }else{
+                    alert(data.message);
+                }
+            })
+            .fail(function(){
+                alert('Algo extraÃ±o ha ocurrido ðŸ¤” envÃ­a un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com');
+            });
     });
 
 
@@ -367,16 +373,16 @@ jQuery(function($) {
             //contentType: "application/json",
             url: base_url+"login/front/"
         })
-        .done(function(data){
-            if(data.success){
-                location.reload();
-            }else{
-                alert(data.message);
-            }
-        })
-        .fail(function(){ 
-            alert('Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com');
-        });
+            .done(function(data){
+                if(data.success){
+                    location.reload();
+                }else{
+                    alert(data.message);
+                }
+            })
+            .fail(function(){
+                alert('Algo extraÃ±o ha ocurrido ðŸ¤” envÃ­a un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com');
+            });
     });
 
     $("#myModalRecuperar").on("shown.bs.modal", function(){
@@ -394,17 +400,17 @@ jQuery(function($) {
             dataType: "json",
             url: base_url+"login/recuperar_contrasena/"
         })
-        .done(function(data){
-            if(data.success){
-                alert(data.message);
-                location.reload();
-            }else{
-                alert(data.message);
-            }
-        })
-        .fail(function(){ 
-            alert('Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com');
-        });
+            .done(function(data){
+                if(data.success){
+                    alert(data.message);
+                    location.reload();
+                }else{
+                    alert(data.message);
+                }
+            })
+            .fail(function(){
+                alert('Algo extraÃ±o ha ocurrido ðŸ¤” envÃ­a un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com');
+            });
     });
 
     $('#cambiarpass').on('click', function(e){
@@ -425,18 +431,18 @@ jQuery(function($) {
                     //contentType: "application/json",
                     url: base_url + 'users/changepass/'
                 })
-                .done(function(data){
-                    if(data.success){
-                        alert('Tu contraseña ha sido modificada. Serás redirigido para que ingreses.');
-                        location.href ="https://videoremixpool.com";
-                    }else{
-                        alert('Algo ha salido mal, intentalo más tarde');
-                    }
-                })
-                .fail(function(data){
-                    alert('Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com');
-                    return false;
-                });
+                    .done(function(data){
+                        if(data.success){
+                            alert('Tu contraseÃ±a ha sido modificada. SerÃ¡s redirigido para que ingreses.');
+                            location.href ="https://videoremixpool.com";
+                        }else{
+                            alert('Algo ha salido mal, intentalo mÃ¡s tarde');
+                        }
+                    })
+                    .fail(function(data){
+                        alert('Algo extraÃ±o ha ocurrido ðŸ¤” envÃ­a un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com');
+                        return false;
+                    });
             }
         }else{
             alert("Ambos campos deben estar llenos");
@@ -467,22 +473,22 @@ jQuery(function($) {
                     //contentType: "application/json",
                     url: base_url + 'users/registro/'
                 })
-                .done(function(data){
-                    if(data.respuesta=="email_existe"){
-                        alert('Este e-mail ya esta registrado');
-                    }else if(data.respuesta=="username_existe"){    
-                        alert('Este username ya esta registrado');
-                    }else{
-                        if(data.respuesta=='ok'){
-                            $('#registrar-form').trigger("reset");
-                            alert("Gracias por registrarte. Ya puedes ingresar.");
-                            location.reload();
+                    .done(function(data){
+                        if(data.respuesta=="email_existe"){
+                            alert('Este e-mail ya esta registrado');
+                        }else if(data.respuesta=="username_existe"){
+                            alert('Este username ya esta registrado');
+                        }else{
+                            if(data.respuesta=='ok'){
+                                $('#registrar-form').trigger("reset");
+                                alert("Gracias por registrarte. Ya puedes ingresar.");
+                                location.reload();
+                            }
                         }
-                    }
-                })
-                .fail(function(){
-                    alert('Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com');
-                });
+                    })
+                    .fail(function(){
+                        alert('Algo extraÃ±o ha ocurrido ðŸ¤” envÃ­a un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com');
+                    });
             }
         }else{
             alert('Todos los campos son obligatorios');
@@ -504,7 +510,7 @@ jQuery(function($) {
     //     .done(function(data){
     //         if(data.success){
     //             $('#custom').val(data.order_id);
-    //             console.log('añadida orden');
+    //             console.log('aÃ±adida orden');
     //             $('#pagarpaypal').submit();
     //             return true;
     //         }else{
@@ -512,8 +518,8 @@ jQuery(function($) {
     //         }
     //     })
     //     .fail(function(){
-    //         alert('Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com');
-    //         e.preventDefault(); 
+    //         alert('Algo extraÃ±o ha ocurrido ðŸ¤” envÃ­a un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com');
+    //         e.preventDefault();
     //     });
     // })
 
@@ -528,17 +534,17 @@ jQuery(function($) {
             //contentType: "application/json",
             url: base_url+"cart/acciones/remove_from_cart/"
         })
-        .done(function(data){
-            if(data.success){
-                console.log('eliminado');
-                location.reload();
-            }else{
-                alert(data.message);
-            }
-        })
-        .fail(function(){
-            alert('Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com');
-        });
+            .done(function(data){
+                if(data.success){
+                    console.log('eliminado');
+                    location.reload();
+                }else{
+                    alert(data.message);
+                }
+            })
+            .fail(function(){
+                alert('Algo extraÃ±o ha ocurrido ðŸ¤” envÃ­a un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com');
+            });
     });
 
 
@@ -578,7 +584,7 @@ jQuery(function($) {
             slideshowSpeed: 5000,
             slideshow: true,
             direction: "horizontal", //Direction of slides
-          
+
         });
         if ($('.xv_slider').length !== 0) {
             $('.xv_slide').each(function() {
@@ -793,16 +799,16 @@ jQuery(function($) {
                         //contentType: "application/json",
                         url: base_url+"pages/ser_miembro_mail/"
                     })
-                    .done(function(data){
-                        if(data.success){
-                            alert("Mensaje Enviado. Gracias");
-                        }else{
-                            alert(data.message);
-                        }
-                    })  
-                    .fail(function(){
-                        alert('Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com');
-                    });
+                        .done(function(data){
+                            if(data.success){
+                                alert("Mensaje Enviado. Gracias");
+                            }else{
+                                alert(data.message);
+                            }
+                        })
+                        .fail(function(){
+                            alert('Algo extraÃ±o ha ocurrido ðŸ¤” envÃ­a un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com');
+                        });
                 }else{
                     alert("Formato de correo erroneo, por favor confirma que todo este bien escrito");
                 }
@@ -812,23 +818,23 @@ jQuery(function($) {
         /*============================
         Player for Individual Songs
         ==============================*/
-          // $("#jquery_jplayer_1").jPlayer({
-          //   ready: function () {
-          //     $(this).jPlayer("setMedia", {
-          //       mp3: 'https://videoremixpool.com/assets/demo/demo.mp3'
-          //     });
-          //   },
-          //   cssSelectorAncestor: "#jp_container_1",
-          //   swfPath: "/js/jplayer",
-          //   supplied: "mp3",
-          //   useStateClassSkin: true,
-          //   autoBlur: false,
-          //   smoothPlayBar: true,
-          //   keyEnabled: true,
-          //   remainingDuration: true,
-          //   toggleDuration: true,
-          //   errorAlerts: true,
-          // });
+        // $("#jquery_jplayer_1").jPlayer({
+        //   ready: function () {
+        //     $(this).jPlayer("setMedia", {
+        //       mp3: 'https://videoremixpool.com/assets/demo/demo.mp3'
+        //     });
+        //   },
+        //   cssSelectorAncestor: "#jp_container_1",
+        //   swfPath: "/js/jplayer",
+        //   supplied: "mp3",
+        //   useStateClassSkin: true,
+        //   autoBlur: false,
+        //   smoothPlayBar: true,
+        //   keyEnabled: true,
+        //   remainingDuration: true,
+        //   toggleDuration: true,
+        //   errorAlerts: true,
+        // });
         var classPlay="fa fa-play-circle-o";
         var classPause="fa fa-stop-circle-o";
         function is_active(div){
@@ -855,7 +861,7 @@ jQuery(function($) {
                 }
             }
         }
-        
+
         if ($(".singleSongPlayer").length) {
             $('.singleSong-jplayer').on('click', function() {
                 //console.log('row_click');
@@ -866,40 +872,40 @@ jQuery(function($) {
                         temp_wrap = "#" + $(this).closest('tr').attr("id");
                     var audio_wrap = $(this).closest('tr').attr("id");
 
-                        //console.log('audio wrap is '+audio_wrap);
-                        var div = $(this).find('.boton-play').removeClass();
-                        div.addClass(classPause);
+                    //console.log('audio wrap is '+audio_wrap);
+                    var div = $(this).find('.boton-play').removeClass();
+                    div.addClass(classPause);
 
-                        $("#jquery_jplayer_1").attr('data-audio-id', audio_wrap);
-                        $("#jquery_jplayer_1").jPlayer("destroy");
-                        $("#jquery_jplayer_1").jPlayer({
-                            ready: function () {
-                              $(this).jPlayer("setMedia", {
+                    $("#jquery_jplayer_1").attr('data-audio-id', audio_wrap);
+                    $("#jquery_jplayer_1").jPlayer("destroy");
+                    $("#jquery_jplayer_1").jPlayer({
+                        ready: function () {
+                            $(this).jPlayer("setMedia", {
                                 mp3: temp_song
-                              });
-                            },
-                            pause: function() {
-                                var rowid='#'+$(this).attr('data-audio-id');
-                                $(rowid).find('.boton-play').removeClass().addClass(classPlay);
-                            },
-                            play: function() {
-                                var rowid='#'+$(this).attr('data-audio-id');
-                                $(rowid).find('.boton-play').removeClass().addClass(classPause);
-                            },
-                            cssSelectorAncestor: "#jp_container_1",
-                            swfPath: "/js/jplayer",
-                            supplied: "mp3",
-                            useStateClassSkin: true,
-                            autoBlur: false,
-                            smoothPlayBar: true,
-                            keyEnabled: true,
-                            remainingDuration: true,
-                            toggleDuration: true,
-                            errorAlerts: true,
-                          });
-                        setTimeout(function(){ 
-                            $("#jquery_jplayer_1").jPlayer("play");
-                        }, 100);
+                            });
+                        },
+                        pause: function() {
+                            var rowid='#'+$(this).attr('data-audio-id');
+                            $(rowid).find('.boton-play').removeClass().addClass(classPlay);
+                        },
+                        play: function() {
+                            var rowid='#'+$(this).attr('data-audio-id');
+                            $(rowid).find('.boton-play').removeClass().addClass(classPause);
+                        },
+                        cssSelectorAncestor: "#jp_container_1",
+                        swfPath: "/js/jplayer",
+                        supplied: "mp3",
+                        useStateClassSkin: true,
+                        autoBlur: false,
+                        smoothPlayBar: true,
+                        keyEnabled: true,
+                        remainingDuration: true,
+                        toggleDuration: true,
+                        errorAlerts: true,
+                    });
+                    setTimeout(function(){
+                        $("#jquery_jplayer_1").jPlayer("play");
+                    }, 100);
                 }
 
             });
@@ -933,7 +939,7 @@ jQuery(function($) {
             }
         }
         $('#myModalTerms').hide();
-        $('#myModalVideo').hide();  
+        $('#myModalVideo').hide();
         $('.modal-backdrop').remove(); // the modal hide call to remove the modal.
         this.document.body.classList.remove('modal-open'); // work around a bug in ngx-bootstrap
 
@@ -953,43 +959,43 @@ jQuery(function($) {
                         temp_title = $(this).attr('data-title'),
                         temp_wrap = "#" + $(this).closest('tr').attr("id");
                     var audio_wrap = $(this).closest('tr').attr("id");
-                        var modalVideo = $('#myModalVideo').modal('show');
-                        modalVideo.find('.modal-header h4').remove();
-                        modalVideo.find('.modal-header').append('<h4>Preview: '+temp_title+'</h4>');
-                        //console.log('audio wrap is '+audio_wrap);
-                        var div = $(this).removeClass('play');
-                        div.addClass(classPauseVideo);
+                    var modalVideo = $('#myModalVideo').modal('show');
+                    modalVideo.find('.modal-header h4').remove();
+                    modalVideo.find('.modal-header').append('<h4>Preview: '+temp_title+'</h4>');
+                    //console.log('audio wrap is '+audio_wrap);
+                    var div = $(this).removeClass('play');
+                    div.addClass(classPauseVideo);
 
-                        $("#jquery_jplayer_2").attr('data-video-id', audio_wrap);
-                        $("#jquery_jplayer_2").jPlayer("destroy");
-                        $("#jquery_jplayer_2").jPlayer({
-                            ready: function () {
-                              $(this).jPlayer("setMedia", {
+                    $("#jquery_jplayer_2").attr('data-video-id', audio_wrap);
+                    $("#jquery_jplayer_2").jPlayer("destroy");
+                    $("#jquery_jplayer_2").jPlayer({
+                        ready: function () {
+                            $(this).jPlayer("setMedia", {
                                 m4v: temp_song
-                              });
-                            },
-                            pause: function() {
-                                var rowid='#'+$(this).attr('data-video-id');
-                                $(rowid).find('.thumb_container').removeClass('play').addClass(classPlayVideo);
-                            },
-                            play: function() {
-                                var rowid='#'+$(this).attr('data-video-id');
-                                $(rowid).find('.thumb_container').removeClass('pausa').addClass(classPauseVideo);
-                            },
-                            cssSelectorAncestor: "#jp_container_2",
-                            swfPath: "/js/jplayer",
-                            supplied: "m4v",
-                            useStateClassSkin: true,
-                            autoBlur: false,
-                            smoothPlayBar: true,
-                            keyEnabled: true,
-                            remainingDuration: true,
-                            toggleDuration: true,
-                            errorAlerts: true,
-                          });
-                        setTimeout(function(){ 
-                            $("#jquery_jplayer_2").jPlayer("play");
-                        }, 100);
+                            });
+                        },
+                        pause: function() {
+                            var rowid='#'+$(this).attr('data-video-id');
+                            $(rowid).find('.thumb_container').removeClass('play').addClass(classPlayVideo);
+                        },
+                        play: function() {
+                            var rowid='#'+$(this).attr('data-video-id');
+                            $(rowid).find('.thumb_container').removeClass('pausa').addClass(classPauseVideo);
+                        },
+                        cssSelectorAncestor: "#jp_container_2",
+                        swfPath: "/js/jplayer",
+                        supplied: "m4v",
+                        useStateClassSkin: true,
+                        autoBlur: false,
+                        smoothPlayBar: true,
+                        keyEnabled: true,
+                        remainingDuration: true,
+                        toggleDuration: true,
+                        errorAlerts: true,
+                    });
+                    setTimeout(function(){
+                        $("#jquery_jplayer_2").jPlayer("play");
+                    }, 100);
                 }
 
             });
@@ -1006,7 +1012,7 @@ jQuery(function($) {
                 gutter: 0
             });
         }
-        
+
         /*==============================
         Events Slider
         ==========================*/
@@ -1027,40 +1033,40 @@ jQuery(function($) {
             hideControlOnEnd:true
         });
 
-        
+
         /*===========================
         Contact
         ============================*/
         function IsEmail(email) {
-			var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-			return regex.test(email);
-		}
-		
-		if($("#contactForm").length!=0){
-			$("#contactForm").submit(function (e) {
-				e.preventDefault();
-				var name = $("#xv_name").val(),
-				email = $("#xv_email").val(),
-				message = $("#xv_message").val(),
-				dataString = 'name=' + name + '&email=' + email + '&message=' + message;
-		
-				if (name === '' || !IsEmail(email) || message === '') {  
+            var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            return regex.test(email);
+        }
+
+        if($("#contactForm").length!=0){
+            $("#contactForm").submit(function (e) {
+                e.preventDefault();
+                var name = $("#xv_name").val(),
+                    email = $("#xv_email").val(),
+                    message = $("#xv_message").val(),
+                    dataString = 'name=' + name + '&email=' + email + '&message=' + message;
+
+                if (name === '' || !IsEmail(email) || message === '') {
                     $(".validationError").show();
-				} else {
-					$.ajax({
-						type: "POST",
-						url: "assets/php/submit.php",
-						data: dataString,
-						success: function () {
-							$('#contactForm').slideUp();
-							$(".messageSentSuccess").fadeIn();
-						}
-					});
-				}
-				return false;
-			});
-		}
-           
+                } else {
+                    $.ajax({
+                        type: "POST",
+                        url: "assets/php/submit.php",
+                        data: dataString,
+                        success: function () {
+                            $('#contactForm').slideUp();
+                            $(".messageSentSuccess").fadeIn();
+                        }
+                    });
+                }
+                return false;
+            });
+        }
+
         /*============================
 		Google Maps
         ============================*/
@@ -1439,7 +1445,7 @@ jQuery(function($) {
     /*======================================
     Menu
     ======================================*/
-    
+
     $("#sticktop").sticky({
         topSpacing: 0
     });
@@ -1460,27 +1466,27 @@ jQuery(function($) {
             $this.parent().addClass("active");
         }
     });
-    
+
     $("body").on("click",".dl-menu > li > ul > li > a",function(e){
         if(!$(this).hasClass("backLvl")){
             $(".dl-menu").removeClass("backed");
             $(".dl-menu").removeClass("xvMenuShow");
         }
-        
+
     });
-    
+
     $("body").on("click",".menuTrigger",function(e){
         e.preventDefault();
         $(".dl-menu").toggleClass("xvMenuShow");
     });
-    
+
     $("body").on("click",".backLvl",function(e){
         var $this = $(this);
         e.preventDefault();
         $this.parents(".dl-submenu").removeClass("expand");
         $this.parents(".dl-menu").removeClass("backed");
     });
-    
+
     $(".dl-submenu").each(function(){
         var $this = $(this);
         $this.prepend('<li class="gobackLvl"><a class="backLvl" href="#"><i class="fa fa-long-arrow-left"></i>Go Back</li>');
@@ -1638,9 +1644,8 @@ jQuery(function($) {
         });
     } /*wave init funtion*/
 
-
     if ($wavePlayer.length) {
-      	var waveSurfer;
+        var waveSurfer;
         if (WaveSurfer.Swf.supportsAudioContext() && WaveSurfer.Swf.supportsCanvas()) {
             waveSurfer = Object.create(WaveSurfer);
             onWaveSurferInitialized(waveSurfer);
@@ -1654,5 +1659,4 @@ jQuery(function($) {
             });
         }
     }
-
 });
