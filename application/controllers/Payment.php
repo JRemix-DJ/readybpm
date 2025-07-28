@@ -470,9 +470,8 @@ class Payment extends CI_Controller {
 		$config['mailtype'] = 'html'; // or html
 		$config['validation'] = TRUE; // bool whether to validate email or not      
 		$this->email->initialize($config);
-		$this->email->from('dalemasbajo@gmail.com', 'VIDEO REMIX POOL');
-		$this->email->to('dalemasbajo@gmail.com');
-		//$this->email->cc('o.reyes@shiftandcontrol.com');
+		$this->email->from('support@readybpm.com', 'ReadyBPM');
+		$this->email->to('support@readybpm.com');
 		$this->email->subject($title);
 		$this->email->message($data);
 		$this->email->send();
@@ -549,7 +548,7 @@ class Payment extends CI_Controller {
 
 		$this->email->initialize($config);
 
-		$this->email->from('dalemasbajo@gmail.com', 'Video Remix Pool');
+		$this->email->from('support@readybpm.com', 'ReadyBPM');
 
 		$orden = $this->orders_model->load_order_info($order_id);
 		if($orden->cupon_id!=null){
@@ -575,8 +574,8 @@ class Payment extends CI_Controller {
 
 		//print_r($items);
 		$this->email->to($user->email);
-		if ($user->email != "mauricio@shiftandcontrol.com") {
-			$this->email->bcc('dalemasbajo@gmail.com');
+		if ($user->email != "user@test.com") {
+			$this->email->bcc('support@readybpm.com');
 		}if ($renovacion == 1) {
 			$mensaje = 'Gracias por renovar tu plan';
 		}else {

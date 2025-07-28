@@ -147,7 +147,7 @@
             <tr>
               <th class="column" width="640" style="padding-left: 30px; padding-right: 30px; text-align: left;">
                 <a href="http://example.com" style="text-decoration: none;">
-                  <img class="mobile-center" src="https://readybpm.com/images/logo.png" width="105" alt="ReadyBPM" style="border: 0; width: 100%; max-width: 105px;">
+                  <img class="mobile-center" src="http://localhost/readybpm/images/logo.png" width="105" alt="ReadyBPM" style="border: 0; width: 100%; max-width: 105px;">
                 </a>
               </th>
             </tr>
@@ -207,7 +207,7 @@
                   <tr valign="top" style="vertical-align: top;">
                     <th class="column mobile-padding-bottom" width="255" style="padding-top: 10px; padding-right: 10px; text-align: left;">
                       <a href="https://readybpm.com">
-                        <img src="https://readybpm.com/images/icon-white.png" width="78" alt="ReadyBPM" style="border: 0; width: 100%; max-width: 38px;">
+                        <img src="http://localhost/readybpm/images/icon-white.png" width="78" alt="ReadyBPM" style="border: 0; width: 100%; max-width: 38px;">
                       </a>
                     </th>
                     <th class="column mobile-text-left" width="365" style="padding-left: 10px;">
@@ -215,12 +215,12 @@
                         <tr>
                           <td style="padding-left: 0;">
                             <a href="https://www.facebook.com/profile.php?id=61576190996039" style="text-decoration: none;">
-                              <img src="https://readybpm.com/images/icons/facebook.png" width="24" alt="Facebook" style="border: 0; width: 100%; max-width: 24px;">
+                              <img src="http://localhost/readybpm/images/icons/facebook.png" width="24" alt="Facebook" style="border: 0; width: 100%; max-width: 24px;">
                             </a>
                           </td>
                           <td>
                             <a href="https://www.instagram.com/readybpm/" style="text-decoration: none;">
-                              <img src="https://readybpm.com/images/instagram.png" width="24" alt="Instagram" style="border: 0; width: 100%; max-width: 24px;">
+                              <img src="http://localhost/readybpm/images/instagram.png" width="24" alt="Instagram" style="border: 0; width: 100%; max-width: 24px;">
                             </a>
                           </td>
                         </tr>
@@ -244,7 +244,7 @@
                     </th>
                     <th class="column mobile-6" width="420" style="padding-left: 10px; font-weight: 400; text-align: left;">
                       <div class="sans-serif" style="line-height: 100%; margin-bottom: 15px;">
-                        <a href="https://readybpm.com/faq/" style="color: #969AA1; text-decoration: none;">FAQ</a>
+                        <a href="http://localhost/readybpm/faq/" style="color: #969AA1; text-decoration: none;">FAQ</a>
                       </div>
                       <div class="sans-serif" style="line-height: 100%; margin-bottom: 15px;">
                         <a href="https://readybpm.com" style="color: #969AA1; text-decoration: none;">Visitar Sitio Web</a>

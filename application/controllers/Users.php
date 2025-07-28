@@ -379,7 +379,7 @@ class Users extends CI_Controller
 
         $this->email->initialize($config);
 
-        $this->email->from('dalemasbajo@gmail.com' , 'Video Remix Pool');
+        $this->email->from('support@readybpm.com' , 'ReadyBPM');
 
         $this->email->to($email);
 

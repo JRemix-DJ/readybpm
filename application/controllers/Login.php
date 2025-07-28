@@ -236,7 +236,7 @@ class Login extends CI_Controller{
 
 		$this->email->initialize($config);
 
-		$this->email->from('dalemasbajo@gmail.com', 'Video Remix Pool');
+		$this->email->from('support@readybpm.com', 'ReadyBPM');
 
 		$this->email->to($email);
 
@@ -264,7 +264,7 @@ class Login extends CI_Controller{
 		ob_start(); // ensures anything dumped out will be caught
 
 		// do stuff here
-		$url = 'https://readybpm.com/'; // this can be set based on whatever
+		$url = 'http://localhost/readybpm/'; // this can be set based on whatever
 
 		// clear out the output buffer
 		while (ob_get_status()) 
