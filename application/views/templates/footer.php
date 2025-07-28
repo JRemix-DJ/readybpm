@@ -279,23 +279,23 @@ if($this->session->userdata('content_type') == 'videos'){?>
                 <div class="row">
                     <img src="<? echo base_url(); ?>images/logo.png" alt="" class="col-md-4 col-md-offset-4">
                 </div>
-                <p>VideoRemixPool.com is a remix service designed to be used mainly by DJs who seek to improve their
+                <p>ReadyBPM is a remix service designed to be used mainly by DJs who seek to improve their
                     performance on stage.</p>
                 <p>The remixes contained on our website are produced by professional DJs and music producers from around
                     the world.</p>
 
                 <p>By clicking "I agree", you certify that you are a DJ that works and will use the material obtained at
-                    VideoRemixPool.com for the sole purpose of improving your performance as a DJ and will NOT sell,
+                    ReadyBPM for the sole purpose of improving your performance as a DJ and will NOT sell,
                     resell or redistribute any of the files purchased on this website.</p>
 
-                <p>Also, before purchasing any of the remixes on VideoRemixPool.com, you certify that you are already in
+                <p>Also, before purchasing any of the remixes on ReadyBPM, you certify that you are already in
                     possession of the original works contained in the remixed compositions respectively.</p>
 
                 <p>BY CLICKING "I ACCEPT" YOU ACCEPT THE TERMS SET FORTH ABOVE</p>
 
             </div>
             <div class="modal-footer">
-                <a href="https://videoremixpool.com/home/" class="btn btn-success btn-lg" data-dismiss="modal"
+                <a href="https://readybpm.com" class="btn btn-success btn-lg" data-dismiss="modal"
                    id="accept-terms">ACEPTAR</a>
 
             </div>

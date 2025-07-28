@@ -228,7 +228,7 @@
                 <div class="serif" style="color: #1F2225; font-size: 16px; font-weight: 700; margin-bottom: 20px;">
                   <? echo $item->name; ?>
                   <? if($item->gender_id==45){ ?>
-                   <? echo '<p style="color: red; font-style: italic; font-size: 14px;">Debes enviar un correo a videoremixpool@gmail.com con tu frase y el número de orden para poder hacer la entrega. Se enviará tu producto en 24 a 48 horas (excepto en feriados).</p>'; ?>
+                   <? echo '<p style="color: red; font-style: italic; font-size: 14px;">Debes enviar un correo a support@readybpm.com con tu frase y el número de orden para poder hacer la entrega. Se enviará tu producto en 24 a 48 horas (excepto en feriados).</p>'; ?>
                   <? } ?>
                 </div>
                 <div class="sans-serif" style="color: #969AA1; font-size: 13px; line-height: 20px;"></div>

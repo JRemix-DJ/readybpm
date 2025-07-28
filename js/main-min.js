@@ -135,7 +135,7 @@ window.onscroll = function () {
             }).done((function (e) {
                 e.success ? alert("Mensaje Enviado. Gracias") : alert(e.message)
             })).fail((function () {
-                alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com")
+                alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@readybpm.com")
             })) : alert("Formato de correo erroneo, por favor confirma que todo este bien escrito")
         }));
         var r = "fa fa-play-circle-o", l = "fa fa-stop-circle-o";
@@ -473,10 +473,10 @@ window.onscroll = function () {
             }).done((function (a) {
                 console.log(a), t.is_unlimited || e("#cantidad_tokens_video").html(a.tokens_video)
             })).fail((function () {
-                alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com")
-            }))) : ("NOTOKENS" == t.message && (console.log("entro no tokens"), e("#messagesModal").modal("show"), e("#messagesModal .modal-title").empty(), e("#messagesModal .modal-title").append('<i class="fa fa-exclamation-triangle"></i> NO POSEES DESCARGAS DISPONIBLES PARA VIDEO'), e("#messagesModal .modal-body").empty(), e("#messagesModal .modal-body").append('Obtén uno de nuestros planes de DESCARGAS en el siguiente enlace para que continues disfrutando de nuestro contenido<br> <a href="' + a + 'planes/" class="btn btn-default">Comprar Planes</a>')), "NOLOGGUEDIN" == t.message && (e("#myModal").modal("show"), e("#myModal .modal-body .alert").remove(), e("#myModal .modal-body").append('<div class="alert alert-danger">Necesitas estar logueado y adquirir uno de nuestros planes para poder descargar este contenido</div>')), console.log(t.message))
+                alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@readybpm.com")
+            }))) : ("NOTOKENS" == t.message && (console.log("entro no tokens"), e("#messagesModal").modal("show"), e("#messagesModal .modal-title").empty(), e("#messagesModal .modal-title").append('<i class="fa fa-exclamation-triangle"></i> NO POSEES DESCARGAS DISPONIBLES PARA VIDEO'), e("#messagesModal .modal-body").empty(), e("#messagesModal .modal-body").append('ObtÃ©n uno de nuestros planes de DESCARGAS en el siguiente enlace para que continues disfrutando de nuestro contenido<br> <a href="' + a + 'planes/" class="btn btn-default">Comprar Planes</a>')), "NOLOGGUEDIN" == t.message && (e("#myModal").modal("show"), e("#myModal .modal-body .alert").remove(), e("#myModal .modal-body").append('<div class="alert alert-danger">Necesitas estar logueado y adquirir uno de nuestros planes para poder descargar este contenido</div>')), console.log(t.message))
         })).fail((function () {
-            alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com")
+            alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@readybpm.com")
         }))
     })), e(".downloadButton").on("click", (function (t) {
         t.preventDefault();
@@ -495,10 +495,10 @@ window.onscroll = function () {
             }).done((function (a) {
                 t.is_unlimited || e("#cantidad_tokens").html(a.tokens)
             })).fail((function () {
-                alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com")
-            }))) : ("NOTOKENS" == t.message && (console.log("entro no tokens"), e("#messagesModal").modal("show"), e("#messagesModal .modal-title").empty(), e("#messagesModal .modal-title").append('<i class="fa fa-exclamation-triangle"></i> NO POSEES DESCARGAS DISPONIBLES'), e("#messagesModal .modal-body").empty(), e("#messagesModal .modal-body").append('Obtén uno de nuestros planes de DESCARGAS en el siguiente enlace para que continues disfrutando de nuestro contenido<br> <a href="' + a + 'planes/" class="btn btn-default">Comprar Planes</a>')), "NOLOGGUEDIN" == t.message && (e("#myModal").modal("show"), e("#myModal .modal-body .alert").remove(), e("#myModal .modal-body").append('<div class="alert alert-danger">Necesitas estar logueado y adquirir uno de nuestros planes para poder descargar este contenido</div>')), console.log(t.message))
+                alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@readybpm.com")
+            }))) : ("NOTOKENS" == t.message && (console.log("entro no tokens"), e("#messagesModal").modal("show"), e("#messagesModal .modal-title").empty(), e("#messagesModal .modal-title").append('<i class="fa fa-exclamation-triangle"></i> NO POSEES DESCARGAS DISPONIBLES'), e("#messagesModal .modal-body").empty(), e("#messagesModal .modal-body").append('ObtÃ©n uno de nuestros planes de DESCARGAS en el siguiente enlace para que continues disfrutando de nuestro contenido<br> <a href="' + a + 'planes/" class="btn btn-default">Comprar Planes</a>')), "NOLOGGUEDIN" == t.message && (e("#myModal").modal("show"), e("#myModal .modal-body .alert").remove(), e("#myModal .modal-body").append('<div class="alert alert-danger">Necesitas estar logueado y adquirir uno de nuestros planes para poder descargar este contenido</div>')), console.log(t.message))
         })).fail((function () {
-            alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com")
+            alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@readybpm.com")
         }))
     })), e(".addToCart").on("click", (function () {
         var t = e(this).position(), o = e(this).outerWidth(), r = e(this).closest("tr").attr("data-product"),
@@ -511,7 +511,7 @@ window.onscroll = function () {
         }).done((function (e) {
             e.success ? (i(e.cart_count), console.log(e.cart_count), l(r, t, o)) : alert(e.message)
         })).fail((function () {
-            alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com")
+            alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@readybpm.com")
         }))
     })), e("#aplicarDescuento").on("click", (function (t) {
         console.log("Aplicando Cupon de descuento"), e.ajax({
@@ -522,7 +522,7 @@ window.onscroll = function () {
         }).done((function (e) {
             e.success ? (alert(e.message), location.reload()) : alert(e.message)
         })).fail((function () {
-            alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com")
+            alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@readybpm.com")
         }))
     })), e("#removeCupon").on("click", (function (t) {
         console.log("Eliminando Cupon de descuento"), e.ajax({
@@ -532,7 +532,7 @@ window.onscroll = function () {
         }).done((function (e) {
             e.success ? (alert(e.message), location.reload()) : alert(e.message)
         })).fail((function () {
-            alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com")
+            alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@readybpm.com")
         }))
     })), e("#login-btn").on("click", (function (t) {
         console.log("ingresando"), e.ajax({
@@ -543,7 +543,7 @@ window.onscroll = function () {
         }).done((function (e) {
             e.success ? location.reload() : alert(e.message)
         })).fail((function () {
-            alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com")
+            alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@readybpm.com")
         }))
     })), e("#myModalRecuperar").on("shown.bs.modal", (function () {
         e("#myModal").modal("hide")
@@ -556,7 +556,7 @@ window.onscroll = function () {
         }).done((function (e) {
             e.success ? (alert(e.message), location.reload()) : alert(e.message)
         })).fail((function () {
-            alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com")
+            alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@readybpm.com")
         }))
     })), e("#cambiarpass").on("click", (function (t) {
         console.log("cambiando pass"), 0 != e("#cpassword").val().length && 0 != e("#crpassword").val().length ? e("#cpassword").val() != e("#crpassword").val() ? alert("Ambos campos deben ser iguales") : e.ajax({
@@ -566,9 +566,9 @@ window.onscroll = function () {
                 id: e("#cuser_id").val()
             }, type: "POST", dataType: "json", url: a + "users/changepass/"
         }).done((function (e) {
-            e.success ? (alert("Tu contraseña ha sido modificada. Serás redirigido para que ingreses."), location.href = "https://videoremixpool.com") : alert("Algo ha salido mal, intentalo más tarde")
+            e.success ? (alert("Tu contraseÃ±a ha sido modificada. SerÃ¡s redirigido para que ingreses."), location.href = "https://readybpm.com") : alert("Algo ha salido mal, intentalo mÃ¡s tarde")
         })).fail((function (e) {
-            return alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com"), !1
+            return alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@readybpm.com"), !1
         })) : alert("Ambos campos deben estar llenos")
     })), e("#registrar-btn").on("click", (function (t) {
         console.log("registrando"), 0 != e("#registro-password").val().length && 0 != e("#registro-repeatpassword").val().length && 0 != e("#registro-email").val().length && 0 != e("#registro-username").val().length ? e("#registro-password").val() != e("#registro-repeatpassword").val() ? alert("password y repetir password deben ser iguales") : e.ajax({
@@ -580,7 +580,7 @@ window.onscroll = function () {
         }).done((function (a) {
             "email_existe" == a.respuesta ? alert("Este e-mail ya esta registrado") : "username_existe" == a.respuesta ? alert("Este username ya esta registrado") : "ok" == a.respuesta && (e("#registrar-form").trigger("reset"), alert("Gracias por registrarte. Ya puedes ingresar."), location.reload())
         })).fail((function () {
-            alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com")
+            alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@readybpm.com")
         })) : alert("Todos los campos son obligatorios")
     })), e(".deleteFromCart").on("click", (function () {
         var t = e(this).data("id");
@@ -592,7 +592,7 @@ window.onscroll = function () {
         }).done((function (e) {
             e.success ? (console.log("eliminado"), location.reload()) : alert(e.message)
         })).fail((function () {
-            alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com")
+            alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@readybpm.com")
         }))
     })), n(), e("#sticktop").sticky({topSpacing: 0}), e(window).on("resize load", (function () {
         e(".sticky-wrapper").css("height", +e("#sticktop").innerHeight() + "px")

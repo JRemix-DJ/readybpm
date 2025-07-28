@@ -5,11 +5,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="37cb157e-c6d1-459e-9ab6-6fef5305a81e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/assets/products/demos/131752965029.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/products/descargables/131752965029.mp3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/.htaccess" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_assets/js/starlight.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin_assets/js/starlight.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/controllers/Admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Getplan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Getplan.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Payment.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Payment.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Products.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Products.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Users.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Users.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/tukuy_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/logs/tukuy_log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/tukuy_webhook.log" beforeDir="false" afterPath="$PROJECT_DIR$/application/logs/tukuy_webhook.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Users_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Users_model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/banners.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/banners.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/admin/djs.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/djs.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/home.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/home.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/videos.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/videos.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/cancelado.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/cancelado.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/checkout.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/checkout.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/comingsoon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/comingsoon.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/compra.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/compra.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/emails/become_member.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/become_member.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/emails/changepassword.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/changepassword.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/emails/changepassword.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/changepassword.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/emails/confirmaccount.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/confirmaccount.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/emails/confirmaccount.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/confirmaccount.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/emails/general_message.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/general_message.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/emails/general_message.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/general_message.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/emails/payment.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/payment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/emails/payment.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/payment.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/home_videos.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/home_videos.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/remixer.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/remixer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/templates/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/templates/footer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/main-min.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/main-min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/main.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +57,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/xampp/htdocs/readybpm",
     "node.js.selected.package.tslint": "(autodetect)"
   }
 }]]></component>

@@ -147,7 +147,7 @@
             <tr>
               <th class="column" width="640" style="padding-left: 30px; padding-right: 30px; text-align: left;">
                 <a href="http://example.com" style="text-decoration: none;">
-                  <img class="mobile-center" src="https://videoremixpool.com/images/logo.png" width="105" alt="VIDEOREMIXPOOL.COM - Recibo de Pago" style="border: 0; width: 100%; max-width: 105px;">
+                  <img class="mobile-center" src="https://readybpm.com/images/logo.png" width="105" alt="ReadyBPM - Recibo de Pago" style="border: 0; width: 100%; max-width: 105px;">
                 </a>
               </th>
             </tr>
@@ -160,7 +160,7 @@
           <!-- Intro Basic -->
           <table class="row" align="center" bgcolor="#F8F8F8" cellpadding="0" cellspacing="0">
             <tr>
-              <td class="spacer" height="80" style="font-size: 80px; line-height: 80px; mso-line-height-rule: exactly;">&nbsp;</td>
+              <td class="spacer" height="40" style="font-size: 40px; line-height: 40px; mso-line-height-rule: exactly;">&nbsp;</td>
             </tr>
             <tr>
               <th class="column has-columns" width="640" style="padding-left: 30px; padding-right: 30px;">
@@ -168,15 +168,15 @@
                 <table class="row" align="center" cellpadding="0" cellspacing="0">
                   <tr>
                     <th class="column" width="640" style="text-align: left;">
-                      <div class="serif" style="color: #1F2225; font-size: 28px; font-weight: 700; line-height: 50px; margin-bottom: 30px;">Hola <? echo $user->username; ?>,</div>
-                      <div class="sans-serif" style="color: #969AA1; font-size: 18px; font-weight: 400; line-height: 28px; margin-bottom: 40px;"><? echo $subtitle; ?></div>
+                      <div class="serif" style="color: #1F2225; font-size: 28px; font-weight: 700; line-height: 50px; margin-bottom: 20px;">Hola <? echo $user->username; ?>,</div>
+                      <div class="sans-serif" style="color: #969AA1; font-size: 18px; font-weight: 400; line-height: 28px; margin-bottom: 20px;"><? echo $subtitle; ?></div>
                     </th>
                   </tr>
                 </table>
               </th>
             </tr>
             <tr>
-              <td class="spacer" height="80" style="font-size: 80px; line-height: 80px; mso-line-height-rule: exactly;">&nbsp;</td>
+              <td class="spacer" height="40" style="font-size: 40px; line-height: 40px; mso-line-height-rule: exactly;">&nbsp;</td>
             </tr>
           </table>
           <!-- /Intro Basic -->
@@ -201,26 +201,26 @@
             <tr>
               <th class="column has-columns" width="640" style="padding-left: 30px; padding-right: 30px;">
 
-                <div class="spacer" style="font-size: 80px; line-height: 80px; mso-line-height-rule: exactly;">&nbsp;</div>
+                <div class="spacer" style="font-size: 30px; line-height: 30px; mso-line-height-rule: exactly;">&nbsp;</div>
 
                 <table class="row" cellpadding="0" cellspacing="0">
                   <tr valign="top" style="vertical-align: top;">
                     <th class="column mobile-padding-bottom" width="255" style="padding-top: 10px; padding-right: 10px; text-align: left;">
-                      <a href="https://videoremixpool.com">
-                        <img src="https://videoremixpool.com/images/icon-white.png" width="78" alt="VIDEOREMIXPOOL.COM" style="border: 0; width: 100%; max-width: 38px;">
+                      <a href="https://readybpm.com">
+                        <img src="https://readybpm.com/images/icon-white.png" width="78" alt="ReadyBPM" style="border: 0; width: 100%; max-width: 38px;">
                       </a>
                     </th>
                     <th class="column mobile-text-left" width="365" style="padding-left: 10px;">
                       <table align="right" class="mobile-left" cellpadding="10" cellspacing="0">
                         <tr>
                           <td style="padding-left: 0;">
-                            <a href="http://facebook.com/videoremixpool/" style="text-decoration: none;">
-                              <img src="https://videoremixpool.com/images/icons/facebook.png" width="24" alt="Twitter" style="border: 0; width: 100%; max-width: 24px;">
+                            <a href="https://www.facebook.com/profile.php?id=61576190996039" style="text-decoration: none;">
+                              <img src="https://readybpm.com/images/icons/facebook.png" width="24" alt="Twitter" style="border: 0; width: 100%; max-width: 24px;">
                             </a>
                           </td>
                           <td>
-                            <a href="http://twitter.com/videoremixpool/" style="text-decoration: none;">
-                              <img src="https://videoremixpool.com/images/icons/twitter.png" width="24" alt="Facebook" style="border: 0; width: 100%; max-width: 24px;">
+                            <a href="https://www.instagram.com/readybpm/" style="text-decoration: none;">
+                              <img src="https://readybpm.com/images/instagram.png" width="24" alt="Facebook" style="border: 0; width: 100%; max-width: 24px;">
                             </a>
                           </td>
                         </tr>
@@ -240,14 +240,14 @@
                 <table class="row" cellpadding="0" cellspacing="0">
                   <tr valign="top" style="vertical-align: top;">
                     <th class="column mobile-6" width="200" style="padding-right: 10px; color: #969AA1; font-weight: 400; text-align: left;">
-                      <div class="sans-serif" style="font-size: 14px; font-weight: 700; margin-bottom: 15px;">VIDEOREMIXPOOL.COM</div>
+                      <div class="sans-serif" style="font-size: 14px; font-weight: 700; margin-bottom: 15px;">ReadyBPM</div>
                     </th>
                     <th class="column mobile-6" width="420" style="padding-left: 10px; font-weight: 400; text-align: left;">
                       <div class="sans-serif" style="line-height: 100%; margin-bottom: 15px;">
-                        <a href="https://videoremixpool.com/faq/" style="color: #969AA1; text-decoration: none;">FAQ</a>
+                        <a href="https://readybpm.com/faq/" style="color: #969AA1; text-decoration: none;">FAQ</a>
                       </div>
                       <div class="sans-serif" style="line-height: 100%; margin-bottom: 15px;">
-                        <a href="https://videoremixpool.com" style="color: #969AA1; text-decoration: none;">Visitar Sitio Web</a>
+                        <a href="https://readybpm.com" style="color: #969AA1; text-decoration: none;">Visitar Sitio Web</a>
                       </div>
                     </th>
                   </tr>
@@ -258,7 +258,7 @@
                 <table class="row" cellpadding="0" cellspacing="0">
                   <tr>
                     <th class="column" width="640" style="color: #969AA1; font-weight: 400; text-align: left;">
-                      <div class="sans-serif">&copy; DaleMásBajo. Todos los derechos reservados <a href="https://videoremixpool.com" style="color: #969AA1; text-decoration: none;">Terminos &amp; Condiciones</a></div>
+                      <div class="sans-serif">&copy; ReadyBPM. Todos los derechos reservados <a href="https://readybpm.com" style="color: #969AA1; text-decoration: none;">Terminos &amp; Condiciones</a></div>
                     </th>
                   </tr>
                   <tr>

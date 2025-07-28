@@ -174,7 +174,7 @@ class Payment extends CI_Controller {
 		// $config['smtp_host']    = 'ssl://smtp.mailgun.org';
 		// $config['smtp_port']    = '465';
 		// $config['smtp_timeout'] = '7';
-		// $config['smtp_user']    = 'admin@remixmp4.com';
+		// $config['smtp_user']    = 'admin@test.com';
 		// $config['smtp_pass']    = 'asdK33AA';
 		// $config['charset']    = 'utf-8';
 		// $config['newline']    = "\r\n";
@@ -183,8 +183,8 @@ class Payment extends CI_Controller {
 
 		// $this->email->initialize($config);
 
-		// $this->email->from('web@videoremixpool.com', 'VRP');
-		// $this->email->to('o.reyes@shiftandcontrol.com');
+		// $this->email->from('ventas@readybpm.com', 'VRP');
+		// $this->email->to('user@test.com');
 		// $text = file_get_contents("php://input");
 		// $this->email->subject('INFO IPN');
 		// $this->email->message($text);
@@ -618,7 +618,7 @@ class Payment extends CI_Controller {
 
 		$this->email->initialize($config);
 
-		$this->email->from('dalemasbajo@gmail.com', 'Video Remix Pool');
+		$this->email->from('ventas@readybpm.com', 'ReadyBPM');
 
 		$orden = $this->orders_model->load_order_info($order_id);
 		if($orden->cupon_id!=null){
@@ -645,7 +645,7 @@ class Payment extends CI_Controller {
 		//print_r($items);
 		$this->email->to($user->email);
 
-		$this->email->bcc('videoremixpool@gmail.com');
+		$this->email->bcc('ventas@readybpm.com');
 
 		$this->email->subject('Gracias por su Compra');
 

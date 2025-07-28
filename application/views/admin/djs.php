@@ -23,8 +23,9 @@
                     <td class="align-middle"><? echo $user->username; ?></td>
                     <td class="align-middle"><? echo $user->email; ?></td>
                     <td class="align-middle"><? $fecha=strtotime($user->registered_on); echo date('d-m-Y', $fecha); ?></td>
+                   
                     <td class="align-middle">
-                      <? echo $user->role_id; ?>
+                      <? //echo $user->role_id; ?>
                         <? 
 
                         $key = array_search($user->role_id, array_column($roles, 'id'));

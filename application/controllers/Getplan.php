@@ -40,7 +40,7 @@ class Getplan extends CI_Controller {
 			$this->load->view('get_plan');
 			$this->load->view('templates/footer', $data);
 		}else{
-			$data['title']="Checkout - VIDEOREMIXPOOL.COM";
+			$data['title']="Checkout - ReadyBPM";
 			$data['description']="Finaliza tu pago";
 			$this->load->view('templates/header', $data);
 			$this->load->view('checkout-registrate.php');
@@ -51,7 +51,7 @@ class Getplan extends CI_Controller {
 	public function test()
 	{
 		if($this->session->userdata('is_logued_in')){
-			$data['title']="Checkout - Video Remix Pool";
+			$data['title']="Checkout - ReadyBPM";
 			$data['description']="Finaliza tu pago";
 			$data['products']=$this->products_model->get_products();
 			$data['generos']=$this->genero_model->get_generos();
@@ -64,7 +64,7 @@ class Getplan extends CI_Controller {
 			$this->load->view('get_plan_test');
 			$this->load->view('templates/footer', $data);
 		}else{
-			$data['title']="Checkout - VIDEOREMIXPOOL.COM";
+			$data['title']="Checkout - ReadyBPM";
 			$data['description']="Finaliza tu pago";
 			$this->load->view('templates/header', $data);
 			$this->load->view('checkout-registrate.php');
