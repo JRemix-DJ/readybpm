@@ -4,38 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="37cb157e-c6d1-459e-9ab6-6fef5305a81e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/config/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/config/config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Login.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Login.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Pages.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Pages.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Payment.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Payment.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Users.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Users.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/banners.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/banners.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/djs.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/djs.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/editar_genero.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/editar_genero.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/faq.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/faq.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/generos.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/generos.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/precios.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/precios.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/productos.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/productos.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/usuarios.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/usuarios.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/videos.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/videos.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/checkout.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/checkout.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/compra.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/compra.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/emails/become_member.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/become_member.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/emails/changepassword.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/changepassword.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/emails/changepassword.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/changepassword.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/emails/confirmaccount.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/confirmaccount.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/emails/confirmaccount.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/confirmaccount.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/emails/general_message.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/general_message.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/emails/general_message.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/general_message.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/emails/payment.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/payment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/emails/payment.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/payment.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/home_audios.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/home_audios.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/home_videos.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/home_videos.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/remixer.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/remixer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/table_videos.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/table_videos.php" afterDir="false" />
-    </list>
+    <list default="true" id="37cb157e-c6d1-459e-9ab6-6fef5305a81e" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
