@@ -37,7 +37,7 @@
                                         <? } else { ?>
                                             <button class="btn btn-default" data-toggle="tooltip"
                                                     data-placement="bottom"
-                                                    title="Envía un e-mail a videoremixpool@gmail.com, nuestro equipo enviará tu audio en cuanto este listo. Tiempo estimado 24 / 48 horas. Excepto en feriados.">
+                                                    title="Envía un e-mail a ventas@readybpm.com, nuestro equipo enviará tu audio en cuanto este listo. Tiempo estimado 24 / 48 horas. Excepto en feriados.">
                                                 <i class="fa fa-info"></i></button>
                                         <? } ?>
                                     </td>

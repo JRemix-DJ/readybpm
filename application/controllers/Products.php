@@ -110,11 +110,11 @@ class Products extends CI_Controller {
 					$file=$product->name.' - '.$product->artist.' - '.$djusername.' - '.$genero->name.' - '.$product->version.' - '.$product->bpm.'bpm - VRP .'.$ext;
 				}
 				if($product->product_type_id==3){
-					$tamano=@filesize('/var/www/videoremixpool.com/assets/products/descargables/videos/'.$product->descargable);
-					$file_url='/var/www/videoremixpool.com/assets/products/descargables/videos/'.$product->descargable;
+					$tamano=@filesize('/var/www/readybpm.com/assets/products/descargables/videos/'.$product->descargable);
+					$file_url='/var/www/readybpm.com/assets/products/descargables/videos/'.$product->descargable;
 				}else{
-					$tamano=@filesize('/var/www/videoremixpool.com/assets/products/descargables/'.$product->descargable);
-					$file_url='/var/www/videoremixpool.com/assets/products/descargables/'.$product->descargable;
+					$tamano=@filesize('/var/www/readybpm.com/assets/products/descargables/'.$product->descargable);
+					$file_url='/var/www/readybpm.com/assets/products/descargables/'.$product->descargable;
 				}
 				//echo $file_url;
 				$tamano=@filesize($file_url);
@@ -190,11 +190,11 @@ class Products extends CI_Controller {
 				$file=$product->name.' - '.$product->artist.' - '.$djusername.' - '.$genero->name.' - '.$product->version.' - '.$product->bpm.'bpm - VRP .'.$ext;
 			}
 			if($product->product_type_id==3){
-				$tamano=@filesize('/var/www/videoremixpool.com/assets/products/descargables/videos/'.$product->descargable);
-				$file_url='/var/www/videoremixpool.com/assets/products/descargables/videos/'.$product->descargable;
+				$tamano=@filesize('/var/www/readybpm.com/assets/products/descargables/videos/'.$product->descargable);
+				$file_url='/var/www/readybpm.com/assets/products/descargables/videos/'.$product->descargable;
 			}else{
-				$tamano=@filesize('/var/www/videoremixpool.com/assets/products/descargables/'.$product->descargable);
-				$file_url='/var/www/videoremixpool.com/assets/products/descargables/'.$product->descargable;
+				$tamano=@filesize('/var/www/readybpm.com/assets/products/descargables/'.$product->descargable);
+				$file_url='/var/www/readybpm.com/assets/products/descargables/'.$product->descargable;
 			}
 			$tamano=@filesize($file_url);
 			
@@ -478,14 +478,14 @@ class Products extends CI_Controller {
 				
 				if($product->product_type_id==1){
 					$ext = pathinfo($product->descargable, PATHINFO_EXTENSION);
-					$file=$product->name.' - '.$product->artist.' - '.$genero->name.' - '.$product->version.' - '.$product->bpm.'bpm - VideoRemixPool.'.$ext;
+					$file=$product->name.' - '.$product->artist.' - '.$genero->name.' - '.$product->version.' - '.$product->bpm.'bpm - ReadyBPM.'.$ext;
 				}else{
 					$ext = pathinfo($product->descargable, PATHINFO_EXTENSION);
-					$file=$product->name.' - '.$product->artist.' - '.$genero->name.' - '.$product->version.' - '.$product->bpm.'bpm - VideoRemixPool.'.$ext;
+					$file=$product->name.' - '.$product->artist.' - '.$genero->name.' - '.$product->version.' - '.$product->bpm.'bpm - ReadyBPM.'.$ext;
 				}
 				
-				$tamano=@filesize('/var/www/videoremixpool.com/assets/products/descargables/videos/'.$product->descargable);
-				$file_url='/var/www/videoremixpool.com/assets/products/descargables/videos/'.$product->descargable;
+				$tamano=@filesize('/var/www/readybpm.com/assets/products/descargables/videos/'.$product->descargable);
+				$file_url='/var/www/readybpm.com/assets/products/descargables/videos/'.$product->descargable;
 				$tamano=@filesize($file_url);
 				$today = date('Y-m-d');
 				$user_products = $this->users_model->get_user_products($user_id);

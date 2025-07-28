@@ -59,6 +59,16 @@ class Users_model extends CI_Model {
 		}
 	}
 
+    public function get_user_by_email($email)
+    {
+        $this->db->where('email', $email);
+        $query = $this->db->get('users');
+
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        }
+        return null;
+    }
 
 	public function isUserFile($user_id, $product_id){
 		$this->db->where('user_id', $user_id);
@@ -149,14 +159,14 @@ class Users_model extends CI_Model {
 		return $data;
 	}
 
-	public function get_djs(){
-		$this->db->where('role_id', 3);
-		//$this->db->or_where('role_id', 1);
-		$this->db->order_by('username', 'ASC');
-		$query = $this->db->get('users');
-		$data = $query->result();
-		return $data;
-	}
+	public function get_djs()
+    {
+        $this->db->where('role_id', 3);
+        $this->db->order_by('username', 'ASC');
+        $query = $this->db->get('users');
+        $data = $query->result();
+        return $data;
+    }
 
 	public function get_djs_videos(){
 		$this->db->select('users.id, users.username, products.product_type_id, users.role_id');

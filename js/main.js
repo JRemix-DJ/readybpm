@@ -51,7 +51,7 @@ $('#myModalVideo').on('hidden.bs.modal', function (e) {
 });
 
 jQuery(function($) {
-    var base_url = "http://localhost/readybpm/index.php/";
+    var base_url = "https://readybpm.com/index.php/";
     "use strict";
     /*Table OF Contents
 	==========================
@@ -147,6 +147,9 @@ jQuery(function($) {
                     $('#cantidad_tokens_video').html(data.total_tokens);
                 }
                 window.location.assign(base_url+'products/descargar_producto_video/'+product_id);
+                setTimeout(function() {
+                    location.reload();
+                }, 2000);
                 $.ajax({
                     type: "POST",
                     //contentType: "application/json",
@@ -208,6 +211,9 @@ jQuery(function($) {
                         $('#cantidad_tokens').html(data.total_tokens);
                     }
                     window.location.assign(base_url+'products/descargar_producto/'+product_id);
+                    setTimeout(function() {
+                        location.reload();
+                    }, 2000);
                 }else{
                     if(data.message=="NOTOKENS"){
                         console.log('entro no tokens');

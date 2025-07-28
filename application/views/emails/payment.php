@@ -147,7 +147,7 @@
             <tr>
               <th class="column" width="640" style="padding-left: 30px; padding-right: 30px; text-align: left;">
                 <a href="http://example.com" style="text-decoration: none;">
-                  <img class="mobile-center" src="http://localhost/readybpm/images/logocorto.png" width="105" alt="ReadyBPM.COM - Recibo de Pago" style="border: 0; width: 100%; max-width: 105px;">
+                  <img class="mobile-center" src="https://readybpm.com/images/logocorto.png" width="105" alt="ReadyBPM.COM - Recibo de Pago" style="border: 0; width: 100%; max-width: 105px;">
                 </a>
               </th>
             </tr>
@@ -221,14 +221,14 @@
             <tr class="mobile-valign-top">
               <th class="column mobile-4" width="145" style="padding-left: 30px; padding-right: 10px; text-align: left;">
                 <a href="#" style="display: inline-block; text-decoration: none;">
-                  <img src="http://localhost/readybpm/images/favicon.png" width="100" alt="<? echo $item->name; ?>" style="border: 0; width: 100%; max-width: 100px;">
+                  <img src="https://readybpm.com/images/favicon.png" width="100" alt="<? echo $item->name; ?>" style="border: 0; width: 100%; max-width: 100px;">
                 </a>
               </th>
               <th class="column mobile-8" width="255" style="padding-left: 10px; padding-right: 10px; font-weight: 400; text-align: left;">
                 <div class="serif" style="color: #1F2225; font-size: 16px; font-weight: 700; margin-bottom: 20px;">
                   <? echo $item->name; ?>
                   <? if($item->gender_id==45){ ?>
-                   <? echo '<p style="color: red; font-style: italic; font-size: 14px;">Debes enviar un correo a videoremixpool@gmail.com con tu frase y el número de orden para poder hacer la entrega. Se enviará tu producto en 24 a 48 horas (excepto en feriados).</p>'; ?>
+                   <? echo '<p style="color: red; font-style: italic; font-size: 14px;">Debes enviar un correo a support@readybpm.com con tu frase y el número de orden para poder hacer la entrega. Se enviará tu producto en 24 a 48 horas (excepto en feriados).</p>'; ?>
                   <? } ?>
                 </div>
                 <div class="sans-serif" style="color: #969AA1; font-size: 13px; line-height: 20px;"></div>
@@ -336,8 +336,8 @@
                 <table class="row" cellpadding="0" cellspacing="0">
                   <tr valign="top" style="vertical-align: top;">
                     <th class="column mobile-padding-bottom" width="255" style="padding-top: 10px; padding-right: 10px; text-align: left;">
-                      <a href="http://localhost/readybpm">
-                        <img src="http://localhost/readybpm/images/icon-white.png" width="78" alt="ReadyBPM.COM" style="border: 0; width: 100%; max-width: 38px;">
+                      <a href="https://readybpm.com/">
+                        <img src="https://readybpm.com/images/icon-white.png" width="78" alt="ReadyBPM.COM" style="border: 0; width: 100%; max-width: 38px;">
                       </a>
                     </th>
                     <th class="column mobile-text-left" width="365" style="padding-left: 10px;">
@@ -345,12 +345,12 @@
                         <tr>
                           <td style="padding-left: 0;">
                             <a href="https://www.facebook.com/profile.php?id=61576190996039" style="text-decoration: none;">
-                              <img src="http://localhost/readybpm/images/facebook.png" width="24" alt="Twitter" style="border: 0; width: 100%; max-width: 24px;">
+                              <img src="https://readybpm.com/images/facebook.png" width="24" alt="Twitter" style="border: 0; width: 100%; max-width: 24px;">
                             </a>
                           </td>
                           <td>
                             <a href="https://www.instagram.com/readybpm/" style="text-decoration: none;">
-                              <img src="http://localhost/readybpm/images/instagram.png" width="24" alt="Facebook" style="border: 0; width: 100%; max-width: 24px;">
+                              <img src="https://readybpm.com/images/instagram.png" width="24" alt="Facebook" style="border: 0; width: 100%; max-width: 24px;">
                             </a>
                           </td>
                         </tr>
@@ -374,10 +374,10 @@
                     </th>
                     <th class="column mobile-6" width="420" style="padding-left: 10px; font-weight: 400; text-align: left;">
                       <div class="sans-serif" style="line-height: 100%; margin-bottom: 15px;">
-                        <a href="http://localhost/readybpm/" style="color: #969AA1; text-decoration: none;">Visitar Sitio Web</a>
+                        <a href="https://readybpm.com/" style="color: #969AA1; text-decoration: none;">Visitar Sitio Web</a>
                       </div>
                         <div class="sans-serif" style="line-height: 100%; margin-bottom: 15px;">
-                            <a href="http://localhost/readybpm/pages/terms_conditions/" style="color: #969AA1; text-decoration: none;">Terminos &amp; Condiciones</a>
+                            <a href="https://readybpm.com/pages/terms_conditions/" style="color: #969AA1; text-decoration: none;">Terminos &amp; Condiciones</a>
                         </div>
                     </th>
                   </tr>

@@ -28,7 +28,7 @@
 	<div class="container" style="height: 100vh; text-align: center;">
 		<div class="row h-100 justify-content-center align-items-center" >
 			<div class="col-12" style="text-align: center;">
-				<img src="images/logo.png" alt="VIDEOREMIXPOOL.COM" style="max-width: 100%">
+				<img src="images/logo.png" alt="ReadyBPM" style="max-width: 100%">
 				<div class="col-12">
 					<h2>COMING SOON</h2>
 				</div>

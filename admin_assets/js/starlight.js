@@ -5,7 +5,7 @@
  */
 
  'use strict';
-var base_url = "http://localhost/readybpm/";
+var base_url = "https://readybpm.com/";
 
     $("#recuperar-btn").on('click', function(e){
         console.log('recuperando');
@@ -27,7 +27,7 @@ var base_url = "http://localhost/readybpm/";
             }
         })
         .fail(function(){ 
-            alert('Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com');
+            alert('Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@readybpm.com');
         });
     });
 
@@ -286,15 +286,15 @@ var base_url = "http://localhost/readybpm/";
       //alert($_GET['aprobacion']);
       if(typeof $_GET['aprobacion']!== "undefined"){
         if(typeof $_GET['search']!== "undefined"){
-          window.location.href = 'https://videoremixpool.com/admin/listar_productos/?aprobacion=1&search='+$_GET['search']+'genero_filter='+genero;
+          window.location.href = 'https://readybpm.com/admin/listar_productos/?aprobacion=1&search='+$_GET['search']+'genero_filter='+genero;
         }else{
-          window.location.href = 'https://videoremixpool.com/admin/listar_productos/?aprobacion=1&genero_filter='+genero;
+          window.location.href = 'https://readybpm.com/admin/listar_productos/?aprobacion=1&genero_filter='+genero;
         }
       }else{
         if(typeof $_GET['search']!== "undefined"){
-          window.location.href = 'https://videoremixpool.com/admin/listar_productos/?search='+$_GET['search']+'&genero_filter='+genero;
+          window.location.href = 'https://readybpm.com/admin/listar_productos/?search='+$_GET['search']+'&genero_filter='+genero;
         }else{
-          window.location.href = 'https://videoremixpool.com/admin/listar_productos/?genero_filter='+genero;
+          window.location.href = 'https://readybpm.com/admin/listar_productos/?genero_filter='+genero;
         }
       }
     });
@@ -322,15 +322,15 @@ var base_url = "http://localhost/readybpm/";
       //alert($_GET['aprobacion']);
       if(typeof $_GET['aprobacion']!== "undefined"){
         if(typeof $_GET['search']!== "undefined"){
-          window.location.href = 'https://videoremixpool.com/admin/listar_videos/?aprobacion=1&search='+$_GET['search']+'genero_filter='+genero;
+          window.location.href = 'https://readybpm.com/admin/listar_videos/?aprobacion=1&search='+$_GET['search']+'genero_filter='+genero;
         }else{
-          window.location.href = 'https://videoremixpool.com/admin/listar_videos/?aprobacion=1&genero_filter='+genero;
+          window.location.href = 'https://readybpm.com/admin/listar_videos/?aprobacion=1&genero_filter='+genero;
         }
       }else{
         if(typeof $_GET['search']!== "undefined"){
-          window.location.href = 'https://videoremixpool.com/admin/listar_videos/?search='+$_GET['search']+'&genero_filter='+genero;
+          window.location.href = 'https://readybpm.com/admin/listar_videos/?search='+$_GET['search']+'&genero_filter='+genero;
         }else{
-          window.location.href = 'https://videoremixpool.com/admin/listar_videos/?genero_filter='+genero;
+          window.location.href = 'https://readybpm.com/admin/listar_videos/?genero_filter='+genero;
         }
       }
     });

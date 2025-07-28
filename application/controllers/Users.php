@@ -39,12 +39,11 @@ class Users extends CI_Controller
                 'role_id' => $role_id ,
                 'password' => $encriptedpass ,
                 'percentage' => $percentage ,
-                'active' => 0 ,
+                'active' => 1 ,
                 'registered_on' => $fecha_registro
             );
             $id = $this->users_model->create_user($data);
             $this->print_editar_usuario($id);
-
         }
     }
 

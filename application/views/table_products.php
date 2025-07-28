@@ -5,6 +5,7 @@
         <th class="">Preview</th>
         <th>Canción</th>
         <th class="">Artista</th>
+        <th class="">Género</th>
         <th class="">Version</th>
         <th class="">BPM</th>
         <?php if(isset($this->session->userdata['is_logued_in'])){ ?>
@@ -62,6 +63,14 @@
                 <td class="">
                     <?php echo $producto->artist; ?>
                 </td>
+                
+                <td class="song-genero jp-genero ">
+                    <?
+                        $key = array_search($producto->gender_id, array_column($generos, 'id'));
+                        echo '<a href="'.base_url().'genero/'.$generos[$key]->id.'">'.$generos[$key]->name.'</a>';
+                    ?>
+                </td>
+                
                 <td class="">
                     <?php if($producto->version != null){ ?>
                         <?php echo $producto->version; ?>
@@ -72,17 +81,6 @@
                     echo $producto->bpm;
                     ?>
                 </td>
-                <?php if($producto->gender_id != 45){ ?>
-                    <?php if(isset($product_type_id)){ if($product_type_id != 5){ ?>
-                        <td class="song-genero jp-genero ">
-                            <?php
-                            $key = array_search($producto->gender_id, array_column($generos, 'id'));
-                            if ($key !== false) {
-                                echo '<a href="'.base_url().'genero/'.$generos[$key]->id.'">'.$generos[$key]->name.'</a>';
-                            }
-                            ?>
-                        </td>
-                    <?php } } } ?>
 
                 <?php if($producto->gender_id == 45 || (isset($product_type_id) && $product_type_id == 5)){ ?>
                     <td>

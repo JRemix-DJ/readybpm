@@ -148,7 +148,7 @@
                 </ul>
                 <ul class="social-list style2 circular">
                     <li><a href="https://www.facebook.com/profile.php?id=61576190996039" target="_blank" class="fa fa-facebook"></a></li>
-                    <li><a href="https://www.instagram.com/videoremixpool/" target="_blank" class="fa fa-instagram"></a></li>
+                    <li><a href="https://www.instagram.com/readybpm/" target="_blank" class="fa fa-instagram"></a></li>
                 </ul>
                 <div class="row">
                     <div class="col-xs-12">
