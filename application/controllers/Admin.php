@@ -1747,7 +1747,6 @@ class Admin extends CI_Controller
             if ( !$user ) {
                 $mensaje = 'Este Usuario no existe';
             } else {
-
                 if ( $user_role == 'is_admin' || $user_role == 'is_editor' ) {
                     $this->users_model->delete_user($user_id);
                 } else {
