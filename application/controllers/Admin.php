@@ -1497,30 +1497,37 @@ class Admin extends CI_Controller
     public function update_genero()
     {
         if ($this->session->userdata('is_logued_in')) {
-            $name = $this->input->post('name');
             $id = $this->input->post('id');
+            $name = $this->input->post('name');
             $data = array(
                 'name' => $name,
             );
 
             // --- LÓGICA PARA ACTUALIZAR LA IMAGEN ---
+            // Verificamos si se ha subido un archivo en el campo 'image'
             if (isset($_FILES['image']) && $_FILES['image']['name'] != '') {
+
+                // Configuración para la subida de archivos
                 $config['upload_path']   = './images/generos/';
                 $config['allowed_types'] = 'gif|jpg|png|jpeg';
-                $config['encrypt_name']  = TRUE;
+                $config['encrypt_name']  = TRUE; // Genera un nombre seguro y único
 
                 $this->load->library('upload', $config);
 
                 if ($this->upload->do_upload('image')) {
-                    // Opcional: borrar la imagen antigua antes de guardar la nueva
+                    // Si la subida es exitosa:
+
+                    // 1. Borramos la imagen antigua para no acumular basura
                     $old_genero = $this->genero_model->load_genero_info($id);
-                    if ($old_genero->img && file_exists('./images/generos/' . $old_genero->img)) {
+                    if ($old_genero && !empty($old_genero->img) && file_exists('./images/generos/' . $old_genero->img)) {
                         unlink('./images/generos/' . $old_genero->img);
                     }
 
+                    // 2. Obtenemos el nombre del nuevo archivo y lo añadimos a los datos a actualizar
                     $upload_data = $this->upload->data();
                     $data['img'] = $upload_data['file_name'];
                 }
+                // Opcional: podrías añadir un 'else' aquí para manejar errores de subida
             }
             // --- FIN DE LA LÓGICA DE ACTUALIZACIÓN ---
 
@@ -2059,6 +2066,105 @@ class Admin extends CI_Controller
         } elseif ( $action == 'save_product' ) {
             $this->audio('insert');
         }
+    }
+
+    public function subir_multiples()
+    {
+        // Verificamos que los directorios necesarios existan y tengan permisos
+        if (!is_dir($this->path_download) || !is_writable($this->path_download)) {
+            echo json_encode([['success' => false, 'error' => 'Error: El directorio de descargas no existe o no tiene permisos de escritura.']]);
+            exit;
+        }
+        if (!is_dir($this->path_preview) || !is_writable($this->path_preview)) {
+            echo json_encode([['success' => false, 'error' => 'Error: El directorio de demos no existe o no tiene permisos de escritura.']]);
+            exit;
+        }
+
+        $this->output->set_content_type('application/json');
+        $response_data = [];
+        $user_id = $this->session->userdata("id_usuario");
+        $files = $_FILES['files'];
+
+        // Normalizamos el array de $_FILES para que siempre sea iterable,
+        // sin importar si se sube uno o varios archivos.
+        $normalized_files = [];
+        if (is_array($files['name'])) {
+            for ($i = 0; $i < count($files['name']); $i++) {
+                $normalized_files[] = [
+                    'name' => $files['name'][$i],
+                    'tmp_name' => $files['tmp_name'][$i],
+                    'error' => $files['error'][$i],
+                ];
+            }
+        } else {
+            // Si es un solo archivo, lo convertimos en un array para que el bucle funcione
+            $normalized_files[] = $files;
+        }
+
+        foreach ($normalized_files as $file) {
+            if ($file['error'] === UPLOAD_ERR_OK) {
+                $tmp_path = $file['tmp_name'];
+                $name = $file['name'];
+                $extension = strtolower(pathinfo($name, PATHINFO_EXTENSION));
+                $unique_filename = $user_id . '_' . time() . '_' . uniqid() . '.' . $extension;
+                $descargable_path = $this->path_download . $unique_filename;
+
+                if (move_uploaded_file($tmp_path, $descargable_path)) {
+                    $demo_path = $this->path_preview . $unique_filename;
+                    $this->create_mp3_preview($descargable_path, $demo_path);
+                    $response_data[] = ['success' => true, 'original_name' => $name, 'descargable' => $unique_filename, 'demo' => $unique_filename];
+                } else {
+                    $response_data[] = ['success' => false, 'original_name' => $name, 'error' => 'No se pudo mover el archivo.'];
+                }
+            } else {
+                $response_data[] = ['success' => false, 'original_name' => $file['name'], 'error' => 'Error de subida (código: ' . $file['error'] . ')'];
+            }
+        }
+
+        echo json_encode($response_data);
+        exit;
+    }
+
+    public function guardar_multiples()
+    {
+        $products = json_decode($this->input->post('products'), true);
+        $success_count = 0;
+        $user_role = $this->session->userdata('role');
+
+        if (is_array($products)) {
+            foreach ($products as $product_data) {
+                $db_data = [
+                    'created_on'      => date('Y-m-d H:i:s'),
+                    'name'            => $product_data['name'],
+                    'artist'          => $product_data['artist'],
+                    'price'           => '1.99', // Precio por defecto
+                    'version'         => $product_data['version'],
+                    'gender_id'       => $product_data['gender_id'],
+                    'owner_id'        => $this->session->userdata('id_usuario'),
+                    'product_type_id' => 1, // 1 = Audio
+                    'description'     => '',
+                    'bpm'             => $product_data['bpm'],
+                    'demo'            => $product_data['demo'],
+                    'descargable'     => $product_data['descargable'],
+                    'format'          => 'audio',
+                    'duration'        => '00:00' // Puedes calcular esto después si quieres
+                ];
+
+                if ($user_role == 'is_admin' || $user_role == 'is_subadmin') {
+                    $db_data['approved'] = 1;
+                    $db_data['time_approved'] = date("Y-m-d H:i:s");
+                } else {
+                    $db_data['approved'] = 0;
+                }
+
+                if ($this->products_model->create_product($db_data)) {
+                    $success_count++;
+                }
+            }
+        }
+
+        echo ($success_count == count($products)) ? 'true' : 'false';
+        exit;
     }
 
     private function create_mp3_preview($sourcePath , $destPath)
