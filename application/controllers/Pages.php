@@ -79,9 +79,8 @@ class Pages extends CI_Controller {
 
 		$this->email->initialize($config);
 
-		$this->email->from('dalemasbajo@gmail.com', 'ReadyBPM');
+		$this->email->from('support@readybpm.com', 'ReadyBPM');
 		$this->email->to("readybpm@gmail.com");
-		// $this->email->to("mauricio@shiftandcontrol.com");
 		$this->email->subject('DJ QUIERE SER MIEMBRO');
 		
 		$data['mensaje'] = $mensaje;

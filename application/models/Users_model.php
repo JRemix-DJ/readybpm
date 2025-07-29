@@ -97,7 +97,6 @@ class Users_model extends CI_Model {
 		}else{
 			echo 'error';
 		}
-
 	}
 
 	public function get_user_where($where){
@@ -161,11 +160,20 @@ class Users_model extends CI_Model {
 
 	public function get_djs()
     {
-        $this->db->where('role_id', 3);
+        // Paso 1: Obtener una lista única de IDs de todos los usuarios que han subido al menos un producto.
+        $this->db->select('owner_id');
+        $this->db->distinct();
+        $this->db->from('products');
+        $sub_query = $this->db->get_compiled_select();
+
+        // Paso 2: Seleccionar toda la información de los usuarios cuyos IDs están en la lista del paso 1.
+        $this->db->select('id, username, email, role_id, registered_on, percentage');
+        $this->db->from('users');
+        $this->db->where("id IN ($sub_query)", NULL, FALSE);
         $this->db->order_by('username', 'ASC');
-        $query = $this->db->get('users');
-        $data = $query->result();
-        return $data;
+
+        $query = $this->db->get();
+        return $query->result();
     }
 
 	public function get_djs_videos(){

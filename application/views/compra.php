@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h1>Hola <? echo $this->session->userdata('username'); ?></h1>
-                        <p>Aquí podrás ver tu compra y los items en DaleMasBajo.com</p>
+                        <p>Aquí podrás ver tu compra y los items en ReadyBPM</p>
                     </div>
                 </div>
                 <div class="row">
