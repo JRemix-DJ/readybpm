@@ -37,8 +37,11 @@
 <?php if (isset($uploader) && $uploader) { ?>
     <script>
         $(document).ready(function() {
+
+            // --- PLANTILLA DE FORMULARIO ACTUALIZADA ---
             var formTemplate = `
         <div class="card pd-20 pd-sm-40 mg-t-20 product-form-instance">
+            <button type="button" class="btn btn-danger btn-sm remove-product-btn" title="Eliminar de la cola" style="position: absolute; top: 15px; right: 15px; z-index: 10;">&times;</button>
             <h5 class="card-body-title"></h5>
             <div class="row mg-b-25">
                 <div class="col-lg-6"><div class="form-group"><label class="form-control-label">Nombre:</label><input class="form-control" type="text" name="form_name"></div></div>
@@ -47,6 +50,20 @@
                 <div class="col-lg-4"><div class="form-group"><label class="form-control-label">Versión:</label><input class="form-control" type="text" name="form_version"></div></div>
                 <div class="col-lg-4"><div class="form-group"><label class="form-control-label">BPM:</label><input class="form-control" type="text" name="form_bpm"></div></div>
             </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label class="ckbox">
+                            <input type="checkbox" class="auto-demo-cb" checked>
+                            <span>Generar Demo automáticamente</span>
+                        </label>
+                    </div>
+                    <div class="manual-demo-container" style="display: none;">
+                        </div>
+                </div>
+            </div>
+
             <input type="hidden" name="form_descargable">
             <input type="hidden" name="form_demo">
         </div>
@@ -65,16 +82,8 @@
                 dragDropStr: "<span><b>Arrastra y Suelta una o más canciones</b></span>",
                 onSuccess: function(files, response, xhr, pd) {
                     try {
-                        var data;
-                        if (typeof response === 'string' && response.trim() !== '') {
-                            data = JSON.parse(response);
-                        } else if (typeof response === 'object' && response !== null) {
-                            data = response;
-                        } else {
-                            pd.statusbar.html("<span style='color:red;'>Error: Respuesta vacía del servidor.</span>");
-                            console.error("Respuesta vacía o inválida del servidor:", response);
-                            return;
-                        }
+                        var data = (typeof response === 'string' && response.trim() !== '') ? JSON.parse(response) : response;
+                        if (!data) return;
 
                         $.each(data, function(index, fileInfo) {
                             if (fileInfo.success) {
@@ -86,18 +95,9 @@
                                 if (parts.length !== 5) {
                                     $newForm.find('.card-body-title').css('color', 'red').text("Error de formato: " + originalFilename);
                                 } else {
-                                    var nombre = parts[0].trim();
-                                    var artista = parts[1].trim();
-                                    var generoNombre = parts[2].trim().toLowerCase();
-                                    var version = parts[3].trim();
-                                    var bpm = parts[4].replace(/\D/g, '').trim();
+                                    var nombre = parts[0].trim(), artista = parts[1].trim(), generoNombre = parts[2].trim().toLowerCase(), version = parts[3].trim(), bpm = parts[4].replace(/\D/g, '').trim();
                                     var generoId = null;
-                                    $('#genre-list span').each(function() {
-                                        if ($(this).text().trim().toLowerCase() === generoNombre) {
-                                            generoId = $(this).data('id');
-                                            return false;
-                                        }
-                                    });
+                                    $('#genre-list span').each(function() { if ($(this).text().trim().toLowerCase() === generoNombre) { generoId = $(this).data('id'); return false; } });
 
                                     $newForm.find('.card-body-title').text(originalFilename);
                                     $newForm.find('[name="form_name"]').val(nombre);
@@ -105,15 +105,11 @@
                                     $newForm.find('[name="form_version"]').val(version);
                                     $newForm.find('[name="form_bpm"]').val(bpm);
                                     $newForm.find('[name="form_descargable"]').val(fileInfo.descargable);
-                                    $newForm.find('[name="form_demo"]').val(fileInfo.demo);
+                                    $newForm.find('[name="form_demo"]').val(fileInfo.demo); // Por defecto, el demo es el mismo (el servidor lo procesa)
+
                                     var $genreSelect = $newForm.find('[name="form_gender"]');
                                     $genreSelect.html(genreOptions);
-
-                                    if (generoId) {
-                                        $genreSelect.val(generoId);
-                                    } else {
-                                        $newForm.find('.card-body-title').append(' <span style="color:orange;">(Género no encontrado)</span>');
-                                    }
+                                    if (generoId) { $genreSelect.val(generoId); } else { $newForm.find('.card-body-title').append(' <span style="color:orange;">(Género no encontrado)</span>'); }
                                 }
                                 $('#product-forms-container').append($newForm);
                             } else {
@@ -124,15 +120,62 @@
                         if ($('#product-forms-container').children().length > 0) {
                             $('#save-all-container').slideDown();
                         }
+                    } catch (e) { console.error("Error al procesar respuesta:", e); }
+                }
+            });
 
-                    } catch (e) {
-                        pd.statusbar.html("<span style='color:red;'>Error al procesar respuesta.</span>");
-                        console.error("Error al procesar JSON:", e);
-                        console.error("Respuesta recibida:", response);
+            // --- NUEVA FUNCIONALIDAD: ELIMINAR UN AUDIO DE LA COLA ---
+            $('#product-forms-container').on('click', '.remove-product-btn', function() {
+                $(this).closest('.product-form-instance').fadeOut(300, function() {
+                    $(this).remove();
+                    if ($('#product-forms-container').children().length === 0) {
+                        $('#save-all-container').slideUp();
                     }
-                },
-                onError: function(files, status, errMsg, pd) {
-                    pd.statusbar.html("<span style='color:red;'>Error de subida: " + errMsg + "</span>");
+                });
+            });
+
+            // --- NUEVA FUNCIONALIDAD: CHECKBOX PARA DEMO MANUAL ---
+            $('#product-forms-container').on('change', '.auto-demo-cb', function() {
+                var $checkbox = $(this);
+                var $form = $checkbox.closest('.product-form-instance');
+                var $demoContainer = $form.find('.manual-demo-container');
+                var $demoInput = $form.find('input[name="form_demo"]');
+                var mainFileName = $form.find('input[name="form_descargable"]').val();
+
+                if ($checkbox.is(':checked')) {
+                    // MODO AUTOMÁTICO
+                    $demoContainer.slideUp();
+                    $demoInput.val(mainFileName);
+                    if ($demoContainer.data('uploadFile')) {
+                        $demoContainer.data('uploadFile').reset();
+                    }
+                } else {
+                    // MODO MANUAL
+                    $demoContainer.slideDown();
+                    $demoInput.val(''); // Limpiar el demo hasta que se suba uno nuevo
+
+                    if (!$demoContainer.data('uploadFile')) {
+                        var manualUploader = $demoContainer.uploadFile({
+                            url: "<?php echo site_url('admin/subir/'); ?>",
+                            fileName: "files",
+                            multiple: false,
+                            autoSubmit: true,
+                            dragDropStr: "<span><b>Arrastra el archivo DEMO aquí</b></span>",
+                            dynamicFormData: function() { return { action: 'process_demo_file' }; },
+                            onSuccess: function(files, response, xhr, pd) {
+                                try {
+                                    var data = JSON.parse(response);
+                                    if (data.success) {
+                                        $demoInput.val(data.filename); // Actualiza el valor del demo con el nombre del archivo manual
+                                        pd.statusbar.append("<span style='color:green; margin-left:10px;'>¡Demo subido!</span>");
+                                    } else {
+                                        pd.statusbar.html("<span style='color:red;'>" + (data.error || 'Error') + "</span>");
+                                    }
+                                } catch (e) { pd.statusbar.html("<span style='color:red;'>Error de servidor.</span>"); }
+                            }
+                        });
+                        $demoContainer.data('uploadFile', manualUploader);
+                    }
                 }
             });
 
@@ -141,6 +184,12 @@
                 var productsData = [];
                 $('.product-form-instance').each(function() {
                     var $form = $(this);
+                    // Validar que el demo manual haya terminado si fue seleccionado
+                    if (!$form.find('.auto-demo-cb').is(':checked') && $form.find('input[name="form_demo"]').val() === '') {
+                        alert('Por favor, espera a que termine de subir el demo manual o súbelo para el archivo: ' + $form.find('.card-body-title').text());
+                        productsData = []; // Vaciar el array para detener el proceso
+                        return false; // Salir del bucle .each
+                    }
                     var product = {
                         name: $form.find('[name="form_name"]').val(),
                         artist: $form.find('[name="form_artist"]').val(),
@@ -156,7 +205,7 @@
                 });
 
                 if (productsData.length === 0) {
-                    alert("No hay productos válidos para guardar.");
+                    if (btn.text() !== 'Guardando...') alert("No hay productos válidos para guardar.");
                     return;
                 }
 
