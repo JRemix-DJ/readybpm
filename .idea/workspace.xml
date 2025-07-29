@@ -5,9 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="37cb157e-c6d1-459e-9ab6-6fef5305a81e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/.htaccess" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/footer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/nuevo_producto.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/nuevo_producto.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_assets/js/starlight.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin_assets/js/starlight.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/config/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/config/config.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/config/database.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Login.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/banners.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/banners.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/djs.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/djs.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/editar_genero.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/editar_genero.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/faq.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/faq.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/generos.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/generos.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/precios.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/precios.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/productos.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/productos.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/usuarios.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/usuarios.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/videos.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/videos.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/checkout.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/checkout.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/emails/become_member.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/become_member.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/emails/changepassword.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/changepassword.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/emails/changepassword.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/changepassword.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/emails/confirmaccount.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/confirmaccount.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/emails/confirmaccount.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/confirmaccount.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/emails/general_message.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/general_message.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/emails/general_message.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/general_message.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/emails/payment.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/payment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/emails/payment.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/payment.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/home_audios.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/home_audios.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,19 +88,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/readybpm/assets/products/descargables&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/xampp/htdocs/readybpm/assets/products/descargables",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
 }</component>
   <component name="RecentsManager">

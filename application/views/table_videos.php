@@ -43,7 +43,7 @@
         class="song-unit singleVideoPlayer player-<? echo $producto->id; ?>" data-before="<? echo $i; ?>">
         <td class="">
             <div class="thumb_container" id="singleVideo-jplayer-<? echo $i; ?>"
-                 data-mp3="http://localhost/readybpm/assets/products/demos/videos/<? echo $producto->demo; ?>"
+                 data-mp3="https://readybpm.com/assets/products/demos/videos/<? echo $producto->demo; ?>"
                  data-title="<? echo $producto->name; ?>">
                 <div class="new-ver-video">
                     <img src="<? echo base_url('/images/television.png'); ?>" alt="" class="video_thumb">
