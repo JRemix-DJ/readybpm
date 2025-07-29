@@ -124,7 +124,6 @@
                 }
             });
 
-            // --- NUEVA FUNCIONALIDAD: ELIMINAR UN AUDIO DE LA COLA ---
             $('#product-forms-container').on('click', '.remove-product-btn', function() {
                 $(this).closest('.product-form-instance').fadeOut(300, function() {
                     $(this).remove();
@@ -134,25 +133,18 @@
                 });
             });
 
-            // --- NUEVA FUNCIONALIDAD: CHECKBOX PARA DEMO MANUAL ---
             $('#product-forms-container').on('change', '.auto-demo-cb', function() {
                 var $checkbox = $(this);
-                var $form = $checkbox.closest('.product-form-instance');
-                var $demoContainer = $form.find('.manual-demo-container');
-                var $demoInput = $form.find('input[name="form_demo"]');
-                var mainFileName = $form.find('input[name="form_descargable"]').val();
 
-                if ($checkbox.is(':checked')) {
-                    // MODO AUTOMÁTICO
-                    $demoContainer.slideUp();
-                    $demoInput.val(mainFileName);
-                    if ($demoContainer.data('uploadFile')) {
-                        $demoContainer.data('uploadFile').reset();
-                    }
-                } else {
-                    // MODO MANUAL
-                    $demoContainer.slideDown();
-                    $demoInput.val(''); // Limpiar el demo hasta que se suba uno nuevo
+                if (!$checkbox.is(':checked')) {
+                    var $form = $checkbox.closest('.product-form-instance');
+                    var $demoContainer = $form.find('.manual-demo-container');
+                    var $demoInput = $form.find('input[name="form_demo"]');
+
+                    $checkbox.closest('.form-group').hide();
+
+                    $demoContainer.show();
+                    $demoInput.val('');
 
                     if (!$demoContainer.data('uploadFile')) {
                         var manualUploader = $demoContainer.uploadFile({
@@ -166,7 +158,7 @@
                                 try {
                                     var data = JSON.parse(response);
                                     if (data.success) {
-                                        $demoInput.val(data.filename); // Actualiza el valor del demo con el nombre del archivo manual
+                                        $demoInput.val(data.filename);
                                         pd.statusbar.append("<span style='color:green; margin-left:10px;'>¡Demo subido!</span>");
                                     } else {
                                         pd.statusbar.html("<span style='color:red;'>" + (data.error || 'Error') + "</span>");
