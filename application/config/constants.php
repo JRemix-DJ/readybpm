@@ -97,3 +97,17 @@ define('PAYPAL_MAIL', 'i_trinidadcastillo@hotmail.com');
 
 define('PAGOLINK_ACTIVE', true);
 */
+
+/*
+|--------------------------------------------------------------------------
+| Email Constants
+|--------------------------------------------------------------------------
+|
+| Estas constantes se utilizan para gestionar las direcciones de correo
+| electrónico de la aplicación.
+|
+*/
+define('EMAIL_SUPPORT', 'support@readybpm.com');
+define('EMAIL_SALES', 'ventas@readybpm.com');
+define('EMAIL_PAYMENTS', 'readybpm@gmail.com');
+define('EMAIL_NOREPLY', 'noreply@readybpm.com');
