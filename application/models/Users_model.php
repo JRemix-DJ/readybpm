@@ -59,8 +59,7 @@ class Users_model extends CI_Model {
 		}
 	}
 
-    public function get_user_by_email($email)
-    {
+    public function get_user_by_email($email){
         $this->db->where('email', $email);
         $query = $this->db->get('users');
 
@@ -383,5 +382,32 @@ class Users_model extends CI_Model {
         } else {
             return false;
         }
+    }
+
+    public function set_reset_token($user_id, $token) {
+        $expiration = date('Y-m-d H:i:s', strtotime('+1 hour'));
+        $data = array(
+            'reset_token' => $token,
+            'reset_expires' => $expiration
+        );
+        $this->db->where('id', $user_id);
+        return $this->db->update('users', $data);
+    }
+
+    public function get_user_by_reset_token($token) {
+        $this->db->where('reset_token', $token);
+        $this->db->where('reset_expires >', date('Y-m-d H:i:s'));
+        $query = $this->db->get('users');
+        return $query->row();
+    }
+
+    public function update_password($user_id, $new_password) {
+        $data = array(
+            'password' => password_hash($new_password, PASSWORD_BCRYPT),
+            'reset_token' => null,
+            'reset_expires' => null
+        );
+        $this->db->where('id', $user_id);
+        return $this->db->update('users', $data);
     }
 }

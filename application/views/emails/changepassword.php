@@ -1,564 +1,149 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<html lang="es" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="x-apple-disable-message-reformatting" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <!--[if mso]>
-    <xml>
-      <o:OfficeDocumentSettings>
-        <o:AllowPNG/>
-        <o:PixelsPerInch>96</o:PixelsPerInch>
-      </o:OfficeDocumentSettings>
-    </xml><!DOCTYPE html>
-  <html lang="en" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="x-apple-disable-message-reformatting" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <!--[if mso]>
-    <xml>
-      <o:OfficeDocumentSettings>
-        <o:AllowPNG/>
-        <o:PixelsPerInch>96</o:PixelsPerInch>
-      </o:OfficeDocumentSettings>
-    </xml>
-    <style>
-      .spacer, .divider {mso-line-height-rule: exactly;}
-      td,th,div,p,a,h1,h2,h3,h4,h5,h6 {font-size:13px; line-height:23px; font-family:"Segoe UI",Helvetica,Arial,sans-serif;}
-    </style>
-    <![endif]-->
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <style type="text/css">
-
-        @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:400,700');
-        @media only screen {
-            .serif {font-family: 'Montserrat', sans-serif!important;}
-            .sans-serif {font-family: 'Open Sans', sans-serif!important;}
-            .column, th, td, div, p {font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI","Roboto",Helvetica,Arial,sans-serif;}
-        }
-
-        #outlook a {padding: 0;}
-        a {text-decoration: none;}
-        table {border-collapse: collapse;}
-        img {border: 0; display: block; line-height: 100%;}
-        .column, th, td, div, p {font-size: 13px; line-height: 23px;}
-
-        .wrapper {min-width: 700px;}
-        .row {margin: 0 auto; width: 700px;}
-        .row .row, th .row {width: 100%;}
-
-        @media only screen and (max-width: 699px) {
-
-            .wrapper {min-width: 100% !important;}
-            .row {width: 90% !important;}
-            .row .row {width: 100% !important;}
-
-            .column {
-                box-sizing: border-box;
-                display: inline-block !important;
-                line-height: inherit !important;
-                width: 100% !important;
-                word-break: break-word;
-                -webkit-text-size-adjust: 100%;
-            }
-            .mobile-1  {max-width: 8.33333%;}
-            .mobile-2  {max-width: 16.66667%;}
-            .mobile-3  {max-width: 25%;}
-            .mobile-4  {max-width: 33.33333%;}
-            .mobile-5  {max-width: 41.66667%;}
-            .mobile-6  {max-width: 50%;}
-            .mobile-7  {max-width: 58.33333%;}
-            .mobile-8  {max-width: 66.66667%;}
-            .mobile-9  {max-width: 75%;}
-            .mobile-10 {max-width: 83.33333%;}
-            .mobile-11 {max-width: 91.66667%;}
-            .mobile-12 {
-                padding-right: 30px !important;
-                padding-left: 30px !important;
-            }
-
-            .mobile-offset-1  {margin-left: 8.33333% !important;}
-            .mobile-offset-2  {margin-left: 16.66667% !important;}
-            .mobile-offset-3  {margin-left: 25% !important;}
-            .mobile-offset-4  {margin-left: 33.33333% !important;}
-            .mobile-offset-5  {margin-left: 41.66667% !important;}
-            .mobile-offset-6  {margin-left: 50% !important;}
-            .mobile-offset-7  {margin-left: 58.33333% !important;}
-            .mobile-offset-8  {margin-left: 66.66667% !important;}
-            .mobile-offset-9  {margin-left: 75% !important;}
-            .mobile-offset-10 {margin-left: 83.33333% !important;}
-            .mobile-offset-11 {margin-left: 91.66667% !important;}
-
-            .has-columns {
-                padding-right: 20px !important;
-                padding-left: 20px !important;
-            }
-
-            .has-columns .column {
-                padding-right: 10px !important;
-                padding-left: 10px !important;
-            }
-
-            .mobile-collapsed .column {
-                padding-left: 0 !important;
-                padding-right: 0 !important;
-            }
-
-            img {
-                width: 100% !important;
-                height: auto !important;
-            }
-
-            .mobile-center {
-                display: table !important;
-                float: none;
-                margin-left: auto !important;
-                margin-right: auto !important;
-            }
-            .mobile-left {
-                float: none;
-                margin: 0 !important;
-            }
-            .mobile-text-center {text-align: center !important;}
-            .mobile-text-left   {text-align: left !important;}
-            .mobile-text-right  {text-align: right !important;}
-
-            .mobile-valign-top  {vertical-align: top !important;}
-
-            .mobile-full-width {
-                display: table;
-                width: 100% !important;
-            }
-
-            .spacer                     {height: 30px; line-height: 100% !important; font-size: 100% !important;}
-            .divider th                 {height: 60px;}
-            .mobile-padding-top         {padding-top: 30px !important;}
-            .mobile-padding-top-mini    {padding-top: 10px !important;}
-            .mobile-padding-bottom      {padding-bottom: 30px !important;}
-            .mobile-padding-bottom-mini {padding-bottom: 10px !important;}
-            .mobile-margin-top          {margin-top: 30px !important;}
-            .mobile-margin-top-mini     {margin-top: 10px !important;}
-            .mobile-margin-bottom       {margin-bottom: 30px !important;}
-            .mobile-margin-bottom-mini  {margin-bottom: 10px !important;}
-        }
-    </style>
-</head>
-<body style="box-sizing:border-box;margin:0;padding:0;width:100%;-webkit-font-smoothing:antialiased;">
-
-<table class="wrapper" align="center" bgcolor="#EEEEEE" cellpadding="0" cellspacing="0" width="100%">
-    <tr>
-        <td style="padding: 30px 0;">
-
-            <!-- Header Left -->
-            <table class="row" align="center" bgcolor="#FFFFFF" cellpadding="0" cellspacing="0">
-                <tr>
-                    <td class="spacer" height="40" style="font-size: 40px; line-height: 40px; mso-line-height-rule: exactly;">&nbsp;</td>
-                </tr>
-                <tr>
-                    <th class="column" width="640" style="padding-left: 30px; padding-right: 30px; text-align: left;">
-                        <a href="https://readybpm.com" style="text-decoration: none;">
-                            <img class="mobile-center" src="https://readybpm/images/logocorto.png" width="105" alt="ReadyBPM.COM - Recibo de Pago" style="border: 0; width: 100%; max-width: 105px;">
-                        </a>
-                    </th>
-                </tr>
-                <tr>
-                    <td class="spacer" height="40" style="font-size: 40px; line-height: 40px; mso-line-height-rule: exactly;">&nbsp;</td>
-                </tr>
-            </table>
-            <!-- /Header Left -->
-
-            <!-- Intro Basic -->
-            <table class="row" align="center" bgcolor="#F8F8F8" cellpadding="0" cellspacing="0">
-                <tr>
-                    <td class="spacer" height="40" style="font-size: 40px; line-height: 40px; mso-line-height-rule: exactly;">&nbsp;</td>
-                </tr>
-                <tr>
-                    <th class="column has-columns" width="640" style="padding-left: 30px; padding-right: 30px;">
-
-                        <table class="row" align="center" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <th class="column" width="640" style="text-align: left;">
-                                    <div class="serif" style="color: #1F2225; font-size: 28px; font-weight: 700; line-height: 50px; margin-bottom: 20px;">Hola!</div>
-                                    <div class="sans-serif" style="color: #969AA1; font-size: 18px; font-weight: 400; line-height: 28px; margin-bottom: 20px;">Haz solicitado un cambio de contraseña</div>
-                                </th>
-                            </tr>
-                        </table>
-                    </th>
-                </tr>
-                <tr>
-                    <td class="spacer" height="40" style="font-size: 40px; line-height: 40px; mso-line-height-rule: exactly;">&nbsp;</td>
-                </tr>
-            </table>
-            <!-- /Intro Basic -->
-
-
-            <!-- Product Row -->
-            <table class="row" align="center" bgcolor="#FFFFFF" cellpadding="0" cellspacing="0">
-                <tr>
-                    <td class="spacer" height="80" style="font-size: 80px; line-height: 80px; mso-line-height-rule: exactly;">&nbsp;</td>
-                </tr>
-                <tr class="mobile-valign-top">
-                    <td style="padding: 20px; font-size: 16px; ">
-                        Haz click en el siguiente enlace para cambiar tu contraseña:<br><br>
-                        <a href="https://readybpm/changepass/?email=<? echo $email; ?>&token=<? echo $token; ?>" style="background: #3624a8; padding: 10px; color: white; border-radius: 7px; text-align: center; ">CAMBIAR CONTRASEÑA</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="spacer" height="80" style="font-size: 80px; line-height: 80px; mso-line-height-rule: exactly;">&nbsp;</td>
-                </tr>
-            </table>
-            <!-- /Product Row -->
-
-            <!-- Footer 1 -->
-            <table class="row" align="center" bgcolor="#1F2225" cellpadding="0" cellspacing="0">
-                <tr>
-                    <th class="column has-columns" width="640" style="padding-left: 30px; padding-right: 30px;">
-
-                        <div class="spacer" style="font-size: 30px; line-height: 30px; mso-line-height-rule: exactly;">&nbsp;</div>
-
-                        <table class="row" cellpadding="0" cellspacing="0">
-                            <tr valign="top" style="vertical-align: top;">
-                                <th class="column mobile-padding-bottom" width="255" style="padding-top: 10px; padding-right: 10px; text-align: left;">
-                                    <a href="https://readybpm.com">
-                                        <img src="https://readybpm/images/icon-white.png" width="78" alt="ReadyBPM" style="border: 0; width: 100%; max-width: 38px;">
-                                    </a>
-                                </th>
-                                <th class="column mobile-text-left" width="365" style="padding-left: 10px;">
-                                    <table align="right" class="mobile-left" cellpadding="10" cellspacing="0">
-                                        <tr>
-                                            <td style="padding-left: 0;">
-                                                <a href="https://www.facebook.com/profile.php?id=61576190996039" style="text-decoration: none;">
-                                                    <img src="https://readybpm/images/icons/facebook.png" width="24" alt="Twitter" style="border: 0; width: 100%; max-width: 24px;">
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a href="https://www.instagram.com/readybpm/" style="text-decoration: none;">
-                                                    <img src="https://readybpm/images/instagram.png" width="24" alt="Facebook" style="border: 0; width: 100%; max-width: 24px;">
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </th>
-                            </tr>
-                        </table>
-
-                        <table class="row divider" cellpadding="0" cellspacing="0" width="100%">
-                            <tr>
-                                <th height="81">
-                                    <div style="border-top: 1px solid #2B2E32; font-size: 0; line-height: 0; mso-line-height-rule: exactly;">&nbsp;</div>
-                                </th>
-                            </tr>
-                        </table>
-
-                        <table class="row" cellpadding="0" cellspacing="0">
-                            <tr valign="top" style="vertical-align: top;">
-                                <th class="column mobile-6" width="200" style="padding-right: 10px; color: #969AA1; font-weight: 400; text-align: left;">
-                                    <div class="sans-serif" style="font-size: 14px; font-weight: 700; margin-bottom: 15px;">ReadyBPM</div>
-                                </th>
-                                <th class="column mobile-6" width="420" style="padding-left: 10px; font-weight: 400; text-align: left;">
-                                    <div class="sans-serif" style="line-height: 100%; margin-bottom: 15px;">
-                                        <a href="https://readybpm/faq/" style="color: #969AA1; text-decoration: none;">FAQ</a>
-                                    </div>
-                                    <div class="sans-serif" style="line-height: 100%; margin-bottom: 15px;">
-                                        <a href="https://readybpm.com" style="color: #969AA1; text-decoration: none;">Visitar Sitio Web</a>
-                                    </div>
-                                </th>
-                            </tr>
-                        </table>
-
-                        <div class="spacer" style="font-size: 40px; line-height: 40px; mso-line-height-rule: exactly;">&nbsp;</div>
-
-                        <table class="row" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <th class="column" width="640" style="color: #969AA1; font-weight: 400; text-align: left;">
-                                    <div class="sans-serif">&copy; ReadyBPM. Todos los derechos reservados <a href="https://readybpm.com" style="color: #969AA1; text-decoration: none;">Terminos &amp; Condiciones</a></div>
-                                </th>
-                            </tr>
-                            <tr>
-                                <td class="spacer" height="30" style="font-size: 30px; line-height: 30px; mso-line-height-rule: exactly;">&nbsp;</td>
-                            </tr>
-                        </table>
-
-                    </th>
-                </tr>
-            </table>
-            <!-- /Footer 1 -->
-
-        </td>
-    </tr>
-</table>
-
-</body>
-</html>
-
-<style>
-    .spacer, .divider {mso-line-height-rule: exactly;}
-    td,th,div,p,a,h1,h2,h3,h4,h5,h6 {font-size:13px; line-height:23px; font-family:"Segoe UI",Helvetica,Arial,sans-serif;}
-</style>
-<![endif]-->
-
-<style type="text/css">
-
-    @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:400,700');
-    @media only screen {
-        .serif {font-family: 'Montserrat', sans-serif!important;}
-        .sans-serif {font-family: 'Open Sans', sans-serif!important;}
-        .column, th, td, div, p {font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI","Roboto",Helvetica,Arial,sans-serif;}
-    }
-
-    #outlook a {padding: 0;}
-    a {text-decoration: none;}
-    table {border-collapse: collapse;}
-    img {border: 0; display: block; line-height: 100%;}
-    .column, th, td, div, p {font-size: 13px; line-height: 23px;}
-
-    .wrapper {min-width: 700px;}
-    .row {margin: 0 auto; width: 700px;}
-    .row .row, th .row {width: 100%;}
-
-    @media only screen and (max-width: 699px) {
-
-        .wrapper {min-width: 100% !important;}
-        .row {width: 90% !important;}
-        .row .row {width: 100% !important;}
-
-        .column {
-            box-sizing: border-box;
-            display: inline-block !important;
-            line-height: inherit !important;
-            width: 100% !important;
-            word-break: break-word;
+        body, table, td, a {
+            padding: 35px;
             -webkit-text-size-adjust: 100%;
-        }
-        .mobile-1  {max-width: 8.33333%;}
-        .mobile-2  {max-width: 16.66667%;}
-        .mobile-3  {max-width: 25%;}
-        .mobile-4  {max-width: 33.33333%;}
-        .mobile-5  {max-width: 41.66667%;}
-        .mobile-6  {max-width: 50%;}
-        .mobile-7  {max-width: 58.33333%;}
-        .mobile-8  {max-width: 66.66667%;}
-        .mobile-9  {max-width: 75%;}
-        .mobile-10 {max-width: 83.33333%;}
-        .mobile-11 {max-width: 91.66667%;}
-        .mobile-12 {
-            padding-right: 30px !important;
-            padding-left: 30px !important;
+            -ms-text-size-adjust: 100%;
         }
 
-        .mobile-offset-1  {margin-left: 8.33333% !important;}
-        .mobile-offset-2  {margin-left: 16.66667% !important;}
-        .mobile-offset-3  {margin-left: 25% !important;}
-        .mobile-offset-4  {margin-left: 33.33333% !important;}
-        .mobile-offset-5  {margin-left: 41.66667% !important;}
-        .mobile-offset-6  {margin-left: 50% !important;}
-        .mobile-offset-7  {margin-left: 58.33333% !important;}
-        .mobile-offset-8  {margin-left: 66.66667% !important;}
-        .mobile-offset-9  {margin-left: 75% !important;}
-        .mobile-offset-10 {margin-left: 83.33333% !important;}
-        .mobile-offset-11 {margin-left: 91.66667% !important;}
-
-        .has-columns {
-            padding-right: 20px !important;
-            padding-left: 20px !important;
+        .botoncito {
+            font-size: 16px;
+            color: #ffffff !important;
+            background-color: #5F47F3;
+            border-radius: 8px;
+            padding: 15px 30px;
+            display: inline-block;
+            font-weight: bold;
         }
 
-        .has-columns .column {
-            padding-right: 10px !important;
-            padding-left: 10px !important;
+        .logo-header{
+            display: block;
+            height: 35px;
         }
 
-        .mobile-collapsed .column {
-            padding-left: 0 !important;
-            padding-right: 0 !important;
+        table, td {
+            margin-inline-end: 48px;
+            margin-inline-start: 48px;
         }
 
         img {
-            width: 100% !important;
-            height: auto !important;
+            -ms-interpolation-mode: bicubic;
+            border: 0;
+            height: auto;
+            line-height: 100%;
+            outline: none;
+            text-decoration: none;
         }
 
-        .mobile-center {
-            display: table !important;
-            float: none;
-            margin-left: auto !important;
-            margin-right: auto !important;
+        table {
+            border-collapse: collapse !important;
+            width: 550px;
         }
-        .mobile-left {
-            float: none;
+
+        body {
+            height: 100% !important;
             margin: 0 !important;
-        }
-        .mobile-text-center {text-align: center !important;}
-        .mobile-text-left   {text-align: left !important;}
-        .mobile-text-right  {text-align: right !important;}
-
-        .mobile-valign-top  {vertical-align: top !important;}
-
-        .mobile-full-width {
-            display: table;
+            padding: 0 !important;
             width: 100% !important;
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Roboto", Helvetica, Arial, sans-serif;
         }
 
-        .spacer                     {height: 30px; line-height: 100% !important; font-size: 100% !important;}
-        .divider th                 {height: 60px;}
-        .mobile-padding-top         {padding-top: 30px !important;}
-        .mobile-padding-top-mini    {padding-top: 10px !important;}
-        .mobile-padding-bottom      {padding-bottom: 30px !important;}
-        .mobile-padding-bottom-mini {padding-bottom: 10px !important;}
-        .mobile-margin-top          {margin-top: 30px !important;}
-        .mobile-margin-top-mini     {margin-top: 10px !important;}
-        .mobile-margin-bottom       {margin-bottom: 30px !important;}
-        .mobile-margin-bottom-mini  {margin-bottom: 10px !important;}
-    }
-</style>
+        a {
+            color: #3624a8;
+            text-decoration: underline;
+        }
+
+        .foot{
+            height: 100px;
+            max-height: 100px;
+        }
+
+        .final-footer{
+            color: #969AA1 !important;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 20px;
+            max-height: 100px;
+        }
+    </style>
 </head>
-<body style="box-sizing:border-box;margin:0;padding:0;width:100%;-webkit-font-smoothing:antialiased;">
-
-<table class="wrapper" align="center" bgcolor="#EEEEEE" cellpadding="0" cellspacing="0" width="100%">
+<body style="margin: 0 !important; padding: 0 !important; background-color: #f7f7f7;">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
     <tr>
-        <td style="padding: 30px 0;">
-
-            <!-- Header Left -->
-            <table class="row" align="center" bgcolor="#FFFFFF" cellpadding="0" cellspacing="0">
+        <td align="center" style="background-color: #f7f7f7;">
+            <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
                 <tr>
-                    <td class="spacer" height="40" style="font-size: 40px; line-height: 40px; mso-line-height-rule: exactly;">&nbsp;</td>
-                </tr>
-                <tr>
-                    <th class="column" width="640" style="padding-left: 30px; padding-right: 30px; text-align: left;">
-                        <a href="https://readybpm.com" style="text-decoration: none;">
-                            <img class="mobile-center" src="https://readybpm/images/logocorto.png" width="105" alt="ReadyBPM.COM - Recibo de Pago" style="border: 0; width: 100%; max-width: 105px;">
+                    <td align="center" valign="top" style="font-size:0; padding: 35px;" bgcolor="#FFFFFF">
+                        <a href="https://readybpm.com">
+                            <img src="https://readybpm.com/images/logocorto.png" alt="ReadyBPM Logo" class="logo-header">
                         </a>
-                    </th>
-                </tr>
-                <tr>
-                    <td class="spacer" height="40" style="font-size: 40px; line-height: 40px; mso-line-height-rule: exactly;">&nbsp;</td>
-                </tr>
-            </table>
-            <!-- /Header Left -->
-
-            <!-- Intro Basic -->
-            <table class="row" align="center" bgcolor="#F8F8F8" cellpadding="0" cellspacing="0">
-                <tr>
-                    <td class="spacer" height="40" style="font-size: 40px; line-height: 40px; mso-line-height-rule: exactly;">&nbsp;</td>
-                </tr>
-                <tr>
-                    <th class="column has-columns" width="640" style="padding-left: 30px; padding-right: 30px;">
-
-                        <table class="row" align="center" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <th class="column" width="640" style="text-align: left;">
-                                    <div class="serif" style="color: #1F2225; font-size: 28px; font-weight: 700; line-height: 50px; margin-bottom: 20px;">Hola!</div>
-                                    <div class="sans-serif" style="color: #969AA1; font-size: 18px; font-weight: 400; line-height: 28px; margin-bottom: 20px;">Haz solicitado un cambio de contraseña</div>
-                                </th>
-                            </tr>
-                        </table>
-                    </th>
-                </tr>
-                <tr>
-                    <td class="spacer" height="40" style="font-size: 40px; line-height: 40px; mso-line-height-rule: exactly;">&nbsp;</td>
-                </tr>
-            </table>
-            <!-- /Intro Basic -->
-
-
-            <!-- Product Row -->
-            <table class="row" align="center" bgcolor="#FFFFFF" cellpadding="0" cellspacing="0">
-                <tr>
-                    <td class="spacer" height="80" style="font-size: 80px; line-height: 80px; mso-line-height-rule: exactly;">&nbsp;</td>
-                </tr>
-                <tr class="mobile-valign-top">
-                    <td style="padding: 20px; font-size: 16px; ">
-                        Haz click en el siguiente enlace para cambiar tu contraseña:<br><br>
-                        <a href="https://readybpm/changepass/?email=<? echo $email; ?>&token=<? echo $token; ?>" style="background: #3624a8; padding: 10px; color: white; border-radius: 7px; text-align: center; ">CAMBIAR CONTRASEÑA</a>
                     </td>
                 </tr>
                 <tr>
-                    <td class="spacer" height="80" style="font-size: 80px; line-height: 80px; mso-line-height-rule: exactly;">&nbsp;</td>
+                    <td align="left" bgcolor="#ffffff" style="padding: 20px 30px 40px 30px;">
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <td style="color: #111111; font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: bold; text-align: center;">
+                                    Restablecer Contraseña
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 20px 0 30px 0; color: #555555; font-family: Arial, sans-serif; font-size: 16px; line-height: 24px;">
+                                    <p>Hola {username},</p>
+                                    <p>Recibimos una solicitud para restablecer la contraseña de tu cuenta. Haz clic en
+                                        el botón de abajo para elegir una nueva.</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <a href="{reset_link}" target="_blank" class="botoncito">
+                                        RESTABLECER CONTRASEÑA</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 30px 0 0 0; color: #555555; font-family: Arial, sans-serif; font-size: 16px; line-height: 24px;">
+                                    <p>Si no solicitaste un cambio de contraseña, puedes ignorar este correo electrónico
+                                        de forma segura.</p>
+                                    <p>Gracias,<br>El equipo de ReadyBPM</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
                 </tr>
-            </table>
-            <!-- /Product Row -->
-
-            <!-- Footer 1 -->
-            <table class="row" align="center" bgcolor="#1F2225" cellpadding="0" cellspacing="0">
                 <tr>
-                    <th class="column has-columns" width="640" style="padding-left: 30px; padding-right: 30px;">
-
-                        <div class="spacer" style="font-size: 30px; line-height: 30px; mso-line-height-rule: exactly;">&nbsp;</div>
-
-                        <table class="row" cellpadding="0" cellspacing="0">
-                            <tr valign="top" style="vertical-align: top;">
-                                <th class="column mobile-padding-bottom" width="255" style="padding-top: 10px; padding-right: 10px; text-align: left;">
-                                    <a href="https://readybpm.com/">
-                                        <img src="https://readybpm/images/icon-white.png" width="78" alt="ReadyBPM" style="border: 0; width: 100%; max-width: 38px;">
+                    <td align="center" bgcolor="#1F2225" style="padding: 30px 10px;" class="foot">
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <td align="center" style="padding-bottom: 20px;">
+                                    <a href="https://www.facebook.com/profile.php?id=61576190996039"
+                                       style="text-decoration: none; padding: 0 10px;">
+                                        <img src="https://readybpm.com/images/icons/facebook.png" width="24"
+                                             alt="Facebook" style="max-width: 24px;">
                                     </a>
-                                </th>
-                                <th class="column mobile-text-left" width="365" style="padding-left: 10px;">
-                                    <table align="right" class="mobile-left" cellpadding="10" cellspacing="0">
-                                        <tr>
-                                            <td style="padding-left: 0;">
-                                                <a href="https://www.facebook.com/profile.php?id=61576190996039" style="text-decoration: none;">
-                                                    <img src="https://readybpm/images/icons/facebook.png" width="24" alt="Twitter" style="border: 0; width: 100%; max-width: 24px;">
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a href="https://www.instagram.com/readybpm/" style="text-decoration: none;">
-                                                    <img src="https://readybpm/images/instagram.png" width="24" alt="Facebook" style="border: 0; width: 100%; max-width: 24px;">
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </th>
-                            </tr>
-                        </table>
-
-                        <table class="row divider" cellpadding="0" cellspacing="0" width="100%">
-                            <tr>
-                                <th height="81">
-                                    <div style="border-top: 1px solid #2B2E32; font-size: 0; line-height: 0; mso-line-height-rule: exactly;">&nbsp;</div>
-                                </th>
-                            </tr>
-                        </table>
-
-                        <table class="row" cellpadding="0" cellspacing="0">
-                            <tr valign="top" style="vertical-align: top;">
-                                <th class="column mobile-6" width="200" style="padding-right: 10px; color: #969AA1; font-weight: 400; text-align: left;">
-                                    <div class="sans-serif" style="font-size: 14px; font-weight: 700; margin-bottom: 15px;">ReadyBPM</div>
-                                </th>
-                                <th class="column mobile-6" width="420" style="padding-left: 10px; font-weight: 400; text-align: left;">
-                                    <div class="sans-serif" style="line-height: 100%; margin-bottom: 15px;">
-                                        <a href="https://readybpm/faq/" style="color: #969AA1; text-decoration: none;">FAQ</a>
-                                    </div>
-                                    <div class="sans-serif" style="line-height: 100%; margin-bottom: 15px;">
-                                        <a href="https://readybpm.com/" style="color: #969AA1; text-decoration: none;">Visitar Sitio Web</a>
-                                    </div>
-                                </th>
-                            </tr>
-                        </table>
-
-                        <div class="spacer" style="font-size: 40px; line-height: 40px; mso-line-height-rule: exactly;">&nbsp;</div>
-
-                        <table class="row" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <th class="column" width="640" style="color: #969AA1; font-weight: 400; text-align: left;">
-                                    <div class="sans-serif">&copy; ReadyBPM. Todos los derechos reservados <a href="https://readybpm.com/" style="color: #969AA1; text-decoration: none;">Terminos &amp; Condiciones</a></div>
-                                </th>
+                                    <a href="https://www.instagram.com/readybpm/"
+                                       style="text-decoration: none; padding: 0 10px;">
+                                        <img src="https://readybpm.com/images/instagram.png" width="24" alt="Instagram"
+                                             style="max-width: 24px;">
+                                    </a>
+                                </td>
                             </tr>
                             <tr>
-                                <td class="spacer" height="30" style="font-size: 30px; line-height: 30px; mso-line-height-rule: exactly;">&nbsp;</td>
+                                <td align="center" class="final-footer">
+                                    &copy; <?php echo date('Y'); ?> ReadyBPM. Todos los derechos reservados.<br>
+                                    <a href="https://readybpm.com" style="color: #969AA1; text-decoration: none;">readybpm.com</a>
+                                </td>
                             </tr>
                         </table>
-
-                    </th>
+                    </td>
                 </tr>
             </table>
-            <!-- /Footer 1 -->
-
         </td>
     </tr>
 </table>
-
 </body>
 </html>

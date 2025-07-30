@@ -1,7 +1,7 @@
 <div id="mc_embed_signup">
     <div class="new_email">
         <p class="test-new">Compatibilidad total con los software de DJ</p>
-        <p class="test-new">  más destacadas a nivel global</p>
+        <p class="test-new"> más destacadas a nivel global</p>
         <img class="logmarcas" src="<? echo base_url('images/logo3.png?v=1.2'); ?>" alt="<? echo $title; ?>">
     </div>
 </div>
@@ -56,7 +56,6 @@
     </div>
 </div>
 
-
 <div class="modal fade darktext" id="messagesModal" tabindex="-1" role="dialog" aria-labelledby="Registrarme">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
@@ -74,7 +73,6 @@
         </div>
     </div>
 </div>
-
 
 <div class="modal fade" id="myModalRegistrarme" tabindex="-1" role="dialog" aria-labelledby="Registrarme">
     <div class="modal-dialog modal-sm" role="document">
@@ -358,6 +356,51 @@ Script Source
     });
     <? } ?>
 
+</script>
+<script>
+    $(document).ready(function() {
+        // Escuchar el clic en el botón "Recuperar" del modal
+        $('#recuperar-btn').on('click', function(e) {
+            e.preventDefault(); // Evitar que el formulario se envíe de la forma tradicional
+
+            var btn = $(this);
+            var email = $('#recuperar-email').val();
+
+            // Validación simple para que el correo no esté vacío
+            if (email.trim() === '') {
+                alert('Por favor, ingresa tu correo electrónico.');
+                return;
+            }
+
+            // Cambiar el texto del botón para dar feedback al usuario
+            btn.text('Enviando...').prop('disabled', true);
+
+            // Petición AJAX al controlador
+            $.ajax({
+                url: '<?php echo site_url("login/send_reset_link"); ?>',
+                type: 'POST',
+                data: { email: email },
+                dataType: 'json',
+                success: function(response) {
+                    // 1. Cerrar el modal de recuperación
+                    $('#myModalRecuperar').modal('hide');
+
+                    // 2. Usar tu modal de mensajes para mostrar la confirmación
+                    $('#messagesModal .modal-title').text('Solicitud Enviada');
+                    $('#messagesModal .modal-body').html('<p>' + response.message + '</p>');
+                    $('#messagesModal').modal('show');
+                },
+                error: function() {
+                    // En caso de un error inesperado en el servidor
+                    alert('Ocurrió un error al procesar tu solicitud. Por favor, intenta de nuevo.');
+                },
+                complete: function() {
+                    // Devolver el botón a su estado original
+                    btn.text('Recuperar').prop('disabled', false);
+                }
+            });
+        });
+    });
 </script>
 
 </body>
