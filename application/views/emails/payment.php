@@ -146,7 +146,7 @@
             </tr>
             <tr>
               <th class="column" width="640" style="padding-left: 30px; padding-right: 30px; text-align: left;">
-                <a href="http://example.com" style="text-decoration: none;">
+                <a href="https://readybpm.com" style="text-decoration: none;">
                   <img class="mobile-center" src="http://localhost/readybpm/images/logocorto.png" width="105" alt="ReadyBPM.COM - Recibo de Pago" style="border: 0; width: 100%; max-width: 105px;">
                 </a>
               </th>

@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="37cb157e-c6d1-459e-9ab6-6fef5305a81e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/footer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/nuevo_producto.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/nuevo_producto.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/emails/changepassword.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/changepassword.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/emails/changepassword.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/changepassword.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/emails/payment.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/payment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/emails/payment.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/emails/payment.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +28,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;SergioVelasquezR&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/JRemix-DJ/remixpool.git&quot;,
+    &quot;accountId&quot;: &quot;7029bc9b-1e5d-4798-9e83-dc9dc023b59a&quot;
+  }
+}</component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="$PROJECT_DIR$/../../../Program Files/php/php.exe">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/sebastian/version" />
@@ -90,8 +104,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-PS-251.26927.60" />
-        <option value="bundled-php-predefined-a98d8de5180a-e5747d4f5a45-com.jetbrains.php.sharedIndexes-PS-251.26927.60" />
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-PS-251.27812.52" />
+        <option value="bundled-php-predefined-a98d8de5180a-e5747d4f5a45-com.jetbrains.php.sharedIndexes-PS-251.27812.52" />
       </set>
     </attachedChunks>
   </component>
@@ -103,6 +117,8 @@
       <option name="presentableId" value="Default" />
       <updated>1753744983322</updated>
       <workItem from="1753744986020" duration="9910000" />
+      <workItem from="1753892596861" duration="153000" />
+      <workItem from="1753892878266" duration="1368000" />
     </task>
     <servers />
   </component>
