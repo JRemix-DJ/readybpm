@@ -203,8 +203,6 @@ class Login extends CI_Controller{
 				);
 				$data = $this->users_model->update_user($user->id, $data);
 				$this->send_change_password_email($email, $token);
-				$jsondata['message'] = 'Hemos enviado un e-mail con los detalles para cambiar la contraseña';
-				$jsondata['success']=true;
 				header('Content-type: application/json; charset=utf-8');
 				echo json_encode($jsondata);
 			}else{
@@ -282,7 +280,8 @@ class Login extends CI_Controller{
         $user = $this->users_model->get_user_by_email($email);
 
         if ($user) {
-            $token = bin2hex(random_bytes(32));
+            $token = bin2hex(random_bytes(7));
+            die("Token generado: [" . $token . "]");
             $this->users_model->set_reset_token($user->id, $token);
 
             $reset_link = site_url('login/reset_password/' . $token);
