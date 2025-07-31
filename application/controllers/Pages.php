@@ -66,21 +66,30 @@ class Pages extends CI_Controller {
 		</table>
 		";
 
-		$config['protocol']    = 'smtp';
-		$config['smtp_host']    = SMTP_URL;
-		$config['smtp_port']    = SMTP_PORT;
-		$config['smtp_timeout'] = '7';
-		$config['smtp_user']    = SMTP_USER;
-		$config['smtp_pass']    = SMTP_KEY;
-		$config['charset']    = 'utf-8';
+        $config['protocol']    = 'smtp';
+        $config['smtp_host']   = 'mail.readybpm.com';
+        $config['smtp_port']   = 465;
+        $config['smtp_crypto'] = 'ssl';
+		$config['smtp_timeout'] = '30';
+        $config['smtp_user']   = 'remixers@readybpm.com';
+		$config['smtp_pass']   = '6+E;5@%IB7rA';
+        $config['charset']     = 'utf-8';
 		$config['newline']    = "\r\n";
-		$config['mailtype'] = 'html'; // or html
-		$config['validation'] = TRUE; // bool whether to validate email or not         
+		$config['mailtype'] = 'html';
+		$config['validation'] = FALSE;
+        $config['from_email']  = EMAIL_REMIXERS;
+        $config['from_name']   = 'ReadyBPM';
 
 		$this->email->initialize($config);
+        $this->load->library('email');
 
-		$this->email->from('support@readybpm.com', 'ReadyBPM');
-		$this->email->to("readybpm@gmail.com");
+        $this->email->from('remixers@readybpm.com', 'ReadyBPM');
+        $destinatarios = [
+            'remixers@readybpm.com',
+            'readybpm@gmail.com'
+        ];
+        $this->email->to($destinatarios);
+
 		$this->email->subject('DJ QUIERE SER MIEMBRO');
 		
 		$data['mensaje'] = $mensaje;
