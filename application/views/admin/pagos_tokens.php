@@ -1,47 +1,39 @@
-<? $this->load->helper('url'); ?>
+<div class="sl-pagebody">
+    <div class="sl-page-title">
+        <h5><?php echo $title; ?></h5>
+        <p><?php echo $description; ?></p>
+    </div>
+    <div class="card pd-20 pd-sm-40">
+        <h6 class="card-body-title">Listado de DJs</h6>
+        <p class="mg-b-20 mg-sm-b-30">A continuación se muestra el total a pagar a cada DJ, calculado según su
+            porcentaje y el total de descargas de sus mixes.</p>
 
-    <!-- ########## END: LEFT PANEL ########## -->
-
-    
-
-      <div class="sl-pagebody">
-        <div class="sl-page-title">
-          <h5><? echo $title; ?></h5>
-          <p><? echo $description; ?></p>
-        </div><!-- sl-page-title -->
-        <div class="card pd-20 pd-sm-40">
-          <div class="table-wrapper">
-            <table id="datatable1" class="table display responsive nowrap text-center">
-              <thead>
+        <div class="table-wrapper">
+            <table id="datatable1" class="table display responsive nowrap">
+                <thead>
                 <tr>
-                  <th class="wd-25p">Nombre</th>
-                  <th class="wd-25p">Paypal</th>
-                  <th>Adeudado</th>
-                  <th></th>
+                    <th class="wd-30p">DJ</th>
+                    <th class="wd-25p">Total Descargas</th>
+                    <th class="wd-25p">Porcentaje</th>
+                    <th class="wd-20p">Pago Correspondiente ($)</th>
+                    <th class="wd-15p">Acciones</th>
                 </tr>
-              </thead>
-              <tbody>
-                <? //$generos=(array) $generos; ?>
-                <? foreach($pagos as $pago) { ?>
-                  <tr>
-                    <td class="align-middle"><? echo $pago->name; ?></td>
-                    <td class="align-middle"><? echo $pago->paypal; ?></td>
-                    <td class="align-middle">$<? echo $pago->apagar; ?></td>
-                    <td class="align-middle">
-                    <a href="<? echo base_url('admin/detalles_pago_token/').$pago->uid;; ?>" class="btn btn-warning">Ver Detalles</a>
-                    <? if($this->session->userdata('role')=='is_admin') { ?>
-                    <a href="<? echo base_url('admin/pago_a_dj_token/').$pago->uid.'?amount='.$pago->apagar; ?>" class="btn btn-success">Pagar</a>
-                    <? } ?>
-                    </td>
-                  </tr>
-                <? } ?>
-              </tbody>
+                </thead>
+                <tbody>
+                <?php foreach ($djs_pagos as $dj): ?>
+                    <tr>
+                        <td><?php echo $dj->username; ?></td>
+                        <td><?php echo $dj->total_downloads; ?></td>
+                        <td><?php echo $dj->percentage; ?>%</td>
+                        <td><?php echo number_format($dj->pago_calculado ,2); ?></td>
+                        <td>
+                            <a href="<?php echo site_url('admin/detalles_pago_dj/'.$dj->id); ?>"
+                               class="btn btn-info btn-sm">Detalles</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
             </table>
-            <? if(isset($mensaje)){ ?>
-              <div class="alert alert-danger" role="alert"><? echo $mensaje; ?></div>
-            <? } ?>
-          </div><!-- table-wrapper -->
-        </div><!-- card -->
-
-      </div><!-- sl-pagebody -->
-      
+        </div>
+    </div>
+</div>

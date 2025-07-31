@@ -53,7 +53,7 @@
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
-	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'production');
+	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
 
 /*
  *---------------------------------------------------------------
@@ -63,7 +63,7 @@
  * Different environments will require different levels of error reporting.
  * By default development will show errors but testing and live will hide them.
  */
-
+/*
 switch (ENVIRONMENT)
 {
     case 'development':
@@ -89,6 +89,7 @@ switch (ENVIRONMENT)
         echo 'The application environment is not set correctly.';
         exit(1); // EXIT_ERROR
 }
+*/
 
 /*
  *---------------------------------------------------------------

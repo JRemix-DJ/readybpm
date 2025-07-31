@@ -1,62 +1,51 @@
-<? $this->load->helper('url'); ?>
+<div class="sl-pagebody">
+    <div class="sl-page-title">
+        <h5><?php echo $title; ?></h5>
+        <p><?php echo $description; ?></p>
+    </div>
+    <div class="card pd-20 pd-sm-40">
+        <h6 class="card-body-title">Resumen de Pagos para: <?php echo $dj_info->username; ?></h6>
+        <div class="row text-center mg-t-20">
+            <div class="col-sm-6 col-lg-6">
+                <div class="card pd-20">
+                    <h6 class="tx-12 tx-uppercase tx-inverse tx-bold mg-b-15">Total Descargas</h6>
+                    <h3 class="tx-lato tx-inverse tx-bold"><?php echo count($downloads); ?></h3>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="card pd-20">
+                    <h6 class="tx-12 tx-uppercase tx-inverse tx-bold mg-b-15">Monto Total a Pagar</h6>
+                    <h3 class="tx-lato tx-success tx-bold">$<?php echo number_format($total_payment ,2); ?></h3>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- ########## END: LEFT PANEL ########## -->
+    <div class="card pd-20 pd-sm-40 mg-t-20">
+        <h6 class="card-body-title">Desglose de Descargas</h6>
+        <p class="mg-b-20 mg-sm-b-30">Cada fila representa una descarga de un mix de este DJ.</p>
 
-    
-
-      <div class="sl-pagebody">
-        <div class="sl-page-title">
-          <h5><? echo $title; ?></h5>
-          <p><? echo $description; ?></p>
-        </div><!-- sl-page-title -->
-        <a href="<? 
-        if(isset($_GET['section_realizado'])){
-            echo base_url('admin/pagos_realizados/'); 
-          }else{
-            echo base_url('admin/pagos/'); 
-          }
-        ?>" class="btn btn-danger"><i class="fa fa-left-row"></i> Regresar</a>
-        <div class="card pd-20 pd-sm-40">
-          <div class="table-wrapper">
-            <table id="datatable1" class="table display responsive nowrap text-center">
-              <thead>
+        <div class="table-wrapper">
+            <table id="datatable1" class="table display responsive nowrap">
+                <thead>
                 <tr>
-                <th>Fecha</th>
-                  <th class="wd-25p">Dj</th>
-                  <th class="wd-25p">Producto</th>
-                  <? if($this->session->userdata('role')=='is_admin'){ ?>
-                  <th>Comprado por</th>
-                  <? } ?>
-                  <th>Pago</th>
+                    <th class="wd-25p">Fecha de Descarga</th>
+                    <th class="wd-35p">Producto Descargado</th>
+                    <th class="wd-25p">Cliente (Quién descargó)</th>
+                    <th class="wd-15p">Pago por Descarga ($)</th>
                 </tr>
-              </thead>
-              <tbody>
-                <? //print_r($pagos); ?>
-                <? foreach($pagos as $pago) { ?>
-                  <tr>
-                  	<td class="align-middle"><? $fecha = date_format(date_create($pago->fecha), 'd/m/Y');
-                                echo $fecha;  ?></td>
-                    <td class="align-middle"><? echo $pago->name; ?></td>
-                    <td class="align-middle"><? echo $pago->product_name.' - '.$pago->artista.' - '.$pago->version; ?></td>
-                    <? if($this->session->userdata('role')=='is_admin'){ ?>
-                    <td class="align-middle">
-                    	<? $user = $this->users_model->load_user_info($pago->who_paid); 
-                    		echo $user->username;
-                    	?>
-              		
-                    </td>
-                    <? } ?>
-                    <td class="align-middle">$<? echo $pago->monto; ?></td>
-                    
-                  </tr>
-                <? } ?>
-              </tbody>
+                </thead>
+                <tbody>
+                <?php foreach ($downloads as $download): ?>
+                <tr>
+                    <td><?php echo date('d/m/Y H:i:s' ,strtotime($download->download_date)); ?></td>
+                    <td><?php echo $download->product_name; ?></td>
+                    <td><?php echo $download->customer_name; ?></td>
+                    <td><?php echo number_format($download->pago_unitario ,2); ?></td>
+                </tr>
+                <?php endforeach; ?>
+                </tbody>
             </table>
-            <? if(isset($mensaje)){ ?>
-              <div class="alert alert-danger" role="alert"><? echo $mensaje; ?></div>
-            <? } ?>
-          </div><!-- table-wrapper -->
-        </div><!-- card -->
-
-      </div><!-- sl-pagebody -->
-      
+        </div>
+    </div>
+</div>

@@ -977,57 +977,51 @@ class Admin extends CI_Controller
 
     public function pagos_tokens()
     {
-        if ( $this->session->userdata('is_logued_in') ) {
-            if ( $this->user_has_admin_access() ) {
-                $data['title'] = "Pagos de Tokens";
-                $data['description'] = "Ver pagos pendientes";
-                if ( $this->session->userdata('role') == 'is_editor' ) {
-                    $where = 'AND owner_id='.$this->session->userdata('id_usuario');
-                } else {
-                    $where = '';
-                }
-                $pagos = $this->orders_model->get_pagos_tokens($where);
-                $data['pagos'] = $pagos;
-                $data['aditional_scripts'] = "<script>
-			      $(function(){
-			        'use strict';
-			        $('#datatable1').DataTable({
-			          responsive: true,
-			          paging: false,
-			          order: false,
-			          info: false, 
-			          language: {
-			            searchPlaceholder: 'Buscar...',
-			            sSearch: '',
-			            lengthMenu: '_MENU_ items/pagina',
-			            paginate: {
-			            	next: 'Siguiente',
-			            	previous: 'Anterior',
-			            },
-			            emptyTable: 'No hay registros para esta vista',
-			            info:           'Mostrando _START_ a _END_ de _TOTAL_ registros',
-	    				infoEmpty:      'Mostrando 0 a 0 de 0 registros',
-			          }
-			        });
-			        // Select2
-			        $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
+        if ($this->session->userdata('is_logued_in') && $this->user_has_admin_access()) {
 
-			      });
-			    </script>";
-                $data['aditional_stylesheets'] = '
-			    <link href="'.base_url().'admin_assets/lib/highlightjs/github.css" rel="stylesheet">
-			    <link href="'.base_url().'admin_assets/lib/datatables/jquery.dataTables.css" rel="stylesheet">
-			    <link href="'.base_url().'admin_assets/lib/select2/css/select2.min.css" rel="stylesheet">';
-                $this->load->view('admin/head' , $data);
-                $this->load->view('admin/side');
-                $this->load->view('admin/top');
-                $this->load->view('admin/pagos_tokens');
-                $this->load->view('admin/footer');
-            } else {
-                redirect(base_url());
+            $data['title'] = "Pagos de Tokens por DJ";
+            $data['description'] = "Pagos pendientes calculados por descargas.";
+
+            // 1. Obtenemos la lista de DJs con sus estadísticas de descarga
+            $djs = $this->users_model->get_djs_with_download_stats();
+
+            // 2. Calculamos el monto a pagar para cada DJ
+            foreach ($djs as $dj) {
+                $valor_por_descarga = 0.5;
+
+                $ganancia_bruta = $dj->total_downloads * $valor_por_descarga;
+                $pago_correspondiente = $ganancia_bruta * ($dj->percentage / 100);
+
+                // Añadimos el nuevo dato al objeto del DJ
+                $dj->pago_calculado = $pago_correspondiente;
             }
+
+            $data['djs_pagos'] = $djs;
+
+            // Cargar DataTables para la tabla (opcional pero recomendado)
+            $data['aditional_scripts'] = "<script>
+                $(function(){
+                    'use strict';
+                    $('#datatable1').DataTable({
+                        responsive: true,
+                        language: {
+                            searchPlaceholder: 'Buscar...',
+                            sSearch: '',
+                            lengthMenu: '_MENU_ items/pagina',
+                        }
+                    });
+                });
+            </script>";
+            $data['aditional_stylesheets'] = '<link href="'.base_url().'admin_assets/lib/datatables/jquery.dataTables.css" rel="stylesheet">';
+
+            $this->load->view('admin/head', $data);
+            $this->load->view('admin/side');
+            $this->load->view('admin/top');
+            $this->load->view('admin/pagos_tokens', $data);
+            $this->load->view('admin/footer');
+
         } else {
-            redirect(base_url().'admin/login/');
+            redirect(base_url('admin/login/'));
         }
     }
 
@@ -1198,6 +1192,57 @@ class Admin extends CI_Controller
         } else {
             redirect(base_url().'admin/login/');
         }
+    }
+
+    public function detalles_pago_dj($dj_id) {
+        if (!$this->session->userdata('is_logued_in') || !$this->user_has_admin_access()) {
+            redirect(base_url('admin/login/'));
+        }
+
+        // Obtener la información principal del DJ
+        $dj_info = $this->users_model->load_user_info($dj_id);
+        if (!$dj_info) {
+            // Si el DJ no existe, redirigir o mostrar error
+            redirect(base_url('admin/pagos_tokens'));
+        }
+
+        // Obtener el listado de todas las descargas para este DJ
+        $downloads = $this->orders_model->get_download_details_by_dj($dj_id);
+
+        // Calcular el pago por cada descarga y el total
+        $valor_por_descarga = 0.5; // Asumimos valor de $1 por descarga
+        $total_payment = 0;
+
+        foreach ($downloads as $download) {
+            $pago_por_descarga = $valor_por_descarga * ($dj_info->percentage / 100);
+            $download->pago_unitario = $pago_por_descarga;
+            $total_payment += $pago_por_descarga;
+        }
+
+        $data['title'] = "Detalle de Pagos para " . $dj_info->username;
+        $data['description'] = "Desglose de todas las descargas que generan pagos para este DJ.";
+        $data['dj_info'] = $dj_info;
+        $data['downloads'] = $downloads;
+        $data['total_payment'] = $total_payment;
+
+        // Cargar DataTables para la tabla
+        $data['aditional_scripts'] = "<script>
+            $(function(){
+                'use strict';
+                $('#datatable1').DataTable({
+                    responsive: true,
+                    order: [[ 0, 'desc' ]], // Ordenar por fecha descendente
+                    language: { searchPlaceholder: 'Buscar...', sSearch: '', lengthMenu: '_MENU_ items/pagina' }
+                });
+            });
+        </script>";
+        $data['aditional_stylesheets'] = '<link href="'.base_url().'admin_assets/lib/datatables/jquery.dataTables.css" rel="stylesheet">';
+
+        $this->load->view('admin/head', $data);
+        $this->load->view('admin/side');
+        $this->load->view('admin/top');
+        $this->load->view('admin/details_pagos', $data);
+        $this->load->view('admin/footer');
     }
 
     public function detalles_pago_token()

@@ -289,4 +289,20 @@ class Orders_model extends CI_Model {
         }
         return null;
     }
+
+    public function get_download_details_by_dj($dj_id) {
+        $this->db->select([
+            'user_files.since AS download_date',
+            'products.name AS product_name',
+            'customer.username AS customer_name'
+        ]);
+        $this->db->from('user_files');
+        $this->db->join('products', 'user_files.product_id = products.id');
+        $this->db->join('users as customer', 'user_files.user_id = customer.id');
+        $this->db->where('products.owner_id', $dj_id);
+        $this->db->order_by('user_files.since', 'DESC');
+
+        $query = $this->db->get();
+        return $query->result();
+    }
 }

@@ -384,4 +384,18 @@ class Users_model extends CI_Model {
             return false;
         }
     }
+    public function get_djs_with_download_stats() {
+        $this->db->select('users.id, users.username, users.percentage, COUNT(user_files.id) as total_downloads');
+        $this->db->from('users');
+        $this->db->join('products', 'users.id = products.owner_id', 'left');
+        $this->db->join('user_files', 'products.id = user_files.product_id', 'left');
+
+        $this->db->where_in('users.role_id', [2, 3]);
+
+        $this->db->group_by('users.id');
+        $this->db->order_by('users.username', 'ASC');
+
+        $query = $this->db->get();
+        return $query->result();
+    }
 }
