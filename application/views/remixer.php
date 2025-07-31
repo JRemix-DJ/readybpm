@@ -9,7 +9,7 @@
                 <div class="clearfix text-uppercase">
                     <h1 style="padding-top: 30px"><? echo $user->username; ?></h1>
                     <cite class="album-author mb-20">
-                        VIDEOS - <a target=“_blank” href="https://readybpm.com/remixers/<?= $user->id ?>?audio=1">Cambiar
+                        VIDEOS - <a target=“_blank” href="http://localhost/readybpm/remixers/<?= $user->id ?>?audio=1">Cambiar
                         a Audios</a>
                     </cite>
                 </div>
