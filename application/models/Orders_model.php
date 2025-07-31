@@ -305,4 +305,14 @@ class Orders_model extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+
+    public function archivar_pago_dj($dj_id, $monto, $total_descargas) {
+        $data = [
+            'dj_id' => $dj_id,
+            'monto' => $monto,
+            'total_descargas' => $total_descargas,
+            'fecha_pago' => date('Y-m-d H:i:s')
+        ];
+        $this->db->insert('pagos_realizados', $data);
+    }
 }

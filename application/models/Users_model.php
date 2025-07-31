@@ -398,4 +398,21 @@ class Users_model extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+
+    public function reiniciar_descargas_dj($dj_id) {
+        // Obtenemos todos los IDs de los productos que pertenecen al DJ
+        $product_ids = $this->db->select('id')->from('products')->where('owner_id', $dj_id)->get()->result_array();
+
+        // Si el DJ no tiene productos, no hay nada que hacer
+        if (empty($product_ids)) {
+            return true;
+        }
+
+        // Extraemos solo los IDs en un array simple
+        $ids_array = array_column($product_ids, 'id');
+
+        // Eliminamos todos los registros de 'user_files' que coincidan con los productos del DJ
+        $this->db->where_in('product_id', $ids_array);
+        return $this->db->delete('user_files');
+    }
 }

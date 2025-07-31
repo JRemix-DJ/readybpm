@@ -25,10 +25,10 @@
                         <td><?php echo $dj->username; ?></td>
                         <td><?php echo $dj->total_downloads; ?></td>
                         <td><?php echo $dj->percentage; ?>%</td>
-                        <td><?php echo number_format($dj->pago_calculado ,2); ?></td>
+                        <td><?php echo number_format($dj->pago_calculado, 2); ?></td>
                         <td>
-                            <a href="<?php echo site_url('admin/detalles_pago_dj/'.$dj->id); ?>"
-                               class="btn btn-info btn-sm">Detalles</a>
+                            <a href="<?php echo site_url('admin/detalles_pago_dj/' . $dj->id); ?>" class="btn btn-info btn-sm">Detalles</a>
+                            <a href="<?php echo site_url('admin/siguiente_mes/' . $dj->id); ?>" class="btn btn-success btn-sm" onclick="return confirm('¿Estás seguro de que quieres archivar este pago y reiniciar el conteo de descargas para el siguiente mes? Esta acción no se puede deshacer.');">Siguiente Mes</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

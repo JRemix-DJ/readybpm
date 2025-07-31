@@ -1082,61 +1082,60 @@ class Admin extends CI_Controller
         }
     }
 
-    public function pagos_realizados_tokens()
-    {
-        if ( $this->session->userdata('is_logued_in') ) {
-            if ( $this->user_has_admin_access() ) {
-                $data['title'] = "Pagos Realizados";
-                $data['description'] = "Ver pagos realizados";
-                if ( $this->session->userdata('role') == 'is_editor' ) {
-                    $where = 'WHERE dj_id='.$this->session->userdata('id_usuario');
-                } else {
-                    $where = '';
-                }
-                $pagos = $this->orders_model->get_pagos_realizados_tokens($where);
-                $data['pagos'] = $pagos;
-                $data['aditional_scripts'] = "<script>
-			      $(function(){
-			        'use strict';
-			        $('#datatable1').DataTable({
-			          responsive: true,
-			          paging: false,
-			          info: false, 
-			          rowReorder:false,
-			          ordering: false,
-			          language: {
-			            searchPlaceholder: 'Buscar...',
-			            sSearch: '',
-			            lengthMenu: '_MENU_ items/pagina',
-			            paginate: {
-			            	next: 'Siguiente',
-			            	previous: 'Anterior',
-			            },
-			            emptyTable: 'No hay registros para esta vista',
-			            info:           'Mostrando _START_ a _END_ de _TOTAL_ registros',
-	    				infoEmpty:      'Mostrando 0 a 0 de 0 registros',
-			          }
-			        });
-			        // Select2
-			        $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
-
-			      });
-			    </script>";
-                $data['aditional_stylesheets'] = '
-			    <link href="'.base_url().'admin_assets/lib/highlightjs/github.css" rel="stylesheet">
-			    <link href="'.base_url().'admin_assets/lib/datatables/jquery.dataTables.css" rel="stylesheet">
-			    <link href="'.base_url().'admin_assets/lib/select2/css/select2.min.css" rel="stylesheet">';
-                $this->load->view('admin/head' , $data);
-                $this->load->view('admin/side');
-                $this->load->view('admin/top');
-                $this->load->view('admin/pagos_realizados_tokens');
-                $this->load->view('admin/footer');
-            } else {
-                redirect(base_url());
-            }
-        } else {
-            redirect(base_url().'admin/login/');
+    public function siguiente_mes($dj_id) {
+        if (!$this->session->userdata('is_logued_in') || !$this->user_has_admin_access()) {
+            redirect('admin/login');
         }
+
+        // 1. Obtener los datos actuales del DJ para calcular el pago
+        $djs = $this->users_model->get_djs_with_download_stats();
+        $dj_a_pagar = null;
+        foreach ($djs as $dj) {
+            if ($dj->id == $dj_id) {
+                $valor_por_descarga = 1.00;
+                $ganancia_bruta = $dj->total_downloads * $valor_por_descarga;
+                $pago_calculado = $ganancia_bruta * ($dj->percentage / 100);
+                $dj->pago_calculado = $pago_calculado;
+                $dj_a_pagar = $dj;
+                break;
+            }
+        }
+
+        if ($dj_a_pagar) {
+            // 2. Archivar el pago en la nueva tabla
+            $this->orders_model->archivar_pago_dj($dj_a_pagar->id, $dj_a_pagar->pago_calculado, $dj_a_pagar->total_downloads);
+
+            // 3. Reiniciar el conteo de descargas para ese DJ
+            $this->users_model->reiniciar_descargas_dj($dj_a_pagar->id);
+        }
+
+        // 4. Redirigir de vuelta a la página de pagos pendientes
+        redirect('admin/pagos_tokens');
+    }
+
+    public function pagos_realizados_tokens() {
+        if (!$this->session->userdata('is_logued_in') || !$this->user_has_admin_access()) {
+            redirect('admin/login');
+        }
+
+        $data['title'] = "Historial de Pagos Realizados";
+        $data['description'] = "Aquí se muestran todos los pagos que han sido procesados y archivados.";
+
+        // Cargar los datos desde la nueva tabla 'pagos_realizados'
+        $this->db->select('pagos_realizados.*, users.username');
+        $this->db->from('pagos_realizados');
+        $this->db->join('users', 'pagos_realizados.dj_id = users.id');
+        $this->db->order_by('fecha_pago', 'DESC');
+        $data['pagos'] = $this->db->get()->result();
+
+        $data['aditional_scripts'] = "<script>$('#datatable1').DataTable({responsive: true, order: [[ 2, 'desc' ]]});</script>";
+        $data['aditional_stylesheets'] = '<link href="'.base_url().'admin_assets/lib/datatables/jquery.dataTables.css" rel="stylesheet">';
+
+        $this->load->view('admin/head', $data);
+        $this->load->view('admin/side');
+        $this->load->view('admin/top');
+        $this->load->view('admin/pagos_realizados_tokens', $data);
+        $this->load->view('admin/footer');
     }
 
     public function detalles_pago()
