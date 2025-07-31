@@ -116,4 +116,54 @@ class Pages extends CI_Controller {
 		$this->load->view('templates/footer', $data);
 		
 	}
+
+    public function notificar_compra_exitosa($orden_id) {
+        // Cargar los modelos necesarios
+        $this->load->model('orders_model');
+        $this->load->model('users_model');
+
+        // --- 1. RECOPILACIÓN DE DATOS ---
+        // Obtener todos los detalles necesarios para la plantilla
+        $orden = $this->orders_model->get_order_details($orden_id);
+        $usuario = $this->users_model->load_user_info($orden->user_id);
+        $items = $this->orders_model->get_order_items($orden_id); // Asumiendo que esta función existe en tu modelo
+
+        // Si no se encuentran datos, detener para evitar errores
+        if (!$orden || !$usuario || !$items) {
+            log_message('error', 'No se pudieron obtener todos los datos para la notificación de la orden #' . $orden_id);
+            return;
+        }
+
+        // Preparar el array de datos que se pasará a la vista
+        $data['orden'] = $orden;
+        $data['user'] = $usuario;
+        $data['items'] = $items;
+        $data['is_plan'] = true; // Indicar que es una compra de plan
+        $data['renovacion'] = (isset($orden->is_renewal) && $orden->is_renewal == 1); // Ejemplo de cómo determinar si es renovación
+
+        // --- 2. CARGA DE LA PLANTILLA Y ENVÍO ---
+
+        // Definir los destinatarios
+        $destinatarios = [
+            EMAIL_PAYMENTS,
+            'sevelasquezro@gmail.com'
+        ];
+
+        // Cargar y configurar la librería de correo
+        $this->load->library('email');
+        $this->email->from(EMAIL_NOREPLY, 'Ventas ReadyBPM');
+        $this->email->to($destinatarios);
+        $this->email->subject("Nueva Venta de Plan: Orden #" . $orden->id);
+
+        // Cargar la vista de la plantilla HTML en una variable
+        $message_body = $this->load->view('emails/payment', $data, TRUE);
+
+        // Establecer el cuerpo del mensaje con el HTML de la plantilla
+        $this->email->message($message_body);
+
+        // Enviar el correo
+        if (!$this->email->send()) {
+            log_message('error', 'Error al enviar correo de notificación de venta: ' . $this->email->print_debugger());
+        }
+    }
 }

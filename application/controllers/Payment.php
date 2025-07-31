@@ -447,6 +447,7 @@ class Payment extends CI_Controller {
                     ];
                     $this->orders_model->update_order($order_id, $update_data);
                     $this->add_tokens_to_user($order_id);
+                    $this->notificar_compra_exitosa($order_id);
                     file_put_contents(APPPATH . 'logs/tukuy_webhook.log', "[SUCCESS] Orden #{$order_id} activada para el usuario {$customer_email} por el monto de {$amount_paid}.\n", FILE_APPEND);
                 } else {
                     file_put_contents(APPPATH . 'logs/tukuy_webhook.log', "[INFO] Se recibió pago de {$customer_email} por {$amount_paid}, pero no se encontró una orden pendiente que coincida.\n", FILE_APPEND);

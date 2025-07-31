@@ -109,6 +109,6 @@ define('PAGOLINK_ACTIVE', true);
 */
 define('EMAIL_SUPPORT', 'support@readybpm.com');
 define('EMAIL_SALES', 'ventas@readybpm.com');
-define('EMAIL_PAYMENTS', 'readybpm@gmail.com');
+define('EMAIL_PAYMENTS', 'payments@readybpm.com');
 define('EMAIL_NOREPLY', 'noreply@readybpm.com');
 define('EMAIL_REMIXERS', 'remixers@readybpm.com');
