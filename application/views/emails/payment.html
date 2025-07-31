@@ -3,231 +3,213 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
   <style type="text/css">
-    /* --- ESTILOS GENERALES --- */
+    /* --- Estilos Generales --- */
     body {
       margin: 0 !important;
       padding: 0 !important;
       width: 100% !important;
       height: 100% !important;
-      font-family: 'Open Sans', -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', 'Roboto', Helvetica, Arial, sans-serif;
-      background-color: #EEEEEE;
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
     }
-
     table {
       border-collapse: collapse !important;
-      width: 100%;
+      mso-table-lspace: 0pt;
+      mso-table-rspace: 0pt;
+    }
+    img {
+      border: 0;
+      height: auto;
+      max-height: 40px;
+      max-width: 200px;
+      line-height: 100%;
+      outline: none;
+      text-decoration: none;
+      -ms-interpolation-mode: bicubic;
+    }
+    a {
+      text-decoration: none;
     }
 
-    a { text-decoration: none; }
-    img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
-
-    /* --- ESTRUCTURA PRINCIPAL --- */
+    /* --- Estructura Principal --- */
     .wrapper {
-      background-color: #EEEEEE;
+      background-color: #f7f7f7;
       width: 100%;
     }
     .container {
-      width: 700px;
-      margin: 0 auto;
+      max-width: 600px;
+      width: 100%;
       background-color: #FFFFFF;
+      border-radius: 8px;
     }
 
-    /* --- SECCIONES --- */
-    .header { padding: 40px 30px; }
-    .intro { background-color: #F8F8F8; padding: 40px 30px; }
-    .details { padding: 40px 30px; }
-    .items { padding: 0 30px; }
-    .total { padding: 20px 30px 40px 30px; }
-    .footer { background-color: #1F2225; padding: 40px 30px; }
+    /* --- Secciones --- */
+    .header {
+      max-height: 40px;
+      padding: 30px 30px 20px 30px;
+    }
+    .content {
+      padding: 20px 30px 40px 30px;
+    }
+    .footer {
+      padding: 30px 10px;
+      background-color: #1F2225;
+      border-radius: 0 0 8px 8px;
+    }
 
-    /* --- TEXTOS Y TÍTULOS --- */
+    /* --- Textos y Títulos --- */
     .title {
-      font-family: 'Montserrat', Arial, sans-serif;
-      font-size: 28px;
-      font-weight: 700;
-      color: #1F2225;
+      color: #111111;
+      font-family: Arial, sans-serif;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .greeting {
+      padding: 20px 0 30px 0;
+      color: #555555;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      line-height: 24px;
+    }
+    .greeting p {
       margin: 0;
     }
-    .subtitle {
-      font-size: 18px;
-      font-weight: 400;
-      color: #969AA1;
-      margin: 15px 0 0 0;
-    }
-    .billing-title {
-      font-size: 17px;
-      color: #1F2225;
-      margin-bottom: 15px;
-    }
-    .billing-info {
-      font-size: 14px;
-      color: #969AA1;
-      line-height: 1.5;
+
+    .ReadyBPM {
+      max-height: 40px;
+      max-width: 200px;
+      height: 35px;
     }
 
-    /* --- TABLA DE ITEMS --- */
-    .item-table {
+    /* --- Tabla de Items y Totales --- */
+    .items-table {
       width: 100%;
-      text-align: left;
     }
-    .item-table th, .item-table td {
-      padding: 15px 0;
-      border-bottom: 1px solid #EEEEEE;
-      vertical-align: top;
+    .item-row-main {
+      padding-bottom: 15px;
     }
-    .item-table .item-name {
+    .item-name {
+      margin: 0;
+      color: #333;
       font-size: 16px;
-      font-weight: 700;
-      color: #1F2225;
+      font-weight: bold;
     }
-    .item-table .item-description {
+    .item-description {
+      margin: 5px 0 0 0;
+      color: #777;
       font-size: 14px;
-      color: #969AA1;
     }
-    .total-label {
-      font-size: 16px;
-      font-weight: 700;
-      color: #1F2225;
-      text-align: left;
+    .item-price {
+      text-align: right;
+      padding-bottom: 15px;
+      font-weight: bold;
+      color: #333;
     }
-    .total-value {
-      font-size: 16px;
-      font-weight: 700;
-      color: #1F2225;
+    .totals-row {
+      border-top: 2px solid #eeeeee;
+    }
+    .totals-cell {
+      padding-top: 20px;
       text-align: right;
     }
+    .totals-text {
+      margin: 0;
+      font-size: 18px;
+      font-weight: bold;
+      color: #111111;
+    }
 
-    /* --- FOOTER --- */
-    .footer-logo {
-      width: 38px;
-      max-width: 38px;
+    /* --- Footer --- */
+    .footer{
+      width: 580px;
+    }
+    .footer p, .footer a {
+      color: #969AA1;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      line-height: 20px;
+      text-decoration: none;
+      text-align: center;
+    }
+    .social-icons {
+      padding-bottom: 20px;
+      text-align: center;
     }
     .social-icons a {
       display: inline-block;
       padding: 0 10px;
     }
-    .footer-links {
-      text-align: right;
-    }
-    .footer-links a {
-      font-size: 14px;
-      color: #969AA1;
-      display: block;
-      margin-bottom: 10px;
-    }
-    .copyright {
-      color: #969AA1;
-      font-size: 14px;
-      padding-top: 30px;
-      border-top: 1px solid #2B2E32;
-      margin-top: 30px;
-      text-align: left;
-    }
-    .copyright a {
-      color: #969AA1;
-    }
 
-    /* --- RESPONSIVE --- */
-    @media screen and (max-width: 699px) {
-      .container { width: 100% !important; }
-      .header, .intro, .details, .items, .total, .footer { padding: 20px !important; }
-      .billing-column { display: block !important; width: 100% !important; margin-bottom: 20px; }
-      .footer-logo-col, .footer-links-col { display: block !important; width: 100% !important; text-align: center !important; }
-      .footer-links { text-align: center !important; padding-top: 20px; }
+    /* --- Media Query para Móviles --- */
+    @media screen and (max-width: 600px) {
+      .container {
+        width: 100% !important;
+      }
     }
   </style>
 </head>
 <body>
-<table class="wrapper" border="0" cellpadding="0" cellspacing="0" role="presentation">
+<table class="wrapper">
   <tr>
-    <td align="center">
-      <table class="container" border="0" cellpadding="0" cellspacing="0" role="presentation">
+    <td>
+      <table class="container">
         <tr>
           <td class="header">
             <a href="https://readybpm.com">
-              <img src="https://readybpm.com/images/logocorto.png" width="105" alt="ReadyBPM Logo">
+              <img src="https://readybpm.com/images/logocorto.png" class="ReadyBPM Logo">
             </a>
           </td>
         </tr>
         <tr>
-          <td class="intro">
-            <h1 class="title">Hola <?php echo $user->username; ?>,</h1>
-            <p class="subtitle">Gracias por tu pago. Aquí tienes un resumen de tu pedido:</p>
-          </td>
-        </tr>
-        <tr>
-          <td class="details">
-            <h2 class="billing-title">Facturado a:</h2>
-            <p class="billing-info">
-              <?php echo $user->email; ?><br>
-              <strong><?php echo ($renovacion == 1) ? 'Renovación' : 'Orden'; ?> No:</strong> <?php echo $orden->id; ?>
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td class="items">
-            <table class="item-table" border="0" cellpadding="0" cellspacing="0">
-              <thead>
+          <td class="content">
+            <table>
               <tr>
-                <th style="padding-bottom: 10px;">Descripción</th>
-                <th style="padding-bottom: 10px; text-align: right;">Precio</th>
+                <td class="title">
+                  Hola <?php echo htmlspecialchars($user->username); ?>,
+                </td>
               </tr>
-              </thead>
-              <tbody>
-              <?php foreach($items as $item): ?>
+              <tr>
+                <td class="greeting">
+                  <p>Gracias por tu compra. Aquí tienes un resumen de tu pedido:</p>
+                </td>
+              </tr>
               <tr>
                 <td>
-                  <div class="item-name"><?php echo $item->name; ?></div>
-                  <div class="item-description"><?php echo ($is_plan) ? 'Plan de ' . $item->duration . ' días' : 'Producto individual'; ?></div>
+                  <table class="items-table">
+                    <?php foreach($items as $item): ?>
+                    <tr>
+                      <td class="item-row-main">
+                        <p class="item-name"><?php echo htmlspecialchars($item->name); ?></p>
+                        <p class="item-description"><?php echo ($is_plan) ? 'Plan de ' . $item->duration . ' días' : 'Producto individual'; ?></p>
+                      </td>
+                      <td class="item-price">$<?php echo number_format($item->price, 2); ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                  </table>
                 </td>
-                <td style="text-align: right;">$<?php echo number_format($item->price, 2); ?></td>
               </tr>
-              <?php endforeach; ?>
-              </tbody>
-            </table>
-          </td>
-        </tr>
-        <tr>
-          <td class="total">
-            <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
-              <?php if(isset($cupon)): ?>
-              <tr>
-                <td class="total-label" style="padding-bottom: 10px;">Descuento</td>
-                <td class="total-value" style="padding-bottom: 10px;">-$<?php echo number_format($orden->total_discount, 2); ?></td>
-              </tr>
-              <?php endif; ?>
-              <tr style="border-top: 2px solid #EEEEEE; ">
-                <td class="total-label" style="padding-top: 15px;">Total</td>
-                <td class="total-value" style="padding-top: 15px;">$<?php echo number_format($orden->total_price, 2); ?></td>
+              <tr class="totals-row">
+                <td class="totals-cell">
+                  <p class="totals-text">Total: $<?php echo number_format($orden->total_price, 2); ?></p>
+                </td>
               </tr>
             </table>
           </td>
         </tr>
         <tr>
           <td class="footer">
-            <table border="0" cellpadding="0" cellspacing="0">
-              <tr>
-                <td class="footer-logo-col" style="width: 50%; text-align: left; vertical-align: top;">
-                  <a href="https://readybpm.com/">
-                    <img src="https://readybpm.com/images/icon-white.png" alt="ReadyBPM" class="footer-logo">
-                  </a>
-                </td>
-                <td class="footer-links-col" style="width: 50%; vertical-align: top;">
-                  <div class="footer-links">
-                    <a href="https://readybpm.com/faq/">FAQ</a>
-                    <a href="https://readybpm.com/pages/terms_conditions/">Terminos & Condiciones</a>
-                    <a href="https://readybpm.com">Visitar Sitio Web</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2" class="copyright">
-                  &copy; <?php echo date('Y'); ?> ReadyBPM. Todos los derechos reservados.
-                </td>
-              </tr>
-            </table>
+            <div class="social-icons">
+              <a href="https://www.facebook.com/profile.php?id=61576190996039">
+                <img src="https://readybpm.com/images/icons/facebook.png" width="24" alt="Facebook">
+              </a>
+              <a href="https://www.instagram.com/readybpm/">
+                <img src="https://readybpm.com/images/instagram.png" width="24" alt="Instagram">
+              </a>
+            </div>
+            <p>&copy; <?php echo date('Y'); ?> ReadyBPM. Todos los derechos reservados.</p>
           </td>
         </tr>
       </table>
