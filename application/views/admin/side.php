@@ -139,44 +139,42 @@
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <div class="sl-menu-sub nav flex-column">
-            <li class="nav-item"><a href="<? echo base_url('admin/pagos_tokens/'); ?>" class="nav-link">Pagos Pendientes
-                Tokens</a></li>
-            <li class="nav-item"><a href="<? echo base_url('admin/pagos_realizados_tokens/'); ?>" class="nav-link">Pagos
-                Realizados Tokens</a></li>
-            <li class="nav-item"><a href="<? echo base_url('admin/pagos/'); ?>" class="nav-link">Pagos Pendientes</a>
+            <li class="nav-item"><a href="<? echo base_url('admin/pagos_tokens/'); ?>" class="nav-link">Pagos Pendientes</a></li>
+            <li class="nav-item"><a href="<? echo base_url('admin/pagos_realizados_tokens/'); ?>" class="nav-link">Pagos Realizados</a></li>
+            <!--<li class="nav-item"><a href="<? echo base_url('admin/pagos/'); ?>" class="nav-link">Pagos Pendientes</a>
             </li>
             <li class="nav-item"><a href="<? echo base_url('admin/pagos_realizados/'); ?>" class="nav-link">Pagos
-                Realizados</a></li>
+                Realizados</a></li>-->
         </div>
         <? } ?>
         <? if($this->session->userdata('role') == 'is_admin'){ ?>
-        <a href="<? echo base_url() . 'admin/cupones/'?>" class="sl-menu-link">
+                <!--<a href="<? echo base_url() . 'admin/cupones/'?>" class="sl-menu-link">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-home-outline tx-22"></i>
                 <span class="menu-item-label">Cupones</span>
                 <i class="menu-item-arrow fa fa-angle-down"></i>
-            </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
+            </div> menu-item
+        </a> sl-menu-link
         <div class="sl-menu-sub nav flex-column">
             <li class="nav-item"><a href="<? echo base_url('admin/cupones/'); ?>" class="nav-link">Listar Cupones</a>
             </li>
             <li class="nav-item"><a href="<? echo base_url('admin/add_cupon/'); ?>" class="nav-link">Nuevo Cupón</a>
             </li>
-        </div>
+        </div>-->
         <? } ?>
-        <a href="#" class="sl-menu-link">
-            <div class="sl-menu-item">
-                <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
-                <span class="menu-item-label">FAQ</span>
-                <i class="menu-item-arrow fa fa-angle-down"></i>
-            </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
+            <!--<a href="#" class="sl-menu-link">
+                <div class="sl-menu-item">
+                    <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
+                    <span class="menu-item-label">FAQ</span>
+                    <i class="menu-item-arrow fa fa-angle-down"></i>
+                </div> menu-item
+        </a> sl-menu-link
         <ul class="sl-menu-sub nav flex-column">
             <li class="nav-item"><a href="<? echo base_url() . 'admin/listar_faq/'; ?>" class="nav-link">Mostrar FAQ</a>
             </li>
             <li class="nav-item"><a href="<? echo base_url() . 'admin/nuevo_faq/'; ?>" class="nav-link">Nuevo FAQ</a>
             </li>
-        </ul>
+        </ul>-->
         <? } ?>
         <? if($this->session->userdata('role') == 'is_editor'){ ?>
         <a href="#" class="sl-menu-link">
