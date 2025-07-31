@@ -59,7 +59,8 @@ class Users_model extends CI_Model {
 		}
 	}
 
-    public function get_user_by_email($email){
+    public function get_user_by_email($email)
+    {
         $this->db->where('email', $email);
         $query = $this->db->get('users');
 
@@ -383,29 +384,43 @@ class Users_model extends CI_Model {
             return false;
         }
     }
+    public function get_djs_with_download_stats() {
+        $this->db->select('users.id, users.username, users.percentage, COUNT(user_files.id) as total_downloads');
+        $this->db->from('users');
+        $this->db->join('products', 'users.id = products.owner_id', 'left');
+        $this->db->join('user_files', 'products.id = user_files.product_id', 'left');
 
+        $this->db->where_in('users.role_id', [2, 3]);
+
+        $this->db->group_by('users.id');
+        $this->db->order_by('users.username', 'ASC');
+
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function reiniciar_descargas_dj($dj_id) {
+        // Obtenemos todos los IDs de los productos que pertenecen al DJ
+        $product_ids = $this->db->select('id')->from('products')->where('owner_id', $dj_id)->get()->result_array();
+
+        // Si el DJ no tiene productos, no hay nada que hacer
+        if (empty($product_ids)) {
+            return true;
+        }
+
+        // Extraemos solo los IDs en un array simple
+        $ids_array = array_column($product_ids, 'id');
+
+        // Eliminamos todos los registros de 'user_files' que coincidan con los productos del DJ
+        $this->db->where_in('product_id', $ids_array);
+        return $this->db->delete('user_files');
+    }
+    
     public function set_reset_token($user_id, $token) {
         $expiration = date('Y-m-d H:i:s', strtotime('+1 hour'));
         $data = array(
             'reset_token' => $token,
             'reset_expires' => $expiration
-        );
-        $this->db->where('id', $user_id);
-        return $this->db->update('users', $data);
-    }
-
-    public function get_user_by_reset_token($token) {
-        $this->db->where('reset_token', $token);
-        $this->db->where('reset_expires >', date('Y-m-d H:i:s'));
-        $query = $this->db->get('users');
-        return $query->row();
-    }
-
-    public function update_password($user_id, $new_password) {
-        $data = array(
-            'password' => password_hash($new_password, PASSWORD_BCRYPT),
-            'reset_token' => null,
-            'reset_expires' => null
         );
         $this->db->where('id', $user_id);
         return $this->db->update('users', $data);

@@ -11,7 +11,8 @@ class Checkout extends CI_Controller {
 		$this->users_model->check_payment();
 	}
 
-	public function index(){
+	public function index()
+	{
 
 		if($this->session->userdata('is_logued_in')){
 			$data['title']="Checkout - ReadyBPM";
@@ -60,4 +61,6 @@ class Checkout extends CI_Controller {
 		}
 		return $total;
 	}
+
+
 }

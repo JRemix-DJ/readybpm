@@ -167,7 +167,7 @@
                     <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
                     <span class="menu-item-label">FAQ</span>
                     <i class="menu-item-arrow fa fa-angle-down"></i>
-                </div> menu-item
+                </div> menu-item 
         </a> sl-menu-link
         <ul class="sl-menu-sub nav flex-column">
             <li class="nav-item"><a href="<? echo base_url() . 'admin/listar_faq/'; ?>" class="nav-link">Mostrar FAQ</a>

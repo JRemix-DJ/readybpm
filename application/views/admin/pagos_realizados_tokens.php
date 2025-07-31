@@ -1,49 +1,32 @@
-<? $this->load->helper('url'); ?>
+<div class="sl-pagebody">
+    <div class="sl-page-title">
+        <h5><?php echo $title; ?></h5>
+        <p><?php echo $description; ?></p>
+    </div>
 
-    <!-- ########## END: LEFT PANEL ########## -->
-
-    
-
-      <div class="sl-pagebody">
-        <div class="sl-page-title">
-          <h5><? echo $title; ?></h5>
-          <p><? echo $description; ?></p>
-        </div><!-- sl-page-title -->
-        <div class="card pd-20 pd-sm-40">
-          <div class="table-wrapper">
-            <table id="datatable1" class="table display responsive nowrap text-center">
-              <thead>
+    <div class="card pd-20 pd-sm-40">
+        <h6 class="card-body-title">Historial de Pagos</h6>
+        <div class="table-wrapper">
+            <table id="datatable1" class="table display responsive nowrap">
+                <thead>
                 <tr>
-                <th>Fecha de Pago</th>
-                  <th class="wd-25p">Nombre</th>
-                  <th>Adeudado</th>
-                  <th></th>
+                    <th>DJ</th>
+                    <th>Monto Pagado ($)</th>
+                    <th>Fecha de Pago</th>
+                    <th>Total Descargas (en ese período)</th>
                 </tr>
-              </thead>
-              <tbody>
-                <? //$generos=(array) $generos; ?>
-                <? foreach($pagos as $pago) { ?>
-                  <tr>
-                    <td class="align-middle"><? $fecha = date_format(date_create($pago->fecha_de_pago), 'm/d/Y');
-                                echo $fecha;  ?></td>
-                    <td class="align-middle">
-                    <? $user = $this->users_model->load_user_info($pago->uid); 
-                    		echo $user->username;
-                    	?>
-                    </td>
-                    <td class="align-middle">$<? echo $pago->apagar; ?></td>
-                    <td class="align-middle">
-                    <a href="<? echo base_url('admin/detalles_pago_token/').$pago->id.'/?section_realizado=1'; ?>" class="btn btn-warning">Ver Detalles</a>
-                    </td>
-                  </tr>
-                <? } ?>
-              </tbody>
+                </thead>
+                <tbody>
+                <?php foreach ($pagos as $pago): ?>
+                    <tr>
+                        <td><?php echo $pago->username; ?></td>
+                        <td><?php echo number_format($pago->monto, 2); ?></td>
+                        <td><?php echo date('d/m/Y H:i:s', strtotime($pago->fecha_pago)); ?></td>
+                        <td><?php echo $pago->total_descargas; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
             </table>
-            <? if(isset($mensaje)){ ?>
-              <div class="alert alert-danger" role="alert"><? echo $mensaje; ?></div>
-            <? } ?>
-          </div><!-- table-wrapper -->
-        </div><!-- card -->
-
-      </div><!-- sl-pagebody -->
-      
+        </div>
+    </div>
+</div>

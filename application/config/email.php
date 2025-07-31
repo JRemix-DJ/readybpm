@@ -15,5 +15,5 @@ $config['wordwrap']    = FALSE;
 $config['newline']     = "\r\n"; // Necesario para algunos servidores SMTP
 
 // Asegurarse de que el remitente que ve el usuario sea el correcto
-$config['from_email']  = EMAIL_NOREPLY; // Usa la constante 'noreply@readybpm.com'
+$config['from_email']  = EMAIL_NOREPLY;
 $config['from_name']   = 'ReadyBPM';

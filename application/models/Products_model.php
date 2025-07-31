@@ -406,5 +406,10 @@ class Products_model extends CI_Model {
         $this->db->insert('product_downloads', $data);
         return true;
     }
+    
+    public function count_products_by_genre($gender_id) {
+        $this->db->where('gender_id', $gender_id);
+        return $this->db->count_all_results('products');
+    }
 
 }
