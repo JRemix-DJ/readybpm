@@ -1,9 +1,4 @@
 <style>
-    /* --- AÑADE ESTA CLASE AQUÍ --- */
-    .force-hide {
-        display: none !important;
-    }
-
     .ajax-file-upload {
         font-family: Arial, Helvetica, sans-serif;
         font-size: 16px;

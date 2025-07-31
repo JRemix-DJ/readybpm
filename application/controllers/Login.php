@@ -203,8 +203,7 @@ class Login extends CI_Controller{
 				);
 				$data = $this->users_model->update_user($user->id, $data);
 				$this->send_change_password_email($email, $token);
-				$jsondata['message'] = 'Hemos enviado un e-mail con los detalles para cambiar la contraseña';
-				$jsondata['success']=true;
+
 				header('Content-type: application/json; charset=utf-8');
 				echo json_encode($jsondata);
 			}else{
@@ -275,4 +274,86 @@ class Login extends CI_Controller{
 		// no redirect
 		header( "Location: $url" );
 	}
+
+    // Procesa la solicitud de recuperación y envía el correo
+    public function send_reset_link() {
+        $email = $this->input->post('email');
+        $user = $this->users_model->get_user_by_email($email);
+
+        if ($user) {
+            $token = bin2hex(random_bytes(7));
+            
+            $this->users_model->set_reset_token($user->id, $token);
+
+            $reset_link = site_url('login/reset_password/' . $token);
+
+            $message_body = $this->load->view('emails/changepassword.html', null, TRUE);
+            $message_body = str_replace('{username}', $user->username, $message_body);
+            $message_body = str_replace('{reset_link}', $reset_link, $message_body);
+
+            $this->email->from(EMAIL_NOREPLY, 'Soporte ReadyBPM');
+            $this->email->to($user->email);
+            $this->email->subject('Restablece tu contraseña de ReadyBPM');
+            $this->email->message($message_body);
+
+            if (!$this->email->send()) {
+                log_message('error', 'Error al enviar correo de reseteo: ' . $this->email->print_debugger(['headers']));
+            }
+        }
+
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode([
+                'success' => true,
+                'message' => 'Si tu correo electrónico está en nuestros registros, recibirás un enlace para restablecer tu contraseña en breve.'
+            ]));
+    }
+
+    public function reset_password($token) {
+        $data['user'] = $this->users_model->get_user_by_reset_token($token);
+
+        if ($data['user']) {
+            $data['token'] = $token;
+            $data['title'] = 'Restablecer Contraseña';
+            
+            $this->load->view('templates/header', $data);
+            $this->load->view('reset_password_form', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data['title'] = 'Enlace Inválido';
+            $this->load->view('templates/header', $data);
+            $this->load->view('invalid_token_view');
+            $this->load->view('templates/footer');
+        }
+    }
+
+    // Procesa y guarda la nueva contraseña
+    public function process_new_password() {
+        $token = $this->input->post('token');
+        $password = $this->input->post('password');
+        $passconf = $this->input->post('passconf');
+
+        // Re-validar el token antes de cambiar la contraseña
+        $user = $this->users_model->get_user_by_reset_token($token);
+
+        if (!$user) {
+            redirect('login/reset_password/' . $token);
+            return;
+        }
+
+        if ($password !== $passconf) {
+
+            echo "Las contraseñas no coinciden. Por favor, vuelve atrás e inténtalo de nuevo.";
+            return;
+        }
+
+        // Todo correcto, actualizamos la contraseña
+        $this->users_model->update_password($user->id, $password);
+
+        // Mostramos la página de éxito
+        $data['title'] = 'Contraseña Actualizada';
+        $this->load->view('templates/header', $data);
+        $this->load->view('reset_password_success');
+        $this->load->view('templates/footer');
+    }
 }

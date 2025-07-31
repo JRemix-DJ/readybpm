@@ -415,4 +415,14 @@ class Users_model extends CI_Model {
         $this->db->where_in('product_id', $ids_array);
         return $this->db->delete('user_files');
     }
+    
+    public function set_reset_token($user_id, $token) {
+        $expiration = date('Y-m-d H:i:s', strtotime('+1 hour'));
+        $data = array(
+            'reset_token' => $token,
+            'reset_expires' => $expiration
+        );
+        $this->db->where('id', $user_id);
+        return $this->db->update('users', $data);
+    }
 }

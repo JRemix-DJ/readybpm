@@ -1313,21 +1313,26 @@ class Admin extends CI_Controller
         $this->pagos_tokens();
     }
 
-    public function listar_generos()
-    {
+    public function listar_generos(){
         $accion = $this->input->get('action');
         $gender_id = $this->input->get('gender_id');
         $user_role = $this->session->userdata('role');
 
         if ( $accion == 'delete' ) {
-
             $genero = $this->genero_model->load_genero_info($gender_id);
             if ( !$genero ) {
                 $mensaje = 'Este Género no existe';
             } else {
 
                 if ( $user_role == 'is_admin' || $user_role == 'is_editor' ) {
-                    $this->genero_model->delete_genero($gender_id);
+                    $product_count = $this->products_model->count_products_by_genre($gender_id);
+                    
+                    if ($product_count > 0) {
+                        $mensaje = "Error: No se puede eliminar este género porque está asignado a " . $product_count . " producto(s).";
+                    } else {
+                        $this->genero_model->delete_genero($gender_id);
+                        $mensaje = "Género eliminado correctamente.";
+                    }
                 } else {
                     $mensaje = "No tienes permisos para realizar esta acción";
                 }

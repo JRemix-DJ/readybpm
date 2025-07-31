@@ -447,6 +447,7 @@ class Payment extends CI_Controller {
                     ];
                     $this->orders_model->update_order($order_id, $update_data);
                     $this->add_tokens_to_user($order_id);
+                    $this->send_notification_mail($order_id);
                     file_put_contents(APPPATH . 'logs/tukuy_webhook.log', "[SUCCESS] Orden #{$order_id} activada para el usuario {$customer_email} por el monto de {$amount_paid}.\n", FILE_APPEND);
                 } else {
                     file_put_contents(APPPATH . 'logs/tukuy_webhook.log', "[INFO] Se recibió pago de {$customer_email} por {$amount_paid}, pero no se encontró una orden pendiente que coincida.\n", FILE_APPEND);
@@ -533,74 +534,71 @@ class Payment extends CI_Controller {
 		var_dump($_POST);
 	}
 
-	public function send_notification_mail($order_id=609, $renovacion = 0){
+	public function send_notification_mail($order_id, $renovacion = 0){
+        // Usamos la configuración global de email, no es necesario redefinirla aquí
+        $this->load->library('email');
 
-		$config['protocol']    = 'smtp';
-		$config['smtp_host']    = SMTP_URL;
-		$config['smtp_port']    = SMTP_PORT;
-		$config['smtp_timeout'] = '7';
-		$config['smtp_user']    = SMTP_USER;
-		$config['smtp_pass']    = SMTP_KEY;
-		$config['charset']    = 'utf-8';
-		$config['newline']    = "\r\n";
-		$config['mailtype'] = 'html'; // or html
-		$config['validation'] = TRUE; // bool whether to validate email or not         
+        // 1. Obtener todos los datos necesarios para la plantilla
+        $orden = $this->orders_model->load_order_info($order_id);
+        $user = $this->users_model->load_user_info($orden->user_id);
+        
+        if ($orden->is_plan) {
+            $plan = $this->plan_model->load_plan_info($orden->plan_id);
+            $items[0] = (object) [
+                'name' => $plan->name,
+                'price' => $orden->total_price, // Usar el precio de la orden
+                'duration' => $plan->duration,
+                'description' => $plan->description
+            ];
+        } else {
+            $items = $this->orders_model->load_order_items($order_id);
+        }
+        
+        // Si no hay datos, no continuar
+        if (!$orden || !$user || !$items) {
+            log_message('error', "Faltan datos para enviar notificación de orden #{$order_id}");
+            return;
+        }
 
-		$this->email->initialize($config);
+        // 2. Definir los destinatarios administrativos
+        $admin_recipients = [
+            'payments@readybpm.com',
+            'readybpm@gmail.com'
+        ];
 
-		$this->email->from('support@readybpm.com', 'ReadyBPM');
+        // 3. Preparar los datos para la plantilla de correo
+        $data['items'] = $items;
+        $data['renovacion'] = $renovacion;
+        $data['user'] = $user;
+        $data['is_plan'] = $orden->is_plan;
+        $data['orden'] = $orden;
+        
+        if ($orden->cupon_id != null) {
+            $data['cupon'] = $this->products_model->get_cupon_by_id($orden->cupon_id);
+        }
 
-		$orden = $this->orders_model->load_order_info($order_id);
-		if($orden->cupon_id!=null){
-			$cupon = $this->products_model->get_cupon_by_id()($orden->cupon_id);
-		}
+        // 4. Cargar la plantilla de correo en una variable
+        $mail_body = $this->load->view('emails/payment', $data, TRUE);
 
-		$user= $this->users_model->load_user_info($orden->user_id);
-		// print_r($user);
-		if($orden->is_plan){
-			$plan = $this->plan_model->load_plan_info($orden->plan_id);
-			// print_r($plan->id);
-			$items[0]= (object) array(
-				'name'=>$plan->name,
-				'tokens'=>$plan->tokens,
-				'tokens_video'=>$plan->tokens_video,
-				'duration'=>$plan->duration,
-				'description'=>$plan->description,
-				'ilimitado_activo' => $plan->ilimitado_activo
-			);
-		}else{
-			$items = $this->orders_model->load_order_items($order_id);
-		}
+        // 5. Configurar y enviar el correo
+        $this->email->from(EMAIL_NOREPLY, 'ReadyBPM'); // Usando la constante global
+        $this->email->to($user->email);                // Destinatario principal: el cliente
+        $this->email->bcc($admin_recipients);          // Con copia oculta a los administradores
 
-		//print_r($items);
-		$this->email->to($user->email);
-		if ($user->email != "user@test.com") {
-			$this->email->bcc('support@readybpm.com');
-		}if ($renovacion == 1) {
-			$mensaje = 'Gracias por renovar tu plan';
-		}else {
-			$mensaje = 'Gracias por su Compra';
-		}
-
-		$this->email->subject($mensaje);
-
-		$data['items']=$items;
-		$data['renovacion'] = $renovacion;
-		$data['user']=$user;
-		$data['is_plan']=$orden->is_plan;
-		$data['orden']=$orden;
-		if($orden->cupon_id!=null){
-			$data['cupon']=$cupon;
-		}
-	
-		$mail = $this->load->view('emails/payment', $data, TRUE);
-		
-		$this->email->message($mail);
-		echo $mail;
-		$this->email->send();
-	}
-
-
+        if ($renovacion == 1) {
+            $this->email->subject('Confirmación de Renovación de Plan - Orden #' . $order_id);
+        } else {
+            $this->email->subject('Confirmación de Compra - Orden #' . $order_id);
+        }
+       
+        $this->email->message($mail_body);
+       
+        if (!$this->email->send()) {
+            log_message('error', 'Error al enviar correo de notificación para orden #' . $order_id . ': ' . $this->email->print_debugger());
+        }
+        
+        echo $mail_body;
+    }
 
 	public function send_test($order_id=609){
 		// $order_id=$_GET['orden'];

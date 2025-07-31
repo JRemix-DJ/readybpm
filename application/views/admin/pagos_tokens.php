@@ -5,7 +5,7 @@
     </div>
     <div class="card pd-20 pd-sm-40">
         <h6 class="card-body-title">Listado de DJs</h6>
-        <p class="mg-b-20 mg-sm-b-30">A continuaci贸n se muestra el total a pagar a cada DJ, calculado seg煤n su
+        <p class="mg-b-20 mg-sm-b-30">A continuacion se muestra el total a pagar a cada DJ, calculado segun su
             porcentaje y el total de descargas de sus mixes.</p>
 
         <div class="table-wrapper">
@@ -28,7 +28,7 @@
                         <td><?php echo number_format($dj->pago_calculado, 2); ?></td>
                         <td>
                             <a href="<?php echo site_url('admin/detalles_pago_dj/' . $dj->id); ?>" class="btn btn-info btn-sm">Detalles</a>
-                            <a href="<?php echo site_url('admin/siguiente_mes/' . $dj->id); ?>" class="btn btn-success btn-sm" onclick="return confirm('驴Est谩s seguro de que quieres archivar este pago y reiniciar el conteo de descargas para el siguiente mes? Esta acci贸n no se puede deshacer.');">Siguiente Mes</a>
+                            <a href="<?php echo site_url('admin/siguiente_mes/' . $dj->id); ?>" class="btn btn-success btn-sm" onclick="return confirm('¿Estás seguro de que quieres archivar este pago y reiniciar el conteo de descargas para el siguiente mes? Esta acción no se puede deshacer.');">Siguiente Mes</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
