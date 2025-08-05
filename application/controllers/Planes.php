@@ -10,8 +10,7 @@ class Planes extends CI_Controller {
 		$this->load->database('default');
 	}
 
-	public function index()
-	{
+	public function index(){
 		$data['title']="Planes - ReadyBPM";
 		$data['description']="Conoce los planes para ser miembro";
 		$data['djs']=$this->users_model->get_djs();
@@ -22,8 +21,7 @@ class Planes extends CI_Controller {
 		$this->load->view('templates/footer', $data);
 	}
 
-	public function test()
-	{
+	public function test(){
 		$data['title']="Planes - ReadyBPM";
 		$data['description']="Conoce los planes para ser miembro";
 		$data['djs']=$this->users_model->get_djs();

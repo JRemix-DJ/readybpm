@@ -1,7 +1,7 @@
 <div id="mc_embed_signup">
     <div class="new_email">
-        <p class="test-new">Compatibilidad total con los software de DJ</p>
-        <p class="test-new"> más destacadas a nivel global</p>
+        <p class="test-new">Full compatibility with the most prominent DJ</p>
+        <p class="test-new"> software worldwide </p>
         <img class="logmarcas" src="<? echo base_url('images/logo3.png?v=1.2'); ?>" alt="<? echo $title; ?>">
     </div>
 </div>
@@ -107,9 +107,8 @@
 <footer class="doc-footer text-uppercase text-center">
     <div class="container">
         <ul class="style1 footer-links">
-            <li><a href="<? echo base_url(); ?>pages/become_a_member/">CONVERTIRME EN EDITOR</a></li>
-            <li><a href="<? echo base_url(); ?>pages/terms_conditions/">TÉRMINOS Y CONDICIONES</a></li>
-            <!--<li><a href="<? echo base_url('faq'); ?>">PREGUNTAS FRECUENTES</a></li>-->
+            <li><a href="<? echo base_url(); ?>pages/become_a_member/">BE A REMIXER</a></li>
+            <li><a href="<? echo base_url(); ?>pages/terms_conditions/">TERMS AND CONDITIONS</a></li>
         </ul>
         <ul class="social-list style2 circular">
             <li><a href="https://www.facebook.com/profile.php?id=61576190996039" target="_blank"
@@ -119,12 +118,31 @@
         <div class="row">
             <div class="col-xs-12">
                 <strong>&copy; Copyright <? echo date('Y'); ?> ReadyBPM</strong>
-                <p>LOS MEJORES REMIX PARA DJS PROFESIONALES</p>
+                <p>THE BEST REMIXES FOR PROFESSIONAL DJS</p>
             </div>
         </div>
     </div>
 </footer>
 
+<audio id="shared-audio-player"></audio>
+
+<div id="custom-audio-player" class="jp-audio">
+    <div class="jp-gui jp-interface">
+        <div class="jp-controls">
+            <a id="custom-play-btn" class="jp-play"><i class="fa fa-play"></i></a>
+            <a id="custom-pause-btn" class="jp-pause" style="display:none;"><i class="fa fa-pause"></i></a>
+        </div>
+        <div class="jp-progress">
+            <div id="custom-seek-bar" class="jp-seek-bar" style="cursor: pointer;">
+                <div id="custom-play-bar" class="jp-play-bar"></div>
+            </div>
+        </div>
+        <div class="jp-time-holder">
+            <div id="custom-current-time" class="jp-current-time">00:00</div>
+            <div id="custom-duration" class="jp-duration">00:00</div>
+        </div>
+    </div>
+</div>
 
 <?
 if(isset($_SESSION['content_type'])){
@@ -275,7 +293,7 @@ if($this->session->userdata('content_type') == 'videos'){?>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <img src="<? echo base_url(); ?>images/logo.png" alt="" class="col-md-4 col-md-offset-4">
+                    <img src="<? echo base_url(); ?>images/logocorto.png" alt="" class="col-md-4 col-md-offset-4">
                 </div>
                 <p>ReadyBPM is a remix service designed to be used mainly by DJs who seek to improve their
                     performance on stage.</p>
@@ -294,8 +312,7 @@ if($this->session->userdata('content_type') == 'videos'){?>
             </div>
             <div class="modal-footer">
                 <a href="https://readybpm.com" class="btn btn-success btn-lg" data-dismiss="modal"
-                   id="accept-terms">ACEPTAR</a>
-
+                   id="accept-terms">I ACCEPT</a>
             </div>
         </div>
     </div>

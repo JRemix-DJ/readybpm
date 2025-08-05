@@ -74,41 +74,41 @@
 
 </head>
 <body>
-<div id="fb-root"></div>
-<script>
-    window.fbAsyncInit = function () {
-        FB.init({
-            xfbml: true,
-            version: 'v9.0'
-        });
-    };
-    (function (d,s,id) {
-        var js,fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = 'https://connect.facebook.net/es_ES/sdk/xfbml.customerchat.js';
-        fjs.parentNode.insertBefore(js,fjs);
-    }(document,'script','facebook-jssdk'));</script>
-<!-- Your Chat Plugin code -->
-<div class="fb-customerchat"
-     attribution=setup_tool
-     page_id="100765198078235"
-     logged_in_greeting="Hola !!!  Escribenos un mensaje y atenderemos tu consulta rapidamente :"
-     logged_out_greeting="Hola !!!  Escribenos un mensaje y atenderemos tu consulta rapidamente :">
-</div>
 <style>
-    .fb_dialog {
-        bottom: 40pt !important;
+    #generalmenu .dl-menu > li > a:hover {
+        background-color: #FFFFFF !important; /* Fondo blanco al pasar el mouse */
+        color: #5F47F3 !important; /* Cambiamos el texto a azul para que sea visible */
     }
-
-    /* The following are for the chat box, on display and on hide */
-    iframe.fb_customer_chat_bounce_in_v2 {
-        bottom: 110px !important;
+    .dl-menu .cyan a i {
+        font-size: 1.2em; /* Hace el ícono un 20% más grande que el texto */
+        margin-right: 8px; /* Añade un espacio a la derecha del ícono */
     }
+    #dl-menu .dl-menu .cyan > a:hover {
+        color: #5F47F3 !important; /* Color del texto morado al pasar el mouse */
+    }
+    .vertical-line {
+        transform: rotate(90deg);
+        display: inline-block; /* To control width and height */
+        color: #ffffff !important;
+    }
+    .line-vertical{
+        display: block;
+        position: relative;
+        line-height: 65px !important;
+        height: 76px;
+        width: 14px;
+        padding: 5px;
+    }
+    header#sticktop.doc-header {
+        position: fixed; /* Fija la barra en la pantalla */
+        top: 0;          /* La pega en la parte superior */
+        left: 0;         /* La alinea a la izquierda */
+        right: 0;        /* La alinea a la derecha (ocupa todo el ancho) */
+        width: 100%;     /* Asegura que ocupe el 100% del ancho */
+        z-index: 99999;  /* Un z-index extremadamente alto para que esté encima de todo */
 
-    iframe.fb_customer_chat_bounce_out_v2 {
-        bottom: 110px !important;
+        /* Pequeña sombra para darle profundidad y separarla del contenido */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
     }
 </style>
 <!--===============================
@@ -162,8 +162,8 @@ Preloading Splash Screen
                          style="line-height: 1em; display: grid; align-content: center;">
                 <span style="line-height: 1em;" id="tokens_total">
                  <span id="cantidad_tokens_video"><? echo $this->session->userdata('tokens_video'); ?></span> <small
-                            style="font-size: 1em">DESCARGAS</small> <br>                <span
-                            style="font-size: 1em">DISPONIBLES</span>
+                            style="font-size: 1em">AVAILABLE</small> <br><span
+                            style="font-size: 1em">DOWNLOADS</span>
                 </span>
                 </section>
             <? } ?>
@@ -185,27 +185,36 @@ Preloading Splash Screen
                     <button class="menuTrigger"><i class="fa fa-navicon"></i></button>
                     <div class="clearfix"></div>
                     <ul class="dl-menu">
-                        <li class="parent active"><a
+                        <!--<li class="parent active"><a
                                     href="<? if ($this->session->userdata('content_type') == 'videos') {
                                         echo base_url('/videos/');
                                     } else {
                                         echo base_url('/audios/');
-                                    } ?>">Inicio</a></li>
+                                    } ?>">Inicio</a></li>-->
 
                         <? if ($this->session->userdata('is_logued_in')) { ?>
                             <li class="cyan parent">
-                                <a href="<? echo base_url(); ?>micuenta"><i class="fa fa-user" aria-hidden="true"></i>
-                                    Mi Cuenta</a>
+                                <a href="<? echo base_url(); ?>micuenta"><i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                    My Account</a>
                                 <ul class="dl-submenu">
-                                    <li><a href="<? echo base_url(); ?>micuenta">Ver Mi Cuenta</a></li>
+                                    <li><a href="<? echo base_url(); ?>micuenta">My Account</a></li>
                                     <li><a href="<? echo base_url(); ?>login/logout/">Logout</a></li>
                                 </ul>
                             </li>
                         <? } else { ?>
-                            <li class="cyan"><a href="#" data-toggle="modal" data-target="#myModal"><i
-                                            class="fa fa-user" aria-hidden="true"></i> Ingresar</a></li>
-                            <li class="cyan"><a href="#" data-toggle="modal" data-target="#myModalRegistrarme"><i
-                                            class="fa fa-user-plus" aria-hidden="true"></i> Registrarse</a></li>
+                            <li class="cyan">
+                                <a href="#" data-toggle="modal" data-target="#myModal">
+                                    <i class="fa fa-user" aria-hidden="true"></i> Login
+                                </a>
+                            </li>
+                            <li class="line-vertical">
+                                <i class="fa fa-window-minimize vertical-line"></i>
+                            </li>
+                            <li class="cyan">
+                                <a href="#" data-toggle="modal" data-target="#myModalRegistrarme">
+                                    <i class="" aria-hidden="true"></i> Sign Up
+                                </a>
+                            </li>
                         <? } ?>
                     </ul>
                 </div><!-- /dl-menuwrapper -->
@@ -219,7 +228,7 @@ Preloading Splash Screen
                     <? } ?>
                   </ul>
                   </li> -->
-                        <li><a href="<? echo base_url('audios/'); ?>">Audios</a></li>
+                        <li><a href="<? echo base_url('audios/'); ?>">Home</a></li>
                         <li class="parent"><a href="<? echo base_url('generos/'); ?>">Genres</a>
                             <!--<ul class="dl-submenu cols3">
                         <? foreach ($generos as $genre) { ?>
@@ -232,8 +241,8 @@ Preloading Splash Screen
                       </ul>-->
                         </li>
                         <!--<li><a href="<? echo base_url('drops'); ?>">Drops</a></li>-->
-                        <li><a href="<? echo base_url('planes'); ?>">Plans</a></li>
-                        <li><a href="<? echo base_url('pages/become_a_member/'); ?>">Be a Remixer</a></li>
+                        <li><a href="<? echo base_url('planes'); ?>">Pricing</a></li>
+                        <li><a href="<? echo base_url('pages/request/'); ?>">Request your Remix</a></li>
                         <!--<li><a href="<? echo base_url('tienda'); ?>">Tienda</a></li>-->
                         <? if ($this->session->userdata('is_logued_in')) { ?>
                             <li class="cyan parent onlymobile">
@@ -253,8 +262,8 @@ Preloading Splash Screen
                                     Registrarse</a></li>
                         <? } ?>
                     </ul>
-
                 </div>
             </div>
         </nav>
     </header>
+</div>

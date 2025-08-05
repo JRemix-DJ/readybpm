@@ -73,7 +73,6 @@ input#mce-EMAIL {
 }
 .contenedor{
     width: 100%;
-    max-width: 95%;
     margin: auto;
     height:100vh;
     display: flex;
@@ -84,24 +83,21 @@ input#mce-EMAIL {
 }
 .section_plan{
     display: flex;
-    justify-content: center;
+    justify-content: left;
 }
 
 .tabla{
-    width: 25%;
-    height: 550px;
-    margin: auto;
     display: flex;
     flex-direction: column;
-    /* border: 1px solid #343759; */
     border-radius: 4px;
     box-shadow: 0px 0px 2px 0px black;
     padding: 28px;
-    line-height: 35px;
+    line-height: 25px;
     text-align: center;
     padding-top: 10px;
-    flex-grow: 1;
+    padding-bottom: 70px;
     color: #343759;
+    background-color: rgba(95, 71, 243, 0.02);
 }
 .precio{
     margin-right: .5rem;
@@ -150,20 +146,18 @@ input#mce-EMAIL {
 }
 
 .tabla:hover{
-    background: #171920;
-    color: #f1f1f2;
-    transition: .5s all;
+    background-color: rgba(95, 71, 243, 0.05);
+    color: #343759;
+    transition: .3s all;
     transform: scale(1.1);
     cursor: pointer;
 }
 .btn-default:hover{
-    background: #3a3a45 !important;
     color: #f1f1f2;
-    transition: .5s all;
-    transform: scale(1.1);
+    transition: .8s all;
+    transform: scale(1.01);
     cursor: pointer;
 }
-
 
 @media screen and (max-width: 1000px){
     .tabla{

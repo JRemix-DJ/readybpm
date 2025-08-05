@@ -1152,8 +1152,6 @@ a.navbar-brand img {
     right: 0;
 }
 
-
-
 .xv-menuwrapper .dl-menu > li.parent > ul > li,
 .xv-menuwrapper .dl-menu > li.parent > ul > li.parent ul li {
     display: block;
@@ -1827,7 +1825,7 @@ a.navbar-brand img {
 .xv_slider {
     position: relative;
     width: 100%;
-    background: #e7eaeb;
+    background: #5F47F3;
 }
 
 .xv_slide{

@@ -56,7 +56,7 @@ class Pages extends CI_Controller {
 		<td>$work</td>
 		</tr>
 		<tr>
-		<td><strong>Quiere pertenecer a VRP porque: </strong></td>
+		<td><strong>Quiere pertenecer a ReadyBPM porque: </strong></td>
 		<td>$message</td>
 		</tr>
 		<tr>
@@ -179,5 +179,68 @@ class Pages extends CI_Controller {
         if (!$this->email->send()) {
             log_message('error', 'Error al enviar correo de notificación de venta: ' . $this->email->print_debugger());
         }
+    }
+    public function send_request(){
+        $reference = $this->input->post('reference');
+        $message = $this->input->post('message');
+
+        $mensaje = "
+		<table width='100%'>
+		<tr>
+		<td><strong>¿Trabaja para otros sitios web?: </strong></td>
+		<td>$reference</td>
+		</tr>
+		<tr>
+		<td><strong>Quiere pertenecer a VRP porque: </strong></td>
+		<td>$message</td>
+		</tr>
+		</table>
+		";
+
+        $config['protocol']    = 'smtp';
+        $config['smtp_host']   = 'mail.readybpm.com';
+        $config['smtp_port']   = 465;
+        $config['smtp_crypto'] = 'ssl';
+        $config['smtp_timeout'] = '30';
+        $config['smtp_user']   = 'remixers@readybpm.com';
+        $config['smtp_pass']   = '6+E;5@%IB7rA';
+        $config['charset']     = 'utf-8';
+        $config['newline']    = "\r\n";
+        $config['mailtype'] = 'html';
+        $config['validation'] = FALSE;
+        $config['from_email']  = EMAIL_REMIXERS;
+        $config['from_name']   = 'ReadyBPM';
+
+        $this->email->initialize($config);
+        $this->load->library('email');
+
+        $this->email->from('remixers@readybpm.com', 'ReadyBPM');
+        $destinatarios = [
+            'remixers@readybpm.com',
+            'readybpm@gmail.com'
+        ];
+        $this->email->to($destinatarios);
+
+        $this->email->subject('HAN SOLICITADO REMIX');
+
+        $data['mensaje'] = $mensaje;
+
+        $mail = $this->load->view('emails/request', $data, TRUE);
+        $this->email->message($mail);
+
+        $this->email->send();
+        $jsondata['success'] = true;
+        header('Content-type: application/json; charset=utf-8');
+        echo json_encode($jsondata);
+    }
+    public function request(){
+        $data['title']="ReadyBPM";
+        $data['djs']=$this->products_another_model->get_djs();
+        $data['description']="Música para Djs y Vjs, los mejores remixes en un solo lugar";
+        $data['paises']=$this->get_countries();
+        $data['generos']=$this->genero_model->get_generos();
+        $this->load->view('templates/header', $data);
+        $this->load->view('request');
+        $this->load->view('templates/footer', $data);
     }
 }

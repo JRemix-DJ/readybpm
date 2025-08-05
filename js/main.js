@@ -51,7 +51,7 @@ $('#myModalVideo').on('hidden.bs.modal', function (e) {
 });
 
 jQuery(function($) {
-    var base_url = "http://localhost/readybpm/index.php/";
+    var base_url = "https://readybpm.com/index.php/";
     "use strict";
     /*Table OF Contents
 	==========================
@@ -816,191 +816,81 @@ jQuery(function($) {
         });
 
         /*============================
-        Player for Individual Songs
+        Player for Individual Songs (Corrected and Final Version)
         ==============================*/
-          // $("#jquery_jplayer_1").jPlayer({
-          //   ready: function () {
-          //     $(this).jPlayer("setMedia", {
-          //       mp3: 'https://videoremixpool.com/assets/demo/demo.mp3'
-          //     });
-          //   },
-          //   cssSelectorAncestor: "#jp_container_1",
-          //   swfPath: "/js/jplayer",
-          //   supplied: "mp3",
-          //   useStateClassSkin: true,
-          //   autoBlur: false,
-          //   smoothPlayBar: true,
-          //   keyEnabled: true,
-          //   remainingDuration: true,
-          //   toggleDuration: true,
-          //   errorAlerts: true,
-          // });
-        var classPlay="fa fa-play-circle-o";
-        var classPause="fa fa-stop-circle-o";
-        function is_active(div){
+
+        // Variables to manage the player state
+        var classPlay = "fa fa-play-circle-o";
+        var classPause = "fa fa-stop-circle-o";
+
+        // Function to check if the clicked song is already playing
+        function is_active(div) {
             var divID = div.closest('tr').attr('id');
-            var playing_id=$("#jquery_jplayer_1").attr('data-audio-id');
-            if(playing_id!='undefined'){
-                //console.log('div is: '+divID+'. and playing id is: '+playing_id+'.');
-                //console.log(String(divID)==String(playing_id));
-                if(String(divID)==String(playing_id)){
-                    //console.log($('#jquery_jplayer_1').data().jPlayer.status.paused);
-                    if($('#jquery_jplayer_1').data().jPlayer.status.paused){
-                        $("#jquery_jplayer_1").jPlayer('play');
-                        $('#'+playing_id).find('.singleSong-jplayer .fa').removeClass().addClass(classPause);
-                        return true;
-                    }else{
-                        $("#jquery_jplayer_1").jPlayer('stop');
-                        $('#'+playing_id).find('.singleSong-jplayer .fa').removeClass().addClass(classPlay);
-                        return true;
-                    }
-                }else{
-                    $('#'+playing_id).find('.singleSong-jplayer .fa').removeClass().addClass(classPlay);
-                    //console.log('this row is not active');
-                    return false;
+            var playing_id = $("#jquery_jplayer_1").attr('data-audio-id');
+
+            if (playing_id && String(divID) == String(playing_id)) {
+                if ($('#jquery_jplayer_1').data().jPlayer.status.paused) {
+                    $("#jquery_jplayer_1").jPlayer('play');
+                    $('#' + playing_id).find('.singleSong-jplayer .fa').removeClass(classPlay).addClass(classPause);
+                } else {
+                    $("#jquery_jplayer_1").jPlayer('pause');
+                    $('#' + playing_id).find('.singleSong-jplayer .fa').removeClass(classPause).addClass(classPlay);
                 }
+                return true;
             }
+
+            if (playing_id) {
+                $('#' + playing_id).find('.singleSong-jplayer .fa').removeClass(classPause).addClass(classPlay);
+            }
+            return false;
         }
-        
+
+        // Main click handler for all preview buttons
         if ($(".singleSongPlayer").length) {
             $('.singleSong-jplayer').on('click', function() {
-                //console.log('row_click');
-                if(!is_active($(this))){
-                    var temp_id = $(this).attr("id"),
-                        temp_song = $(this).attr('data-mp3'),
-                        temp_title = $(this).attr('data-title'),
-                        temp_wrap = "#" + $(this).closest('tr').attr("id");
-                    var audio_wrap = $(this).closest('tr').attr("id");
+                if (!is_active($(this))) {
+                    var temp_song = $(this).attr('data-mp3');
+                    var audio_wrap_id = $(this).closest('tr').attr("id");
 
-                        //console.log('audio wrap is '+audio_wrap);
-                        var div = $(this).find('.boton-play').removeClass();
-                        div.addClass(classPause);
+                    $(this).find('.boton-play').removeClass(classPlay).addClass(classPause);
 
-                        $("#jquery_jplayer_1").attr('data-audio-id', audio_wrap);
-                        $("#jquery_jplayer_1").jPlayer("destroy");
-                        $("#jquery_jplayer_1").jPlayer({
-                            ready: function () {
-                              $(this).jPlayer("setMedia", {
+                    $("#jquery_jplayer_1").attr('data-audio-id', audio_wrap_id);
+                    $("#jquery_jplayer_1").jPlayer("destroy");
+
+                    $("#jquery_jplayer_1").jPlayer({
+                        ready: function () {
+                            $(this).jPlayer("setMedia", {
                                 mp3: temp_song
-                              });
-                            },
-                            pause: function() {
-                                var rowid='#'+$(this).attr('data-audio-id');
-                                $(rowid).find('.boton-play').removeClass().addClass(classPlay);
-                            },
-                            play: function() {
-                                var rowid='#'+$(this).attr('data-audio-id');
-                                $(rowid).find('.boton-play').removeClass().addClass(classPause);
-                            },
-                            cssSelectorAncestor: "#jp_container_1",
-                            swfPath: "/js/jplayer",
-                            supplied: "mp3",
-                            useStateClassSkin: true,
-                            autoBlur: false,
-                            smoothPlayBar: true,
-                            keyEnabled: true,
-                            remainingDuration: true,
-                            toggleDuration: true,
-                            errorAlerts: true,
-                          });
-                        setTimeout(function(){ 
-                            $("#jquery_jplayer_1").jPlayer("play");
-                        }, 100);
+                            }).jPlayer("play", 5);
+                        },
+                        pause: function() {
+                            var rowid = '#' + $(this).attr('data-audio-id');
+                            $(rowid).find('.boton-play').removeClass(classPause).addClass(classPlay);
+                        },
+                        play: function() {
+                            var rowid = '#' + $(this).attr('data-audio-id');
+                            $(rowid).find('.boton-play').removeClass(classPlay).addClass(classPause);
+                        },
+                        timeupdate: function(event) {
+                            // Si el usuario intenta retroceder antes del segundo 5, lo forzamos a volver.
+                            if (event.jPlayer.status.currentTime < 5 && event.jPlayer.status.currentTime > 0) {
+                                $(this).jPlayer("play", 5);
+                            }
+                        },
+                        cssSelectorAncestor: "#jp_container_1",
+                        swfPath: "/js/jplayer",
+                        supplied: "mp3",
+                        useStateClassSkin: true,
+                        autoBlur: false,
+                        smoothPlayBar: true,
+                        keyEnabled: true,
+                        remainingDuration: true,
+                        toggleDuration: true,
+                        errorAlerts: true,
+                    });
                 }
-
             });
         }
-
-
-        var classPlayVideo="play";
-        var classPauseVideo="pausa";
-        function is_activeVideo(div){
-            var divID = div.closest('tr').attr('id');
-            var playing_id=$("#jquery_jplayer_2").attr('data-audio-id');
-            if(playing_id!='undefined'){
-                //console.log('div is: '+divID+'. and playing id is: '+playing_id+'.');
-                //console.log(String(divID)==String(playing_id));
-                if(String(divID)==String(playing_id)){
-                    //console.log($('#jquery_jplayer_1').data().jPlayer.status.paused);
-                    if($('#jquery_jplayer_2').data().jPlayer.status.paused){
-                        $("#jquery_jplayer_2").jPlayer('play');
-                        $('#'+playing_id).find('.fa').removeClass().addClass(classPauseVideo);
-                        return true;
-                    }else{
-                        $("#jquery_jplayer_2").jPlayer('stop');
-                        $('#'+playing_id).find('.fa').removeClass().addClass(classPlayVideo);
-                        return true;
-                    }
-                }else{
-                    $('#'+playing_id).find('.fa').removeClass().addClass(classPlayVideo);
-                    //console.log('this row is not active');
-                    return false;
-                }
-            }
-        }
-        $('#myModalTerms').hide();
-        $('#myModalVideo').hide();  
-        $('.modal-backdrop').remove(); // the modal hide call to remove the modal.
-        this.document.body.classList.remove('modal-open'); // work around a bug in ngx-bootstrap
-
-        if ($(".singleVideoPlayer").length) {
-            $('.thumb_container').on('click', function(e) {
-                e.preventDefault();
-                console.log('row_click');
-                $('#myModalVideo').modal({
-                    backdrop: true,
-                    keyboard: false,
-                    show: false,
-                });
-                if(!is_activeVideo($(this))){
-                    $('#myModalVideo').modal('show');
-                    var temp_id = $(this).attr("id"),
-                        temp_song = $(this).attr('data-mp3'),
-                        temp_title = $(this).attr('data-title'),
-                        temp_wrap = "#" + $(this).closest('tr').attr("id");
-                    var audio_wrap = $(this).closest('tr').attr("id");
-                        var modalVideo = $('#myModalVideo').modal('show');
-                        modalVideo.find('.modal-header h4').remove();
-                        modalVideo.find('.modal-header').append('<h4>Preview: '+temp_title+'</h4>');
-                        //console.log('audio wrap is '+audio_wrap);
-                        var div = $(this).removeClass('play');
-                        div.addClass(classPauseVideo);
-
-                        $("#jquery_jplayer_2").attr('data-video-id', audio_wrap);
-                        $("#jquery_jplayer_2").jPlayer("destroy");
-                        $("#jquery_jplayer_2").jPlayer({
-                            ready: function () {
-                              $(this).jPlayer("setMedia", {
-                                m4v: temp_song
-                              });
-                            },
-                            pause: function() {
-                                var rowid='#'+$(this).attr('data-video-id');
-                                $(rowid).find('.thumb_container').removeClass('play').addClass(classPlayVideo);
-                            },
-                            play: function() {
-                                var rowid='#'+$(this).attr('data-video-id');
-                                $(rowid).find('.thumb_container').removeClass('pausa').addClass(classPauseVideo);
-                            },
-                            cssSelectorAncestor: "#jp_container_2",
-                            swfPath: "/js/jplayer",
-                            supplied: "m4v",
-                            useStateClassSkin: true,
-                            autoBlur: false,
-                            smoothPlayBar: true,
-                            keyEnabled: true,
-                            remainingDuration: true,
-                            toggleDuration: true,
-                            errorAlerts: true,
-                          });
-                        setTimeout(function(){ 
-                            $("#jquery_jplayer_2").jPlayer("play");
-                        }, 100);
-                }
-
-            });
-        }
-
 
         /*=======================================
         packery

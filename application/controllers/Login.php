@@ -12,8 +12,7 @@ class Login extends CI_Controller{
 		$this->load->database('default');
     }
 	
-	public function index()
-	{	
+	public function index(){
 		redirect(base_url().'admin/login');
 	}
 
@@ -31,20 +30,18 @@ class Login extends CI_Controller{
 	}
 
 	public function front(){
-		if($this->input->post('email') && $this->input->post('password'))
-		{
+		if($this->input->post('email') && $this->input->post('password')){
 			$email = $this->input->post('email');
 
 			//$password = sha1($this->input->post('password')); //este es el ideal
 			$password = $this->input->post('password'); //este es temporal o debe serlo
 			$ip = $this->getUserIpAddr();
 			$check_user = $this->login_model->login_front($email,$password, $ip);
-			
-			if($check_user != FALSE)
-			{
+
+			if($check_user != FALSE){
 				$tokens = $this->users_model->hasTokens($check_user->id);
 				$tokens_video = $this->users_model->hasTokensVideo($check_user->id);
-				$ilimitado = $this->users_model->isUnlimited($check_user->id);	
+				$ilimitado = $this->users_model->isUnlimited($check_user->id);
 				//print_r($ilimitado);
 				if($tokens==false && $tokens_video==false){
 					$user_has_tokens=false;
@@ -93,24 +90,31 @@ class Login extends CI_Controller{
 					foreach($user_products as $user_product){
 						$user_product_ids[] = $user_product->product_id;
 					}
-					$data = array(
-						'is_logued_in' 		=> 		TRUE,
-						'id_usuario' 		=> 		$check_user->id,
-						'role'				=>		$role,
-						'first_name'		=>		$check_user->first_name,
-						'last_name'			=>		$check_user->last_name,
-						'username' 			=> 		$check_user->username,
-						'profile_img' 		=> 		$check_user->profile_img,
-						'email' 			=> 		$check_user->email,
-						'is_user_tokens'	=>		$user_has_tokens,
-						'is_user_unlimited'	=>		$user_is_unlimited,
-						'tokens'			=>		$tokens,
-						'tokens_video'		=>		$tokens_video,
-						'user_products'		=>		$user_product_ids
-					);		
+                    // --- INICIO DE LA CORRECCIÓN ---
+                    // 1. Construir el array de sesión principal
+                    $data = array(
+                        'is_logued_in' 		=> TRUE,
+                        'id_usuario' 		=> $check_user->id,
+                        'role'				=> $role,
+                        'username' 			=> $check_user->username,
+                        'email' 			=> $check_user->email,
+                        'is_user_tokens'	=> $user_has_tokens,
+                        'is_user_unlimited'	=> $user_is_unlimited,
+                        'tokens'			=> $tokens,
+                        'tokens_video'		=> $tokens_video,
+                        'user_products'		=> $user_product_ids
+                    );
+
+                    // 2. Si el rol es permitido, AÑADIR el token al array '$data'
+
+                    $allowed_roles = ['is_admin', 'is_subadmin', 'is_editor'];
+                    if (in_array($role, $allowed_roles)) {
+                        $data['admin_token'] = bin2hex(random_bytes(7));
+                    }
+
 					//print_r($data);
 					$this->session->set_userdata($data);
-					
+
 					$jsondata['success']=true;
 					header('Content-type: application/json; charset=utf-8');
 					echo json_encode($jsondata);
@@ -131,15 +135,13 @@ class Login extends CI_Controller{
 
 	public function do()
 	{
-		if($this->input->post('token') && $this->input->post('token') == $this->session->userdata('token'))
-		{
+		if($this->input->post('token') && $this->input->post('token') == $this->session->userdata('token')){
             $this->form_validation->set_rules('email', 'nombre de usuario', 'required|trim|min_length[2]|max_length[150]');
             $this->form_validation->set_rules('password', 'password', 'required|trim|max_length[150]');
  
             //lanzamos mensajes de error si es que los hay
             
-			if($this->form_validation->run() == FALSE)
-			{
+			if($this->form_validation->run() == FALSE){
 				$data['title']="Video Remix Pool";
 				$data['description']="Música para Djs y Vjs, los mejores remixes en un solo lugar";
 				$data['token']=$this->token(); 
@@ -263,11 +265,10 @@ class Login extends CI_Controller{
 		ob_start(); // ensures anything dumped out will be caught
 
 		// do stuff here
-		$url = 'http://localhost/readybpm/'; // this can be set based on whatever
+		$url = 'http://readybpm.com/audios/'; // this can be set based on whatever
 
 		// clear out the output buffer
-		while (ob_get_status()) 
-		{
+		while (ob_get_status()) {
 		    ob_end_clean();
 		}
 
@@ -347,7 +348,6 @@ class Login extends CI_Controller{
             return;
         }
 
-        // Todo correcto, actualizamos la contraseña
         $this->users_model->update_password($user->id, $password);
 
         // Mostramos la página de éxito

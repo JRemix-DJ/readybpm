@@ -60,7 +60,7 @@ a.btn.btn-default {
   background: #3e6ced !important;
 }
 a.btn.btn-default {
-  background: #3e6ced !important;
+  background: #5F47F3 !important;
 }
 div#mc_embed_signup {
   background: #3e6ced !important;
@@ -123,7 +123,7 @@ section#cuerpo {
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap');
 .information-home {
   grid-area: information-home;
-  color: white;
+  color: rgba(255, 255, 255, 0.5);
   font-family: 'Nunito', sans-serif;
   font-weight: 400;
   line-height: 1.1;
@@ -174,7 +174,7 @@ section#cuerpo {
   padding-right: 20px;
 }
 #cuerpo .planeshome {
-  padding-top: 40px;
+  padding-top: 20px;
 
   background: #fff;
   display: block !important;
@@ -190,8 +190,7 @@ section#cuerpo {
   color: #fff;
 }
 #cuerpo .planeshome .btn:hover {
-  color: #000;
-  text-shadow: 2px 2px 2px #808080;
+  color: #ffffff;
 }
 footer {
   font-size: 0.8em;

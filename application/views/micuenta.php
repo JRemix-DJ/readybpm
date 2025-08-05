@@ -1,4 +1,4 @@
- <div id="ajaxArea">
+<div id="ajaxArea">
  	<section>
  		<header>
  			<div class="container">
@@ -46,3 +46,26 @@
  		</header>
  	</section>
  </div>
+
+<?php
+// --- INICIO DEL CÓDIGO PARA EL BOTÓN DE ADMIN ---
+
+// Obtener datos de la sesión actual
+$role = $this->session->userdata('role');
+$admin_token = $this->session->userdata('admin_token');
+$allowed_roles = ['is_admin', 'is_subadmin', 'is_editor'];
+
+// Comprobar si el rol del usuario está en la lista de permitidos y si el token existe
+if (in_array($role, $allowed_roles) && !empty($admin_token)) :
+    ?>
+
+    <div style="text-align: center; margin: 40px 0; padding: 30px; border-top: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef;">
+        <h3>Panel de Administración</h3>
+        <p>Utiliza el siguiente botón para acceder al panel de administración de forma segura.</p>
+        <a href="<?php echo site_url('admin/access/' . $admin_token); ?>" class="btn btn-primary" style="padding: 10px 25px; font-size: 16px;">
+            Ir a Panel Admin
+        </a>
+    </div>
+
+<?php endif; ?>
+<?php // --- FIN DEL CÓDIGO PARA EL BOTÓN DE ADMIN --- ?>

@@ -19,6 +19,7 @@ class Home extends CI_Controller {
 		$data['plans']=$this->plan_model->get_plans();
 		//$this->load->view('templates/header', $data);
 		$this->load->view('home', $data);
+        $this->load->view('planes_new', $data);
 		//$this->load->view('templates/footer', $data);
 	}
 

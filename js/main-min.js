@@ -2,7 +2,7 @@ let ubicacionPrincipal = window.pageYOffset;
 window.onscroll = function () {
     ubicacionPrincipal >= Desplazamiento_Actual ? this.document.getElementById("header").style.top = "0" : this.document.getElementById("id").style.top = "-100px", ubicacionPrincipal = Desplazamiento_Actual
 }, jQuery((function (e) {
-    var a = "http://localhost/readybpm/", t = e(window).width(), o = !0, r;
+    var a = "http://readybpm.com/", t = e(window).width(), o = !0, r;
 
     function s(e, a, t, o, r) {
         var s = new google.maps.Map(document.getElementById(e), {
@@ -132,6 +132,19 @@ window.onscroll = function () {
                     message: i,
                     trabajos: n
                 }, type: "POST", dataType: "json", url: a + "pages/ser_miembro_mail/"
+            }).done((function (e) {
+                e.success ? alert("Mensaje Enviado. Gracias") : alert(e.message)
+            })).fail((function () {
+                alert("Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@readybpm.com")
+            })) : alert("Formato de correo erroneo, por favor confirma que todo este bien escrito")
+        })),e("#enviarRequest").on("click", (function () {
+            var t = e("#name").val(), o = e("#country").val(), r = e("#time").val(), s = e("#work").val(),
+                l = e("#email-become").val(), i = e("#why").val(), n = e("#trabajos").val();
+            "" == i || "" == n ? alert("Todos los campos son obligatorios") : f(l) ? e.ajax({
+                data: {
+                    message: i,
+                    trabajos: n
+                }, type: "POST", dataType: "json", url: a + "pages/send_request/"
             }).done((function (e) {
                 e.success ? alert("Mensaje Enviado. Gracias") : alert(e.message)
             })).fail((function () {

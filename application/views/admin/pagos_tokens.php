@@ -14,9 +14,12 @@
                 <tr>
                     <th class="wd-30p">DJ</th>
                     <th class="wd-25p">Total Descargas</th>
-                    <th class="wd-25p">Porcentaje</th>
                     <th class="wd-20p">Pago Correspondiente ($)</th>
-                    <th class="wd-15p">Acciones</th>
+                    <?php  ?>
+                    <?php if ($this->session->userdata('role') == 'is_admin'): ?>
+                        <th class="wd-15p">Acciones</th>
+                    <?php endif; ?>
+                    <?php  ?>
                 </tr>
                 </thead>
                 <tbody>
@@ -24,12 +27,15 @@
                     <tr>
                         <td><?php echo $dj->username; ?></td>
                         <td><?php echo $dj->total_downloads; ?></td>
-                        <td><?php echo $dj->percentage; ?>%</td>
                         <td><?php echo number_format($dj->pago_calculado, 2); ?></td>
-                        <td>
-                            <a href="<?php echo site_url('admin/detalles_pago_dj/' . $dj->id); ?>" class="btn btn-info btn-sm">Detalles</a>
-                            <a href="<?php echo site_url('admin/siguiente_mes/' . $dj->id); ?>" class="btn btn-success btn-sm" onclick="return confirm('¿Estás seguro de que quieres archivar este pago y reiniciar el conteo de descargas para el siguiente mes? Esta acción no se puede deshacer.');">Siguiente Mes</a>
-                        </td>
+                        <?php ?>
+                        <?php if ($this->session->userdata('role') == 'is_admin'): ?>
+                            <td>
+                                <a href="<?php echo site_url('admin/detalles_pago_dj/' . $dj->id); ?>" class="btn btn-info btn-sm">Detalles</a>
+                                <a href="<?php echo site_url('admin/siguiente_mes/' . $dj->id); ?>" class="btn btn-success btn-sm" onclick="return confirm('驴Est谩s seguro de que quieres archivar este pago y reiniciar el conteo de descargas para el siguiente mes? Esta acci贸n no se puede deshacer.');">Siguiente Mes</a>
+                            </td>
+                        <?php endif; ?>
+                        <?php  ?>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>

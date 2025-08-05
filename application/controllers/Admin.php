@@ -1,8 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Admin extends CI_Controller
-{
+class Admin extends CI_Controller{
     private $path_preview;
     private $path_preview_videos;
     private $path_cover;
@@ -11,10 +10,10 @@ class Admin extends CI_Controller
     private $file_name = '';
     private $user_rol = '';
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
 
+        // Cargar los recursos necesarios para el controlador de Admin
         $this->path_preview = FCPATH.'assets/products/demos/';
         $this->path_preview_videos = FCPATH.'assets/products/demos/videos/';
         $this->path_cover = FCPATH.'images/products/featured_image/';
@@ -26,11 +25,18 @@ class Admin extends CI_Controller
         $this->load->library(array('session' , 'form_validation' , 'pagination'));
         $this->load->database('default');
         $this->load->model('location_model');
-        $this->user_rol = $this->session->userdata("role");
-        if ( $this->user_has_admin_access() ) {
 
-        } else {
-            redirect(base_url());
+        // --- INICIO DE LA CORRECCIÓN ---
+        // Se mantiene únicamente la nueva lógica de seguridad basada en token de sesión
+        $method = $this->router->fetch_method();
+
+        // La función 'access' es la única puerta de entrada.
+        // Para todas las demás, se verifica que el permiso ya haya sido concedido.
+        if ($method != 'access') {
+            if ($this->session->userdata('admin_access_granted') !== TRUE) {
+                // Si no tiene permiso, se niega el acceso.
+                show_404();
+            }
         }
     }
 
@@ -982,23 +988,23 @@ class Admin extends CI_Controller
             $data['title'] = "Pagos de Tokens por DJ";
             $data['description'] = "Pagos pendientes calculados por descargas.";
 
-            // 1. Obtenemos la lista de DJs con sus estadísticas de descarga
             $djs = $this->users_model->get_djs_with_download_stats();
 
-            // 2. Calculamos el monto a pagar para cada DJ
+            // --- INICIO DE LA MODIFICACIÓN ---
+            // 2. Calculamos el monto a pagar para cada DJ con la nueva fórmula.
             foreach ($djs as $dj) {
-                $valor_por_descarga = 0.5;
+                $precio_por_cancion = 0.05; // Nuevo precio fijo por descarga
 
-                $ganancia_bruta = $dj->total_downloads * $valor_por_descarga;
-                $pago_correspondiente = $ganancia_bruta * ($dj->percentage / 100);
+                // La nueva fórmula ya no usa el porcentaje del DJ.
+                $pago_calculado = $dj->total_downloads * $precio_por_cancion;
 
                 // Añadimos el nuevo dato al objeto del DJ
-                $dj->pago_calculado = $pago_correspondiente;
+                $dj->pago_calculado = $pago_calculado;
             }
+            // --- FIN DE LA MODIFICACIÓN ---
 
             $data['djs_pagos'] = $djs;
 
-            // Cargar DataTables para la tabla (opcional pero recomendado)
             $data['aditional_scripts'] = "<script>
                 $(function(){
                     'use strict';
@@ -1023,6 +1029,55 @@ class Admin extends CI_Controller
         } else {
             redirect(base_url('admin/login/'));
         }
+    }
+
+    public function detalles_pago_dj($dj_id) {
+        if (!$this->session->userdata('is_logued_in') || !$this->user_has_admin_access()) {
+            redirect(base_url('admin/login/'));
+        }
+
+        $dj_info = $this->users_model->load_user_info($dj_id);
+        if (!$dj_info) {
+            redirect(base_url('admin/pagos_tokens'));
+        }
+
+        $downloads = $this->orders_model->get_download_details_by_dj($dj_id);
+
+        // --- INICIO DE LA MODIFICACIÓN ---
+        // Calculamos el pago por cada descarga y el total con la nueva fórmula.
+        $precio_por_cancion = 0.05;
+        $total_payment = 0;
+
+        foreach ($downloads as $download) {
+            // El pago unitario es ahora un valor fijo.
+            $download->pago_unitario = $precio_por_cancion;
+            $total_payment += $precio_por_cancion;
+        }
+        // --- FIN DE LA MODIFICACIÓN ---
+
+        $data['title'] = "Detalle de Pagos para " . $dj_info->username;
+        $data['description'] = "Desglose de todas las descargas que generan pagos para este DJ.";
+        $data['dj_info'] = $dj_info;
+        $data['downloads'] = $downloads;
+        $data['total_payment'] = $total_payment;
+
+        $data['aditional_scripts'] = "<script>
+            $(function(){
+                'use strict';
+                $('#datatable1').DataTable({
+                    responsive: true,
+                    order: [[ 0, 'desc' ]],
+                    language: { searchPlaceholder: 'Buscar...', sSearch: '', lengthMenu: '_MENU_ items/pagina' }
+                });
+            });
+        </script>";
+        $data['aditional_stylesheets'] = '<link href="'.base_url().'admin_assets/lib/datatables/jquery.dataTables.css" rel="stylesheet">';
+
+        $this->load->view('admin/head', $data);
+        $this->load->view('admin/side');
+        $this->load->view('admin/top');
+        $this->load->view('admin/details_pagos', $data);
+        $this->load->view('admin/footer');
     }
 
     public function pagos_realizados()
@@ -1191,57 +1246,6 @@ class Admin extends CI_Controller
         } else {
             redirect(base_url().'admin/login/');
         }
-    }
-
-    public function detalles_pago_dj($dj_id) {
-        if (!$this->session->userdata('is_logued_in') || !$this->user_has_admin_access()) {
-            redirect(base_url('admin/login/'));
-        }
-
-        // Obtener la información principal del DJ
-        $dj_info = $this->users_model->load_user_info($dj_id);
-        if (!$dj_info) {
-            // Si el DJ no existe, redirigir o mostrar error
-            redirect(base_url('admin/pagos_tokens'));
-        }
-
-        // Obtener el listado de todas las descargas para este DJ
-        $downloads = $this->orders_model->get_download_details_by_dj($dj_id);
-
-        // Calcular el pago por cada descarga y el total
-        $valor_por_descarga = 0.5; // Asumimos valor de $1 por descarga
-        $total_payment = 0;
-
-        foreach ($downloads as $download) {
-            $pago_por_descarga = $valor_por_descarga * ($dj_info->percentage / 100);
-            $download->pago_unitario = $pago_por_descarga;
-            $total_payment += $pago_por_descarga;
-        }
-
-        $data['title'] = "Detalle de Pagos para " . $dj_info->username;
-        $data['description'] = "Desglose de todas las descargas que generan pagos para este DJ.";
-        $data['dj_info'] = $dj_info;
-        $data['downloads'] = $downloads;
-        $data['total_payment'] = $total_payment;
-
-        // Cargar DataTables para la tabla
-        $data['aditional_scripts'] = "<script>
-            $(function(){
-                'use strict';
-                $('#datatable1').DataTable({
-                    responsive: true,
-                    order: [[ 0, 'desc' ]], // Ordenar por fecha descendente
-                    language: { searchPlaceholder: 'Buscar...', sSearch: '', lengthMenu: '_MENU_ items/pagina' }
-                });
-            });
-        </script>";
-        $data['aditional_stylesheets'] = '<link href="'.base_url().'admin_assets/lib/datatables/jquery.dataTables.css" rel="stylesheet">';
-
-        $this->load->view('admin/head', $data);
-        $this->load->view('admin/side');
-        $this->load->view('admin/top');
-        $this->load->view('admin/details_pagos', $data);
-        $this->load->view('admin/footer');
     }
 
     public function detalles_pago_token()
@@ -2117,8 +2121,7 @@ class Admin extends CI_Controller
         }
     }
 
-    public function subir_multiples()
-    {
+    public function subir_multiples(){
         // Verificamos que los directorios necesarios existan y tengan permisos
         if (!is_dir($this->path_download) || !is_writable($this->path_download)) {
             echo json_encode([['success' => false, 'error' => 'Error: El directorio de descargas no existe o no tiene permisos de escritura.']]);
@@ -2174,8 +2177,7 @@ class Admin extends CI_Controller
         exit;
     }
 
-    public function guardar_multiples()
-    {
+    public function guardar_multiples(){
         $products = json_decode($this->input->post('products'), true);
         $success_count = 0;
         $user_role = $this->session->userdata('role');
@@ -2185,9 +2187,9 @@ class Admin extends CI_Controller
                 $db_data = [
                     'created_on'      => date('Y-m-d H:i:s'),
                     'name'            => $product_data['name'],
-                    'artist'          => $product_data['artist'],
+                    'artist'          => 'N/A', // Valor por defecto
+                    'version'         => 'N/A', // Valor por defecto
                     'price'           => '1.99', // Precio por defecto
-                    'version'         => $product_data['version'],
                     'gender_id'       => $product_data['gender_id'],
                     'owner_id'        => $this->session->userdata('id_usuario'),
                     'product_type_id' => 1, // 1 = Audio
@@ -2216,8 +2218,9 @@ class Admin extends CI_Controller
         exit;
     }
 
-    private function create_mp3_preview($sourcePath , $destPath)
-    {
+    private function create_mp3_preview($sourcePath , $destPath) {
+        //return $this->sox($sourcePath, $destPath);
+
         try {
             if ( !file_exists($sourcePath) ) {
                 return false;
@@ -2355,56 +2358,31 @@ class Admin extends CI_Controller
         return $mins.':'.$secs;
     }
 
-    public function sox($inputFile , $outputFile)
+    public function sox($inputFile, $outputFile)
     {
-        /*
-        $tmp_name = '_' . date('YmdHis');
-        $final_name = date('YmdHis') . intval(microtime(true)) . '.mp3';
-        $fade_cut = $end[1] - $end[0];
-        $break1 = exec("sox '" . addslashes($file) . "' " . $this -> path_preview . "Audio/part1_" . $tmp_name . ".mp3 trim " . $start[0] . " " . ($start[1]) . " fade t 3 " . ($start[1] - $start[0]) . " 2 pad 0 1");
-        $break2 = exec("sox '" . addslashes($file) . "' " . $this -> path_preview . "Audio/part2_" . $tmp_name . ".mp3 trim " . $end[0] . " " . $end[1] . " fade t 3 " . $fade_cut . " 5");
-        $merge = exec("sox " . $this -> path_preview . "Audio/part1_" . $tmp_name . ".mp3 " . $this -> path_preview . "Audio/part2_" . $tmp_name . ".mp3 '" . $this -> path_preview . 'Audio/' . $final_name . "'");
-        unlink($this -> path_preview . "Audio/part2_" . $tmp_name . ".mp3");
-        unlink($this -> path_preview . "Audio/part1_" . $tmp_name . ".mp3");
-        //unlink($file);
-        return $final_name; //RETORNO NOMBRE NUEVO DEL PREVIEW CON DATE
-        */
+        $sox_path = "sox";
 
-        // --- Ruta completa al ejecutable de SoX ---
-        $sox_path = "C:\\xampp\\apache\\bin\\sox.exe";
-
-        // 1. Verificar si el ejecutable de SoX existe
-        if ( !file_exists($sox_path) ) {
-            error_log("SOX_ERROR: sox.exe no se encuentra en la ruta: ".$sox_path);
-            return false;
+        if (!file_exists($inputFile)) {
+            return ['success' => false, 'error' => "Archivo de entrada no encontrado: {$inputFile}"];
         }
 
-        // 2. Verificar si el archivo de entrada existe
-        if ( !file_exists($inputFile) ) {
-            error_log("SOX_ERROR: Archivo de entrada no encontrado en: ".$inputFile);
-            return false;
-        }
-
-        // 3. Definir los parámetros para el recorte: iniciar en el segundo 5, durar 50 segundos.
         $startTime = 5;
         $duration = 50;
+        $bitrate = 64;
+        $cmd = "{$sox_path} \"{$inputFile}\" -C {$bitrate}.2 \"{$outputFile}\" trim {$startTime} {$duration}";
 
-        // 4. Construir el comando con la ruta completa y comillas para los paths
-        // El comando 'trim' corta el audio. 'fade t 1 0 1' aplica un suave fundido de entrada y salida.
-        $cmd = "\"$sox_path\" \"$inputFile\" \"$outputFile\" trim $startTime $duration fade t 1 0 1";
+        exec($cmd . " 2>&1", $output, $return_var);
 
-        // 5. Ejecutar el comando y capturar la salida para depuración
-        $output = null;
-        $return_var = null;
-        exec($cmd." 2>&1" , $output , $return_var);
-
-        // 6. Verificar si el comando se ejecutó sin errores y si el archivo de salida fue creado
-        if ( $return_var === 0 && file_exists($outputFile) ) {
-            return true; // Éxito
+        // --- INICIO DE LA CORRECCIÓN ---
+        // Modificamos la función para que devuelva un array con el estado y el mensaje de error si falla
+        if ($return_var === 0 && file_exists($outputFile)) {
+            return ['success' => true];
         } else {
-            error_log("SOX_ERROR: El comando falló. Código: $return_var. Salida: ".implode("\n" , $output));
-            return false; // Fallo
+            $error_message = "El comando SoX falló. Código: {$return_var}. Salida: ".implode(" ", $output);
+            error_log($error_message); // Guardar en el log del servidor
+            return ['success' => false, 'error' => $error_message];
         }
+        // --- FIN DE LA CORRECCIÓN ---
     }
 
     public function ffmpeg($file , $final_name , $resolution = '500x250' , $duration = '00:00:55')
@@ -2687,54 +2665,60 @@ class Admin extends CI_Controller
         }
     }
 
-    public function add_banner()
-    {
-        if ( $this->session->userdata('is_logued_in') ) {
-            $name = $this->input->post('name');
-            $url = $this->input->post('url');
-            //$id = $this->input->post('id');
-            if ( !file_exists($_FILES['image']['tmp_name']) || !is_uploaded_file($_FILES['image']['tmp_name']) ) {
-                $data = array(
-                    'name' => $name ,
-                    'url' => $url ,
-                );
-                $id = $this->banners_model->create_banner($data);
-
-                $banner = $this->banners_model->load_banner_info($id);
-                //print gender updated
-                $this->print_edit_banner($id , $banner);
-            } else {
-                $image_folder = 'images/banners/';
-                $temp = explode("." , $_FILES["image"]["name"]);
-                $newfilename = round(microtime(true)).'.'.end($temp);
-                $image_file = $image_folder.basename($_FILES['image']['name']);
-
-                if ( $_FILES['image']['error'] !== UPLOAD_ERR_OK ) {
-                    die("Upload failed with error code ".$_FILES['image']['error']);
-                }
-
-                $info = getimagesize($_FILES['image']['tmp_name']);
-                if ( $info === FALSE ) {
-                    die("Unable to determine image type of uploaded file");
-                }
-
-                if ( ($info[2] !== IMAGETYPE_GIF) && ($info[2] !== IMAGETYPE_JPEG) && ($info[2] !== IMAGETYPE_PNG) ) {
-                    die("Not a gif/jpeg/png");
-                }
-                if ( move_uploaded_file($_FILES['image']['tmp_name'] , $image_folder.$newfilename) ) {
-                    $data = array(
-                        'name' => $name ,
-                        'url' => $url ,
-                        'image' => $newfilename ,
-                    );
-                    $id = $this->banners_model->create_banner($data);
-                    $banner = $this->banners_model->load_banner_info($id);
-                    $this->print_edit_banner($id , $banner);
-                }
-            }
-        } else {
+    public function add_banner(){
+        if ( !$this->session->userdata('is_logued_in') ) {
             redirect(base_url().'admin/login/');
+            return;
         }
+
+        // --- INICIO DE LA CORRECCIÓN ---
+
+        // 1. Validar que el campo 'name' no esté vacío
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('name', 'Nombre del Banner', 'required|trim');
+
+        if ($this->form_validation->run() == FALSE) {
+            // Si la validación falla (el nombre está vacío), recargar la vista con un error.
+            $data['title'] = "Añadir Banner";
+            $data['description'] = "Sube nuevos banners a la tienda";
+            $data['error_message'] = "El campo 'Nombre del Banner' es obligatorio."; // Mensaje de error
+
+            $this->load->view('admin/head', $data);
+            $this->load->view('admin/side');
+            $this->load->view('admin/top');
+            $this->load->view('admin/nuevo_banner', $data);
+            $this->load->view('admin/footer');
+            return; // Detener la ejecución aquí
+        }
+
+        // 2. Si la validación es exitosa, proceder a guardar
+        $name = $this->input->post('name');
+        $url = $this->input->post('url');
+
+        $data = array(
+            'name' => $name,
+            'url'  => $url
+        );
+
+        // 3. Manejar la subida de la imagen (si existe)
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $config['upload_path']   = './images/banners/';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['encrypt_name']  = TRUE;
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('image')) {
+                $upload_data = $this->upload->data();
+                $data['image'] = $upload_data['file_name'];
+            }
+        }
+
+        // 4. Crear el banner y redirigir a la página de edición
+        $id = $this->banners_model->create_banner($data);
+        $banner = $this->banners_model->load_banner_info($id);
+        $this->print_edit_banner($id, $banner, "Banner Creado Correctamente");
+
+        // --- FIN DE LA CORRECCIÓN ---
     }
 
     public function print_edit_banner($id , $banner , $mensaje = null)
@@ -3093,6 +3077,23 @@ class Admin extends CI_Controller
             }
         } else {
             redirect(base_url().'admin/login/');
+        }
+    }
+
+    public function access($token = ''){
+        $session_token = $this->session->userdata('admin_token');
+        $role = $this->session->userdata('role');
+        $allowed_roles = ['is_admin', 'is_subadmin', 'is_editor'];
+
+        // Comparamos el token de la URL con el de la sesión de forma segura
+        if (!empty($token) && !empty($session_token) && hash_equals($session_token, $token) && in_array($role, $allowed_roles)) {
+            // Si todo es correcto, concedemos el acceso al panel para esta sesión
+            $this->session->set_userdata('admin_access_granted', TRUE);
+            redirect('admin/index'); // Redirigir al dashboard del admin
+        } else {
+            // Si el token es inválido o el rol no es correcto, denegar acceso
+            $this->session->unset_userdata('admin_access_granted');
+            show_404();
         }
     }
 }

@@ -3,16 +3,13 @@
 	background: #e7eaeb;
 }
 .xv-menuwrapper .dl-menu > li > a{
-	color: #5F47F3;
+	color: #ffffff;
 }
 .xv-menuwrapper .dl-menu > li > a:hover, .xv-menuwrapper .dl-menu > li.active > a{
-	color: #5F47F3;
+	color: #ffffff;
 }
 .navbar-brand{
 	height: auto !important;
-}
-.navbar-header{
-	max-width: 140px
 }
 .singleSongPlayer.archivo_cliente .downloadButton {
     background: #607D8B !important;
@@ -77,7 +74,7 @@ a:hover{
 	color: white;
 }
 .xv-menuwrapper .dl-menu > li.cyan > a{
-	color: #3827a8 !important;
+	color: #ffffff !important;
 }
 .xv-menuwrapper .dl-menu > li.cyan > a:hover{
 	background: #ffffff;
@@ -179,7 +176,6 @@ footer a{
 	text-decoration: none;
 }
 
-
 table.user_info td,
 table.checkout td{
 	border: 1px solid white;
@@ -217,21 +213,20 @@ table.checkout td:nth-child(2){
 	background:#0168ff;
 }
 .navbar{
-	background: #ffffff;
-	/*border: 1px solid #212121;
-	border: 1px solid #ffffff;*/
+	background: linear-gradient(to right, #FFFFFF 35%, #5F47F3 35%);
+	border: 1px solid rgba(255, 255, 255, 0);
 }
 section header.style3 {
 	background-color:#212121;
 }
 body{
-	background: lightgrey;
+	background: #ffffff;
 }
 #cuerpo .container{
-	background:	#eae8ea;
+	background: #ffffff;
 }
 #cuerpo .search-container{
-	background: #d3d3d3;
+	background: #ffffff;
 }
 .table tr:nth-child(2n){
 	background: #e2e2e2;
@@ -286,10 +281,10 @@ article h6 a:hover,
 .pagination li.active a,
 .pagination li.active > span,
 .pagination li a:hover{
-	color:#5F47F3;
+	color: #000000;
 }
 .flex-control-paging li a.flex-active{
-	background:#3827a8;
+	background: #bfbfbf;
 }
 .table em{
 	font-weight: bold;
@@ -445,9 +440,7 @@ textarea:focus,
 }
 
 .planespage .tabla {
-	flex: 1 1 300px; /* Permite que las tarjetas crezcan y se encojan */
 	max-width: 350px;
-	height: auto !important; /* Anula la altura fija de 550px */
 	display: flex;
 	flex-direction: column; /* Organiza el contenido del plan verticalmente */
 	justify-content: space-between; /* Distribuye el espacio interno */
@@ -470,7 +463,7 @@ textarea:focus,
 	background: #006512;
 }
 #enviarBecome{
-	background: #0049af;
+	background: #5F47F3;
 }
 .deleteFromCart{
 	background: #488CCB;

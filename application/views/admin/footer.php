@@ -45,9 +45,7 @@
             <h5 class="card-body-title"></h5>
             <div class="row mg-b-25">
                 <div class="col-lg-6"><div class="form-group"><label class="form-control-label">Nombre:</label><input class="form-control" type="text" name="form_name"></div></div>
-                <div class="col-lg-6"><div class="form-group"><label class="form-control-label">Artista:</label><input class="form-control" type="text" name="form_artist"></div></div>
                 <div class="col-lg-4"><div class="form-group"><label class="form-control-label">Género:</label><select class="form-control" name="form_gender"></select></div></div>
-                <div class="col-lg-4"><div class="form-group"><label class="form-control-label">Versión:</label><input class="form-control" type="text" name="form_version"></div></div>
                 <div class="col-lg-4"><div class="form-group"><label class="form-control-label">BPM:</label><input class="form-control" type="text" name="form_bpm"></div></div>
             </div>
 
@@ -87,31 +85,51 @@
 
                         $.each(data, function(index, fileInfo) {
                             if (fileInfo.success) {
+                                // 1. Crea la nueva instancia del formulario
                                 var $newForm = $(formTemplate);
                                 var originalFilename = fileInfo.original_name;
                                 var filename = originalFilename.replace(/\.[^/.]+$/, "");
-                                var parts = filename.split(' - ');
 
+                                // 2. Llena el menú de géneros INMEDIATAMENTE
+                                var $genreSelect = $newForm.find('[name="form_gender"]');
+                                $genreSelect.html(genreOptions);
+
+                                // 3. Asigna los valores que no dependen del nombre del archivo
+                                $newForm.find('[name="form_descargable"]').val(fileInfo.descargable);
+                                $newForm.find('[name="form_demo"]').val(fileInfo.demo);
+
+                                // 4. Ahora, intenta procesar el nombre del archivo
+                                var parts = filename.split(' - ');
                                 if (parts.length !== 5) {
+                                    // Si falla, solo muestra el error. Los campos quedarán vacíos para llenado manual.
                                     $newForm.find('.card-body-title').css('color', 'red').text("Error de formato: " + originalFilename);
                                 } else {
+                                    // Si tiene éxito, autocompleta los campos
                                     var nombre = parts[0].trim(), artista = parts[1].trim(), generoNombre = parts[2].trim().toLowerCase(), version = parts[3].trim(), bpm = parts[4].replace(/\D/g, '').trim();
                                     var generoId = null;
-                                    $('#genre-list span').each(function() { if ($(this).text().trim().toLowerCase() === generoNombre) { generoId = $(this).data('id'); return false; } });
+                                    $('#genre-list span').each(function() {
+                                        if ($(this).text().trim().toLowerCase() === generoNombre) {
+                                            generoId = $(this).data('id');
+                                            return false;
+                                        }
+                                    });
 
                                     $newForm.find('.card-body-title').text(originalFilename);
-                                    $newForm.find('[name="form_name"]').val(nombre);
+                                    $newForm.find('[name="form_name"]').val(nombre + " - " + artista + " - " + version);
                                     $newForm.find('[name="form_artist"]').val(artista);
                                     $newForm.find('[name="form_version"]').val(version);
                                     $newForm.find('[name="form_bpm"]').val(bpm);
-                                    $newForm.find('[name="form_descargable"]').val(fileInfo.descargable);
-                                    $newForm.find('[name="form_demo"]').val(fileInfo.demo); // Por defecto, el demo es el mismo (el servidor lo procesa)
 
-                                    var $genreSelect = $newForm.find('[name="form_gender"]');
-                                    $genreSelect.html(genreOptions);
-                                    if (generoId) { $genreSelect.val(generoId); } else { $newForm.find('.card-body-title').append(' <span style="color:orange;">(Género no encontrado)</span>'); }
+                                    if (generoId) {
+                                        $genreSelect.val(generoId);
+                                    } else {
+                                        $newForm.find('.card-body-title').append(' <span style="color:orange;">(Género no encontrado)</span>');
+                                    }
                                 }
+
+                                // 5. Agrega el formulario (ya sea vacío o autocompletado) al contenedor
                                 $('#product-forms-container').append($newForm);
+
                             } else {
                                 $('#product-forms-container').append(`<div class="alert alert-danger">Error con ${fileInfo.original_name || 'un archivo'}: ${fileInfo.error}</div>`);
                             }
@@ -184,14 +202,12 @@
                     }
                     var product = {
                         name: $form.find('[name="form_name"]').val(),
-                        artist: $form.find('[name="form_artist"]').val(),
                         gender_id: $form.find('[name="form_gender"]').val(),
-                        version: $form.find('[name="form_version"]').val(),
                         bpm: $form.find('[name="form_bpm"]').val(),
                         descargable: $form.find('[name="form_descargable"]').val(),
                         demo: $form.find('[name="form_demo"]').val()
                     };
-                    if (product.name && product.artist && product.gender_id) {
+                    if (product.name && product.gender_id) {
                         productsData.push(product);
                     }
                 });

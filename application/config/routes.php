@@ -59,7 +59,7 @@ $route['genero/(:any)/(:num)'] = 'generos/genero/$1/$2';
 $route['audios/(:num)'] = 'audios/index/$1';
 $route['videos/(:num)'] = 'videos/index/$1';
 $route['remixers/(:num)'] = 'remixers/index/$1/';
-$route['admin'] = 'admin';
+$route['admin/access/(:any)'] = 'admin/access/$1';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 

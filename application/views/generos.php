@@ -46,8 +46,8 @@
             <div class="cover-content">
                 <hr>
                 <div class="clearfix text-uppercase">
-                    <h1 style="padding-top: 30px">GÉNEROS</h1>
-                    <cite class="album-author mb-20">ReadyBPM.COM</cite>
+                    <h1 style="padding-top: 30px">GENRES</h1>
+                    <cite class="album-author mb-20">ReadyBPM</cite>
                 </div>
             </div>
         </div>
