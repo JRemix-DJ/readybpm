@@ -47,11 +47,8 @@
                 <tr>
                     <th>Fecha Aprobación</th>
                     <th>Nombre</th>
-                    <th>Precio</th>
                     <th>Género</th>
                     <th>BPM</th>
-                    <th>Artista</th>
-                    <th>Version</th>
                     <th>Editor</th>
                     <th>Escuchar</th>
                     <th>Acciones</th>
@@ -76,21 +73,13 @@
                                     ?>
                                 </td>
                                 <td class="align-middle" style="max-width: 300px"><?php echo $producto->name; ?></td>
-                                <td class="align-middle">$<?php echo $producto->price; ?></td>
                                 <td class="align-middle">
                                     <?php
-                                    // --- CORRECCIÓN 1: Verificación para Género ---
                                     $key = array_search($producto->gender_id, array_column($generos, 'id'));
                                     echo ($key !== false) ? $generos[$key]->name : 'Desconocido';
                                     ?>
                                 </td>
                                 <td class="align-middle"><?php echo $producto->bpm; ?></td>
-                                <td class="align-middle"><?php echo $producto->artist; ?></td>
-                                <td class="align-middle">
-                                    <?php if($producto->version != null){ ?>
-                                        <?php echo $producto->version; ?>
-                                    <?php } ?>
-                                </td>
                                 <td class="align-middle">
                                     <?php
                                     // --- CORRECCIÓN 3: Verificación para Editor (Usuario) ---
@@ -137,5 +126,4 @@
             <?php } ?>
         </div><!-- table-wrapper -->
     </div><!-- card -->
-
 </div><!-- sl-pagebody -->

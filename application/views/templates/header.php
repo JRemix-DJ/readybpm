@@ -228,7 +228,8 @@ Preloading Splash Screen
                     <? } ?>
                   </ul>
                   </li> -->
-                        <li><a href="<? echo base_url('audios/'); ?>">Home</a></li>
+<!--                        <li><a href="--><?// echo base_url('audios/'); ?><!--">Audios</a></li>-->
+                        <li><a href="<? echo base_url('videos/'); ?>">Home</a></li>
                         <li class="parent"><a href="<? echo base_url('generos/'); ?>">Genres</a>
                             <!--<ul class="dl-submenu cols3">
                         <? foreach ($generos as $genre) { ?>

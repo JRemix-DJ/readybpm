@@ -62,7 +62,7 @@ class Products extends CI_Controller {
 				move_uploaded_file($_FILES['descargable']['tmp_name'], $file_folder.$newdescargablename);
 				$data['descargable']=$newdescargablename;
 			}
-			
+
 			$this->products_model->update_product($product_id, $data);
 			$producto = $this->products_model->load_product_info($product_id);
 			if($producto->approved==0){
@@ -130,7 +130,7 @@ class Products extends CI_Controller {
 					header('Expires: 0');
 					header('Access-Control-Allow-Origin: *');
 					header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-					header("Last-Modified: " . gmdate("D, d M Y H:i:s T", filemtime($file_url))); 
+					header("Last-Modified: " . gmdate("D, d M Y H:i:s T", filemtime($file_url)));
 					header('Cache-Control: private',false);
 					header('Content-Type: application/octet-stream');
 					header('Content-Disposition: attachment; filename="'.$file.'"');
@@ -138,16 +138,16 @@ class Products extends CI_Controller {
 					header('Content-Length: '.$tamano);
 					// reason: it's unreliable to download whole file at once
 					$chunksize = 2 * (1024 * 1024);
-					$fp = fopen($file_url,'rb'); 
-					$buffer = ''; 
-					while (!feof($fp)) 
-						{ 
-						$buffer = fread($fp, $chunksize); 
-						echo $buffer; 
-						ob_flush(); 
-						flush(); 
-						} 
-					fclose($fp); 
+					$fp = fopen($file_url,'rb');
+					$buffer = '';
+					while (!feof($fp))
+						{
+						$buffer = fread($fp, $chunksize);
+						echo $buffer;
+						ob_flush();
+						flush();
+						}
+					fclose($fp);
 					// resume original code here:
 					if ( !$fp ) {
 					    echo "File Not Found";
@@ -157,11 +157,11 @@ class Products extends CI_Controller {
 					    echo "There was an error!";
 					    exit();
 					}
-					
+
 					header("Connection: close");
-					exit();  
+					exit();
 				}else{
-					echo "File Not Found!!";	
+					echo "File Not Found!!";
 				}
 			}else{
 				echo 'No tienes acceso a este archivo';
@@ -197,13 +197,13 @@ class Products extends CI_Controller {
 				$file_url='/var/www/readybpm.com/assets/products/descargables/'.$product->descargable;
 			}
 			$tamano=@filesize($file_url);
-			
+
 			if(file_exists($file_url)) {
 				header("Pragma: no-cache");
 				header('Expires: 0');
 				header('Access-Control-Allow-Origin: *');
 				header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-				header("Last-Modified: " . gmdate("D, d M Y H:i:s T", filemtime($file_url))); 
+				header("Last-Modified: " . gmdate("D, d M Y H:i:s T", filemtime($file_url)));
 				header('Cache-Control: private',false);
 				header('Content-Type: application/octet-stream');
 				header('Content-Disposition: attachment; filename="'.$file.'"');
@@ -211,16 +211,16 @@ class Products extends CI_Controller {
 				header('Content-Length: '.$tamano);
 				// reason: it's unreliable to download whole file at once
 				$chunksize = 2 * (1024 * 1024);
-				$fp = fopen($file_url,'rb'); 
-				$buffer = ''; 
-				while (!feof($fp)) 
-					{ 
-					$buffer = fread($fp, $chunksize); 
-					echo $buffer; 
-					ob_flush(); 
-					flush(); 
-					} 
-				fclose($fp); 
+				$fp = fopen($file_url,'rb');
+				$buffer = '';
+				while (!feof($fp))
+					{
+					$buffer = fread($fp, $chunksize);
+					echo $buffer;
+					ob_flush();
+					flush();
+					}
+				fclose($fp);
 				// resume original code here:
 				if ( !$fp ) {
 				    echo "File Not Found";
@@ -230,11 +230,11 @@ class Products extends CI_Controller {
 				    echo "There was an error!";
 				    exit();
 				}
-				
+
 				header("Connection: close");
-				exit();  
+				exit();
 			}else{
-				echo "File Not Found!!";	
+				echo "File Not Found!!";
 			}
 		}else{
 			redirect(base_url());
@@ -256,19 +256,19 @@ class Products extends CI_Controller {
 			$owner_id = $this->input->post('user_id');
 
 			$image_folder='images/products/featured_image/';
-			
+
 			$temp = explode(".", $_FILES["image"]["name"]);
 			$newfilename = round(microtime(true)) . '.' . end($temp);
 			$image_file=$image_folder.basename($_FILES['image']['name']);
 
 			if(move_uploaded_file($_FILES['image']['tmp_name'], $image_folder.$newfilename)){
-				
+
 				$demo_folder = 'assets/products/demos/';
 
 				$temp = explode(".", $_FILES["demo"]["name"]);
 				$newdemoname = round(microtime(true)) . '.' . end($temp);
 				$demo_file=$demo_folder.basename($_FILES['demo']['name']);
-				
+
 				if(move_uploaded_file($_FILES['demo']['tmp_name'], $demo_folder.$newdemoname)){
 
 					$file_folder = 'assets/products/descargables/';
@@ -295,7 +295,7 @@ class Products extends CI_Controller {
 							'demo'=>$newdemoname,
 							'descargable'=>$newdescargablename,
 						);
-						
+
 						$this->products_model->create_product($data);
 
 						$data['title']="Productos";
@@ -329,7 +329,7 @@ class Products extends CI_Controller {
 					    <link href="'.base_url().'admin_assets/lib/select2/css/select2.min.css" rel="stylesheet">';
 					    $data['generos']=$this->genero_model->get_generos();
 					    $data['product_types']=$this->products_model->get_product_types();
-					   
+
 
 					    $total_records = $this->products_model->get_total_products();
 
@@ -343,7 +343,7 @@ class Products extends CI_Controller {
 				        {
 				            // get current page records
 				        	$where['approved'] = 1;
-				        	
+
 				        	if($this->input->get('aprobacion')==1){
 				        		$where['approved'] = 0;
 				        	}
@@ -352,7 +352,7 @@ class Products extends CI_Controller {
 				        		$where['owner_id']=$this->session->userdata('id_usuario');
 				        	}
 				            $data["products"] = $this->products_model->get_current_page_records($limit_per_page, $start_index, $where);
-				             
+
 				            $config['base_url'] = base_url() . 'admin/listar_productos';
 				            $config['total_rows'] = $total_records;
 				            $config['per_page'] = $limit_per_page;
@@ -365,7 +365,7 @@ class Products extends CI_Controller {
 							$config['next_link'] = 'Siguiente';
 
 				            $this->pagination->initialize($config);
-				             
+
 				            // build paging links
 				            $data["links"] = $this->pagination->create_links();
 				        }
@@ -379,7 +379,7 @@ class Products extends CI_Controller {
 						$this->load->view('admin/top');
 						$this->load->view('admin/productos');
 					}
-				
+
 				}
 
 			}
@@ -461,115 +461,88 @@ class Products extends CI_Controller {
         }
     }
 
-	public function descargar_producto_video(){
-		
-		if($this->session->userdata('is_logued_in')){
-			$user_id = $this->session->userdata('id_usuario');
-			$tokens= $this->users_model->hasTokensVideo($user_id);
-			$product_id=$this->uri->segment(3);
-			if($tokens==false){
-				$tokenstotal=0;
-			}else{
-				$tokenstotal=$tokens[0]->total;
-			}
-			if($tokenstotal>0||$this->users_model->isUserFile($user_id, $product_id)||$this->session->userdata('is_user_unlimited')==true){
-				$product = $this->products_model->load_product_info($product_id);
-				$genero = $this->genero_model->load_genero_info($product->gender_id);
-				
-				if($product->product_type_id==1){
-					$ext = pathinfo($product->descargable, PATHINFO_EXTENSION);
-					$file=$product->name.' - '.$product->artist.' - '.$genero->name.' - '.$product->version.' - '.$product->bpm.'bpm - ReadyBPM.'.$ext;
-				}else{
-					$ext = pathinfo($product->descargable, PATHINFO_EXTENSION);
-					$file=$product->name.' - '.$product->artist.' - '.$genero->name.' - '.$product->version.' - '.$product->bpm.'bpm - ReadyBPM.'.$ext;
-				}
-				
-				$tamano=@filesize('/var/www/readybpm.com/assets/products/descargables/videos/'.$product->descargable);
-				$file_url='/var/www/readybpm.com/assets/products/descargables/videos/'.$product->descargable;
-				$tamano=@filesize($file_url);
-				$today = date('Y-m-d');
-				$user_products = $this->users_model->get_user_products($user_id);
-				$user_product_ids = array();
-				foreach($user_products as $user_product){
-					$user_product_ids[] = $user_product->product_id;
-				}
-				//print_r($user_product_ids);
-				//echo $product_id;
-				if(!in_array($product_id, $user_product_ids)&& !$this->session->userdata('is_user_unlimited')){
-					$this->reduce_tokens_video($user_id);
-				}
+    public function descargar_producto_video() {
+        if (!$this->session->userdata('is_logued_in')) {
+            redirect(base_url());
+            return;
+        }
 
-				$data = array(
-					'user_id' 	=> 	$user_id,
-					'product_id'	=> $product_id,
-					'downloads_left'	=>	3,
-					'since'		=> $today
-				);
-				$this->users_model->add_file_to_user($data);
-				$data = array(
-					'product_id'	=>	$product_id,
-					'user_id'		=>	$user_id,
-					'date'			=>	$today
-				);
-				$this->products_model->add_download($data);
-				$owner_id = $product->owner_id;
-				$this->add_payment_to_owner_tokens($product_id, $owner_id, $user_id); 
-				if(file_exists($file_url)) {
-					session_write_close();
-					header("Pragma: no-cache");
-					header('Expires: 0');
-					header('Access-Control-Allow-Origin: *');
-					header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-					header("Last-Modified: " . gmdate("D, d M Y H:i:s T", filemtime($file_url))); 
-					header('Cache-Control: private',false);
-					header('Content-Type: application/octet-stream');
-					header('Content-Disposition: attachment; filename="'.$file.'"');
-					header('Content-Transfer-Encoding: binary');
-					header('Content-Length: '.$tamano);
-				// 	// reason: it's unreliable to download whole file at once
-				// 	// $chunksize = 1 * (1024 * 1024);
-				// 	// $fp = fopen($file_url,'rb'); 
-				// 	// $buffer = ''; 
-				// 	// while (!feof($fp)) 
-				// 	// 	{ 
-				// 	// 	$buffer = fread($fp, $chunksize); 
-				// 	// 	echo $buffer; 
-				// 	// 	ob_flush(); 
-				// 	// 	flush(); 
-				// 	// 	} 
-				// 	// fclose($fp); 
-				// 	// // resume original code here:
-				// 	// if ( !$fp ) {
-				// 	//     echo "File Not Found";
-				// 	//     exit();
-				// 	// }
-				// 	// if ( !fpassthru($fp) ) {
-				// 	//     echo "There was an error!";
-				// 	//     exit();
-				// 	// }
-					ob_clean();
-					flush();
-					readfile($file_url);
-					exit;
-					header("Connection: close");
-					exit();  
-				}else{
-					echo "File Not Found!!";	
-				}
-			}else{
-				redirect(base_url());
-			}
-		}else{
-			redirect(base_url());
-		}
-	}
+        $user_id = $this->session->userdata('id_usuario');
+        $product_id = $this->uri->segment(3);
+
+        if (!$product_id) {
+            die("Error: No se especificó un producto.");
+        }
+
+        // --- 1. VERIFICAR PERMISOS DE DESCARGA ---
+        $is_unlimited = $this->users_model->isUnlimited($user_id);
+        $has_purchased = $this->users_model->isUserFile($user_id, $product_id);
+
+        $tokens_video = $this->users_model->hasTokensVideo($user_id);
+        $has_tokens = ($tokens_video && $tokens_video[0]->total > 0);
+
+        // Si el usuario no tiene permisos, detenemos la ejecución.
+        if (!$is_unlimited && !$has_purchased && !$has_tokens) {
+            // Podrías redirigir a una página de "sin tokens" en el futuro
+            die("No tienes descargas de video disponibles. Por favor, adquiere un plan.");
+        }
+
+        $product = $this->products_model->load_product_info($product_id);
+        if (!$product || $product->product_type_id != 3) { // Asegurarnos de que es un video
+            die("Error: El producto de video solicitado no existe.");
+        }
+
+        // --- 2. REGISTRAR DESCARGA Y PAGO (SI ES UNA DESCARGA NUEVA) ---
+        // Solo registramos y descontamos si es la primera vez que lo descarga y no es ilimitado
+        if (!$has_purchased && !$is_unlimited) {
+
+            // Descontamos un token de video
+            $this->users_model->update_tokens_video($user_id);
+
+            // Añadimos el archivo a la lista del usuario para permitir futuras re-descargas gratuitas
+            $this->users_model->add_file_to_user([
+                'user_id' => $user_id,
+                'product_id' => $product_id,
+                'downloads_left' => 3, // O el número que prefieras
+                'since' => date('Y-m-d H:i:s')
+            ]);
+
+            // ¡ESTA ES LA LÍNEA CLAVE PARA LA MONETIZACIÓN!
+            // Registra la descarga en la tabla que cuenta los pagos para los DJs.
+            $this->products_model->add_download([
+                'product_id' => $product_id,
+                'user_id' => $user_id, // El ID del cliente que descarga
+                'date' => date('Y-m-d H:i:s')
+            ]);
+        }
+
+        // --- 3. PREPARAR Y FORZAR LA DESCARGA DEL ARCHIVO ---
+        $genero = $this->genero_model->load_genero_info($product->gender_id);
+        $dj = $this->users_model->load_user_info($product->owner_id);
+        $dj_username = $dj ? $dj->username : 'N/A';
+        $genero_name = $genero ? $genero->name : 'N/A';
+        $ext = pathinfo($product->descargable, PATHINFO_EXTENSION);
+
+        $friendly_filename = "{$product->name} - {$dj_username} - {$genero_name} - {$product->bpm}BPM - ReadyBPM.{$ext}";
+
+        // Construcción de ruta dinámica y segura
+        $file_path = FCPATH . 'assets/products/descargables/videos/' . $product->descargable;
+
+        if (file_exists($file_path)) {
+            // Usar el helper de CodeIgniter para forzar la descarga
+            force_download($friendly_filename, file_get_contents($file_path));
+        } else {
+            log_message('error', 'Archivo de video no encontrado para descarga: ' . $file_path);
+            die("Error: El archivo físico no se encuentra en el servidor.");
+        }
+    }
 
 	public function reduce_tokens($user_id){
-		$this->users_model->update_tokens($user_id); 
+		$this->users_model->update_tokens($user_id);
 	}
 
 	public function reduce_tokens_video($user_id){
-		$this->users_model->update_tokens_video($user_id); 
+		$this->users_model->update_tokens_video($user_id);
 	}
 
     function add_payment_to_owner_tokens($product_id, $owner_id, $user_id){

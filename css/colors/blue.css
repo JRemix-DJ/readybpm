@@ -71,7 +71,7 @@ a:hover{
 .cover-content h1{
 	padding-top: 30px;
 	font-size: 45px;
-	color: white;
+	color: #5f47f3;
 }
 .xv-menuwrapper .dl-menu > li.cyan > a{
 	color: #ffffff !important;
@@ -183,7 +183,7 @@ table.checkout td{
 }
 
 table.checkout .total{
-	background: grey;
+	background: rgba(95, 71, 243, 0.1);
 	color: black;
 }
 
@@ -227,9 +227,6 @@ body{
 }
 #cuerpo .search-container{
 	background: #ffffff;
-}
-.table tr:nth-child(2n){
-	background: #e2e2e2;
 }
 .social-list.style2 li a{
 	

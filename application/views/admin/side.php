@@ -16,6 +16,24 @@
                 <span class="menu-item-label">Drops</span>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
+
+        <a href="<?php echo site_url('admin/videos'); ?>" class="sl-menu-link">
+            <div class="sl-menu-item">
+                <i class="menu-item-icon icon ion-ios-videocam tx-20"></i> <span class="menu-item-label">Videos</span>
+                <i class="menu-item-arrow fa fa-angle-down"></i>
+            </div></a><ul class="sl-menu-sub nav flex-column">
+            <li class="nav-item">
+                <a href="<?php echo site_url('admin/listar_videos/'); ?>" class="nav-link">Videos Aprobados</a>
+            </li>
+            <li class="nav-item">
+                <a href="<?php echo site_url('admin/listar_videos/?aprobacion=1'); ?>" class="nav-link">Videos Sin Aprobar</a>
+            </li>
+
+            <li class="nav-item">
+                <a href="<?php echo site_url('admin/add_video'); ?>" class="nav-link">Subir Nuevo Video</a>
+            </li>
+        </ul>
+
         <a href="" class="sl-menu-link">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-musical-note tx-20"></i>

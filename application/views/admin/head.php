@@ -46,7 +46,7 @@
     <link rel="apple-touch-icon" sizes="180x180"
           href="<? echo base_url(); ?>images/icons/apple-touch-icon-180x180.png"/>
 
-    <link rel="shortcut icon" sizes="196x196" href="<? echo site_url(); ?>images/favicon.png">
+
     <!-- vendor css -->
     <link href="<? echo site_url(); ?>admin_assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="<? echo site_url(); ?>admin_assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">

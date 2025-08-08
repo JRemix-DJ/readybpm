@@ -25,6 +25,18 @@
         color: #ffffff;
         background-color: #5F47F3;
     }
+    html{
+        height: 100%;
+    }
+    body{
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+    }
+    #ajaxArea{
+        flex: 1 0 auto;
+    }
 
 </style>
 <div id="ajaxArea">
@@ -37,7 +49,6 @@
                 <hr>
                 <div class="clearfix text-uppercase">
                     <h1 style="padding-top: 30px">REQUEST YOUR REMIX</h1>
-                    <cite class="album-author mb-20">ReadyBPM</cite>
                 </div>
             </div>
         </div>

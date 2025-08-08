@@ -12,14 +12,12 @@
                 <thead>
                     <tr>
                         <th>Titulo</th>
-                        <th>Artista</th>
                         <th>Fecha de compra</th>
                     </tr>
                 </thead>
                 <tbody id="total_descargas">
                 </tbody>
             </table>
-            
         </div><!-- table-wrapper --><div class="paginacion"></div>
     </div><!-- card -->
 </div><!-- sl-pagebody -->

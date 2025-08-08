@@ -1,11 +1,25 @@
-<div id="ajaxArea">
+<style>
+    html{
+        height: 100%;
+    }
+    body{
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+    }
+    #ajaxArea{
+        flex: 1 0 auto;
+    }
+</style>
+
+<div id="ajaxArea" style="margin-top: 40px">
  	<section>
  		<header>
  			<div class="container">
  				<div class="row">
  					<div class="col-md-12">
  						<h1>Hola <? echo $this->session->userdata('username'); ?></h1>
- 						<p>Para accesar a los edits comprados haz click en el id de cada orden. Dentro encontrarás los archivos para descargar.</p>
 						 <? //print_r($_SESSION); ?>
  					</div>
  				</div>
@@ -21,21 +35,16 @@
 							<? foreach($orders as $orden){ ?>
 							<tr>
 								<td>
-									
 									<? 
 										$fecha = date_format(date_create($orden->date_order), 'd/m/Y');
                                 		echo $fecha; 
 									?>
 								</td>
 								<td>
-									<a href="<? echo base_url('micuenta/compra/').$orden->id;?>">
-										<? echo $orden->id; ?>
-									</a>
+                                    <? echo $orden->id; ?>
 									</td>
 								<td>
-									
 										$<? echo $orden->total_price; ?>
-	
 								</td>
 							</tr>
 							<? } ?>

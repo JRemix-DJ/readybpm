@@ -1,3 +1,18 @@
+<style>
+    html{
+        height: 100%;
+    }
+    body{
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+    }
+    #ajaxArea{
+        flex: 1 0 auto;
+    }
+</style>
+
 <div id="ajaxArea">
     <section class="album-header">
         <figure class="album-cover-wrap">
@@ -8,7 +23,6 @@
                 <hr>
                 <div class="clearfix text-uppercase">
                     <h1 style="padding-top: 30px">Checkout Plan</h1>
-                    <cite class="album-author mb-20">ReadyBPM.COM</cite>
                 </div>
             </div>
         </div>
@@ -18,16 +32,16 @@
             <div class="row">
                 <?php if($this->session->userdata('is_logued_in')){ ?>
                 <div class="col-md-6">
-                    <div class="title">
-                        <h3>INFORMACIÓN DE FACTURACIÓN</h3>
+                    <div class="title" style="padding-top: 30px">
+                        <h3>BILLING INFORMATION</h3>
                     </div>
                     <table class="table user_info">
                         <tr>
-                            <td>CODIGO DE CLIENTE:</td>
+                            <td>CUSTOMER CODE:</td>
                             <td><?php echo $this->session->userdata('id_usuario'); ?></td>
                         </tr>
                         <tr>
-                            <td>Nombre:</td>
+                            <td>Name:</td>
                             <td><?php echo $this->session->userdata('username'); ?></td>
                         </tr>
                         <tr>
@@ -38,19 +52,19 @@
                 </div>
                 <div class="col-md-6">
                     <section>
-                        <div class="title"><h3>ORDEN</h3></div>
+                        <div class="title" style="padding-top: 30px"><h3>ORDER</h3></div>
                         <div class="content">
                             <table class="table checkout">
                                 <?php if(isset($plan)){ ?>
                                 <tr>
                                     <td>
                                         <?php echo $plan->name; ?>
-                                        - Duración <?php echo $plan->duration; ?> días
+                                        - Duration <?php echo $plan->duration; ?> days
                                     </td>
                                     <td>$<?php echo $plan->price; ?> USD</td>
                                 </tr>
                                 <tr class="total">
-                                    <td>Total de la Orden</td>
+                                    <td>Total Order</td>
                                     <td><strong>$<?php echo $plan->price; ?> USD</strong></td>
                                 </tr>
                                 <?php } ?>
@@ -59,7 +73,7 @@
                     </section>
                     <section>
                         <div class="title">
-                            <h3>MÉTODO DE PAGO</h3>
+                            <h3>PAYMENT METHOD</h3>
                         </div>
                         <div class="content">
                             <div class="payment_options" style="margin-bottom: 50px;">
@@ -92,7 +106,7 @@
                                 ?>
                                 <div class="item">
                                     <a href="<?php echo $tukuy_plan_url . '?' . $tukuy_params; ?>" class="button btn btn-default">
-                                        PAGAR CON TARJETA DE CRÉDITO / DÉBITO
+                                        PAY WITH CREDIT / DEBIT CARD
                                     </a>
                                     <div class="item-icons-card">
                                         <i class="fa fa-brands fa-cc-visa"></i>
@@ -101,7 +115,7 @@
                                 </div>
                                 <?php } else { ?>
                                 <div class="item">
-                                    NO HAY PLANES DISPONIBLES
+                                    NO PLANS AVAILABLE
                                 </div>
                                 <?php } ?>
                             </div>
@@ -110,7 +124,7 @@
                 </div>
                 <?php } else { ?>
                 <div class="col-md-12" style="padding-top: 40px;padding-bottom: 40px">
-                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Necesitas estar registrado para finalizar la compra.
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> You must be registered to complete the purchase.
                 </div>
                 <?php } ?>
             </div>

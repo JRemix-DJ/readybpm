@@ -1,9 +1,9 @@
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded',function () {
         // Busca todos los elementos con la clase 'precio'
         const priceElements = document.querySelectorAll('.precio');
 
-        priceElements.forEach(function(el) {
+        priceElements.forEach(function (el) {
             // Obtiene el texto completo, ej: "19.90 $/month"
             const fullText = el.textContent.trim();
 
@@ -35,7 +35,9 @@
         padding: 10px 15px;
         border-radius: 4px;
         display: inline-block;
+        margin-bottom: 20px;
     }
+
     .planeshome .contenedor {
         display: flex;
         flex-wrap: wrap;
@@ -87,7 +89,7 @@
     }
 
     .section_plan {
-        display: flex;       /* Activa Flexbox para alinear elementos */
+        display: flex; /* Activa Flexbox para alinear elementos */
         align-items: center; /* Centra verticalmente el check con el texto */
         text-align: left;
         padding-right: 20px;
@@ -99,18 +101,19 @@
         font-weight: bold; /* Pone el texto en negrita */
     }
 
-    .fa-check-circle-o{
+    .fa-check-circle-o {
         color: #04ae05;
         padding-right: 5px;
     }
 
-    .btn-default{
+    .btn-default {
         margin-top: 30px !important;
         margin-bottom: 30px;
         font-size: 16px;
         max-height: 37px;
         max-width: 280px;
     }
+
     .precio {
         display: flex;
         align-items: center;
@@ -140,13 +143,14 @@
         font-size: 40px;
         font-weight: 400;
     }
+
     /* --- Estilos para destacar el segundo plan --- */
 
     /* Selecciona la segunda tarjeta de plan */
     .planeshome .contenedor .tabla:nth-child(2) {
         border: 2px solid #5F47F3; /* Añade el borde de color solicitado */
-        position: relative;          /* Necesario para posicionar el banner */
-        overflow: hidden;            /* Evita que el banner se salga de las esquinas redondeadas */
+        position: relative; /* Necesario para posicionar el banner */
+        overflow: hidden; /* Evita que el banner se salga de las esquinas redondeadas */
     }
 
     /* Crea el banner superior usando un pseudo-elemento ::before */
@@ -157,7 +161,7 @@
         left: 0;
         right: 0;
         background-color: #5F47F3; /* Color de fondo del banner */
-        color: #fff;               /* Color del texto */
+        color: #fff; /* Color del texto */
         padding: 10px;
         text-align: center;
         font-weight: bold;
@@ -168,94 +172,95 @@
     .planeshome .contenedor .tabla:nth-child(2) .section_plan:first-child {
         padding-top: 60px !important; /* Aumenta el padding-top del primer elemento */
     }
+
+    html{
+        height: 100%;
+    }
+    body{
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+    }
+    #ajaxArea{
+        flex: 1 0 auto;
+    }
 </style>
-<div id="ajaxArea">
+<div id="ajaxArea" style="margin-top: 60px">
     <div class="pageArea">
-        <section class="album-header">
-            <figure class="album-cover-wrap">
-                <div class="album-cover_overlay"></div>
-            </figure>
-            <div class="container">
-                <div class="cover-content">
-                    <hr>
-                    <div class="clearfix text-uppercase">
-                        <h1 style="padding-top: 30px">PLANS</h1>
-                        <cite class="bg-success"><i class="fa fa-exclamation-triangle"></i>
-                             We've improved our payment system, do it with confidence!</cite>
-                    </div>
-                </div>
-            </div>
-        </section>
         <section id="cuerpo">
             <div class="container planeshome">
                 <div class="row">
                     <div class="col-xs-12">
                         <section id="cuerpo" class="planespage">
                             <header class="style4 confirmacion">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-xs-12">
-                                            <div class="contenedor">
-                                                <? if(isset($plans)){  ?>
-                                                    <? foreach($plans as $plan){ ?>
-                                                        <div class="tabla tabla hover ">
-                                                            <div class="section_plan" style="padding-top: 50px;">
-                                                                <h2 style="text-transform: capitalize !important;"><?= $plan->name; ?></h2>
-                                                            </div>
-                                                            <div class="section_plan">
-                                                                <p><? echo $plan->description;  ?></p>
-                                                            </div>
-                                                            <div class="section_plan">
-                                                                <span class="precio"><? echo $plan->price; ?> $/month</span>
-                                                            </div>
-                                                            <a class="btn btn-default"
-                                                               href="<? echo base_url(); ?>getplan/?plan_id=<? echo $plan->id; ?>&currency=USD"><b>Choose Plan</b>
-                                                            </a>
-                                                            <div class="section_plan"><i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                                                                <span class=""><? echo $plan->duration; ?></span>
-                                                                <span> &nbsp; days of access </span>
-                                                            </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="contenedor">
+                                            <? if(isset($plans)){  ?>
+                                            <? foreach($plans as $plan){ ?>
+                                            <div class="tabla tabla hover ">
+                                                <div class="section_plan" style="padding-top: 50px;">
+                                                    <h2 style="text-transform: capitalize !important;"><?= $plan->name; ?></h2>
+                                                </div>
+                                                <div class="section_plan">
+                                                    <p><? echo $plan->description;  ?></p>
+                                                </div>
+                                                <div class="section_plan">
+                                                    <span class="precio"><? echo $plan->price; ?> $/month</span>
+                                                </div>
+                                                <a class="btn btn-default"
+                                                   href="<? echo base_url(); ?>getplan/?plan_id=<? echo $plan->id; ?>&currency=USD"><b>Choose
+                                                    Plan</b>
+                                                </a>
+                                                <div class="section_plan"><i class="fa fa-check-circle-o"
+                                                                             aria-hidden="true"></i>
+                                                    <span class=""><? echo $plan->duration; ?></span>
+                                                    <span> &nbsp; days of access </span>
+                                                </div>
 
-                                                            <? if ($plan->ilimitado_activo == 1) { ?>
+                                                <? if ($plan->ilimitado_activo == 1) { ?>
 
-                                                                <div class="section_plan"><i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                                                                    <span>Descargas Ilimitadas de Audios.</span>
-                                                                </div>
-                                                            <? }else{ ?>
-                                                                <div class="section_plan"> <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                                                                    <span class="table-tokens-video"><? if ( $plan->tokens_video != 0 && $plan->tokens_video != NULL ) {
-                                                                            echo $plan->tokens_video;
-                                                                        } else {
-                                                                            echo '0';
-                                                                        } ?></span>
-                                                                    <span> &nbsp; Audios Downloads </span>
-                                                                </div>
-                                                            <? } ?>
-                                                            <div class="section_plan">
-                                                                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                                                                <span> Automatic Renewal </span>
-                                                            </div>
-                                                            <div class="section_plan"><i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                                                                <span> Advanced Search </span>
-                                                            </div>
-                                                            <div class="section_plan"><i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                                                                <span> New Products Daily </span>
-                                                            </div>
-                                                            <div class="section_plan"><i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                                                                <span> 1-Click Downloads </span>
-                                                            </div>
-                                                        </div>
-                                                    <? } ?>
+                                                <div class="section_plan"><i class="fa fa-check-circle-o"
+                                                                             aria-hidden="true"></i>
+                                                    <span>Descargas Ilimitadas de Audios.</span>
+                                                </div>
+                                                <? }else{ ?>
+                                                <div class="section_plan"><i class="fa fa-check-circle-o"
+                                                                             aria-hidden="true"></i>
+                                                    <span class="table-tokens-video"><? if ( $plan->tokens_video != 0 && $plan->tokens_video != NULL ) {
+                                                        echo $plan->tokens_video;
+                                                    } else {
+                                                        echo '0';
+                                                    } ?></span>
+                                                    <span> &nbsp; Audios Downloads </span>
+                                                </div>
                                                 <? } ?>
+                                                <div class="section_plan">
+                                                    <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                                                    <span> Automatic Renewal </span>
+                                                </div>
+                                                <div class="section_plan"><i class="fa fa-check-circle-o"
+                                                                             aria-hidden="true"></i>
+                                                    <span> Advanced Search </span>
+                                                </div>
+                                                <div class="section_plan"><i class="fa fa-check-circle-o"
+                                                                             aria-hidden="true"></i>
+                                                    <span> New Products Daily </span>
+                                                </div>
+                                                <div class="section_plan"><i class="fa fa-check-circle-o"
+                                                                             aria-hidden="true"></i>
+                                                    <span> 1-Click Downloads </span>
+                                                </div>
                                             </div>
+                                            <? } ?>
+                                            <? } ?>
                                         </div>
                                     </div>
                                 </div>
-                            </header>
-                        </section>
                     </div>
+                    </header>
                 </div>
-            </div>
         </section>
     </div>
 </div>

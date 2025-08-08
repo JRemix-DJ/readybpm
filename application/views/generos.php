@@ -35,23 +35,21 @@
         content: "" !important;
         display: none !important;
     }
+    html{
+        height: 100%;
+    }
+    body{
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+    }
+    #ajaxArea{
+        flex: 1 0 auto;
+    }
 </style>
 
-<div id="ajaxArea">
-    <section class="album-header">
-        <figure class="album-cover-wrap">
-            <div class="album-cover_overlay"></div>
-        </figure>
-        <div class="container">
-            <div class="cover-content">
-                <hr>
-                <div class="clearfix text-uppercase">
-                    <h1 style="padding-top: 30px">GENRES</h1>
-                    <cite class="album-author mb-20">ReadyBPM</cite>
-                </div>
-            </div>
-        </div>
-    </section>
+<div id="ajaxArea" style="margin-top: 40px">
     <section>
         <div class="container">
             <div class="row">
@@ -72,7 +70,6 @@
                                             <img src="<?php echo $image_path; ?>" alt="<?php echo $genero->name; ?>" width="265" height="265">
                                             <figcaption>
                                                 <span></span>
-                                                <h3><?php echo $genero->name; ?></h3>
                                             </figcaption>
                                         </figure>
                                     </a>

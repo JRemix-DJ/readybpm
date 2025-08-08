@@ -26,7 +26,7 @@ class Micuenta extends CI_Controller {
 	public function index()
 	{
 		if($this->session->userdata('is_logued_in')){
-			$data['title']="Mi Cuenta - ReadyBPM";
+			$data['title']="ReadyBPM.com";
 			$data['description']="Detalles de tu cuenta";
 			$data['products']=$this->products_model->get_products();
 			$data['generos']=$this->genero_model->get_generos();

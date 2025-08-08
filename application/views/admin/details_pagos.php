@@ -1,21 +1,40 @@
 <div class="sl-pagebody">
-    <div class="sl-page-title">
-        <h5><?php echo $title; ?></h5>
-        <p><?php echo $description; ?></p>
-    </div>
     <div class="card pd-20 pd-sm-40">
-        <h6 class="card-body-title">Resumen de Pagos para: <?php echo $dj_info->username; ?></h6>
+        <h6 class="card-body-title">Resumen de Pagos para: <?php echo html_escape($dj_info->username); ?></h6>
+
         <div class="row text-center mg-t-20">
-            <div class="col-sm-6 col-lg-6">
+            <div class="col-sm-6 col-lg-3">
                 <div class="card pd-20">
-                    <h6 class="tx-12 tx-uppercase tx-inverse tx-bold mg-b-15">Total Descargas</h6>
-                    <h3 class="tx-lato tx-inverse tx-bold"><?php echo count($downloads); ?></h3>
+                    <h6 class="tx-12 tx-uppercase tx-inverse tx-bold mg-b-15">Descargas Audio</h6>
+                    <h3 class="tx-lato tx-inverse tx-bold"><?php echo $total_downloads_audio; ?></h3>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-6">
+            <div class="col-sm-6 col-lg-3">
                 <div class="card pd-20">
-                    <h6 class="tx-12 tx-uppercase tx-inverse tx-bold mg-b-15">Monto Total a Pagar</h6>
-                    <h3 class="tx-lato tx-success tx-bold">$<?php echo number_format($total_payment ,2); ?></h3>
+                    <h6 class="tx-12 tx-uppercase tx-inverse tx-bold mg-b-15">Monto Audios</h6>
+                    <h3 class="tx-lato tx-inverse tx-bold">$<?php echo number_format($total_payment_audio, 2); ?></h3>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-3 mg-t-20 mg-sm-t-0">
+                <div class="card pd-20">
+                    <h6 class="tx-12 tx-uppercase tx-inverse tx-bold mg-b-15">Descargas Video</h6>
+                    <h3 class="tx-lato tx-inverse tx-bold"><?php echo $total_downloads_video; ?></h3>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3 mg-t-20 mg-sm-t-0">
+                <div class="card pd-20">
+                    <h6 class="tx-12 tx-uppercase tx-inverse tx-bold mg-b-15">Monto Videos</h6>
+                    <h3 class="tx-lato tx-inverse tx-bold">$<?php echo number_format($total_payment_video, 2); ?></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="row text-center mg-t-20">
+            <div class="col-12">
+                <div class="card pd-20 bg-success">
+                    <h6 class="tx-12 tx-uppercase tx-white tx-bold mg-b-15">Monto Total a Pagar</h6>
+                    <h3 class="tx-lato tx-white tx-bold">$<?php echo number_format($total_payment, 2); ?></h3>
                 </div>
             </div>
         </div>

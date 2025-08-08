@@ -41,7 +41,7 @@ body {
     font-family: 'Lato', sans-serif;
     overflow: hidden;
     overflow-y: scroll;
-    font-size: 14px;
+    font-size: 16px;
     color: #20222d;
     padding-right: 0px !important;
 }
@@ -1701,11 +1701,6 @@ a.navbar-brand img {
 .album-unit figure:hover figcaption {
     visibility: visible;
 }
-.album-header{
-    height: 280px;
-    position: relative;
-    padding-top: 50px;
-}
 .album-cover{
     width: 100%;
     height: auto;
@@ -1719,7 +1714,6 @@ a.navbar-brand img {
 }
 .album-cover-wrap{
     overflow: hidden;
-    height: 290px;
     position: absolute;
     top: -10px;
     width: 110%;
@@ -1732,7 +1726,6 @@ a.navbar-brand img {
     left: 0;
     top: 0;
     width: 100%;
-    height: 90%;
     background: rgba(0,0,0,0.3);
     z-index: 20;
 }
@@ -2493,7 +2486,7 @@ a.vote-up:focus {
 
 
 .singleVideoPlayer.archivo_cliente .downloadButton{
-    background: green !important;
+    background: #607D8B !important;
 }
 
 .singleVideoPlayer.archivo_cliente .downloadButtonVideo{
@@ -3663,9 +3656,7 @@ ul.pagination{
         width: auto;
         height: 100%;
     }
-    .album-cover-wrap{
-        height: 290px;
-    }
+
     .album-grid-wrap.style3 .album-unit {
         width: 20%;
     }

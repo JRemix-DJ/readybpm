@@ -11,7 +11,7 @@ class Pages extends CI_Controller {
 	}
 
 	public function become_a_member(){
-		$data['title']="ReadyBPM";
+		$data['title']="ReadyBPM.com";
 		$data['djs']=$this->products_another_model->get_djs();
 		$data['description']="Música para Djs y Vjs, los mejores remixes en un solo lugar";
 		$data['paises']=$this->get_countries();
@@ -104,7 +104,7 @@ class Pages extends CI_Controller {
 	}
 
 	public function terms_conditions(){
-		$data['title']="ReadyBPM";
+		$data['title']="ReadyBPM.com";
 		$data['djs']=$this->users_model->get_djs();
 		$data['description']="Música para Djs y Vjs, los mejores remixes en un solo lugar";
 		$data['paises']=$this->get_countries();
@@ -234,7 +234,7 @@ class Pages extends CI_Controller {
         echo json_encode($jsondata);
     }
     public function request(){
-        $data['title']="ReadyBPM";
+        $data['title']="ReadyBPM.com";
         $data['djs']=$this->products_another_model->get_djs();
         $data['description']="Música para Djs y Vjs, los mejores remixes en un solo lugar";
         $data['paises']=$this->get_countries();

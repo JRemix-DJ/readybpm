@@ -1,3 +1,17 @@
+<style>
+    html{
+        height: 100%;
+    }
+    body{
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+    }
+    #ajaxArea{
+        flex: 1 0 auto;
+    }
+</style>
 <div id="ajaxArea">
     <pre style="display:none;"><?php print_r($products) ?></pre>
     <section class="album-header">
@@ -20,12 +34,8 @@
     Albums
     =================================-->
     <section <?php if($this->session->userdata('content_type') == 'audios'){ ?>id="cuerpo"<?php } ?>>
-        <?php $this->load->view('search_box'); ?>
-
         <div class="container">
-
-            <?php $this->load->view('table_products'); ?>
-
+            <?php $this->load->view('table_videos'); ?>
         </div>
     </section>
 </div>

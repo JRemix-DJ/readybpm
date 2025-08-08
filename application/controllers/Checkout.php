@@ -5,14 +5,13 @@ class Checkout extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->helper(array('url', 'form')); 
-		$this->load->model(array('users_model', 'genero_model', 'products_model', 'banners_model', 'faq_model', 'orders_model'));
+		$this->load->model(array('users_model', 'genero_model', 'products_model', 'banners_model', 'faq_model', 'orders_model', 'plan_model'));
 		$this->load->library(array('session','form_validation'));
 		$this->load->database('default');
 		$this->users_model->check_payment();
 	}
 
-	public function index()
-	{
+	public function index() {
 
 		if($this->session->userdata('is_logued_in')){
 			$data['title']="Checkout - ReadyBPM";
@@ -62,5 +61,39 @@ class Checkout extends CI_Controller {
 		return $total;
 	}
 
+    public function start_plan_payment($plan_id) {
+        // 1. Verificar si el usuario ha iniciado sesión
+        if (!$this->session->userdata('is_logued_in')) {
+            $this->session->set_userdata('redirect_after_login', 'checkout/start_plan_payment/' . $plan_id);
+            redirect('login');
+            return;
+        }
 
+        // 2. Obtener la información del plan
+        $plan = $this->plan_model->load_plan_info($plan_id);
+        if (!$plan || empty($plan->url_pago)) {
+            show_error('El plan seleccionado no es válido o no tiene una pasarela de pago configurada.', 404);
+            return;
+        }
+
+        // 3. Crear la orden pendiente
+        $order_data = [
+            'user_id'     => $this->session->userdata('id_usuario'),
+            'total_price' => $plan->price,
+            'status'      => 0, // 0 = Pendiente
+            'is_plan'     => 1,
+            'plan_id'     => $plan->id,
+            'date_order'  => date('Y-m-d H:i:s')
+        ];
+
+        $order_id = $this->orders_model->create_order_plan($order_data);
+
+        if (!$order_id) {
+            show_error('No se pudo procesar tu solicitud. Por favor, intenta de nuevo.', 500);
+            return;
+        }
+
+        // 4. Redirigir a la pasarela de pago
+        redirect($plan->url_pago);
+    }
 }

@@ -369,8 +369,7 @@ class Admin extends CI_Controller{
         }
     }
 
-    public function listar_productos()
-    {
+    public function listar_productos() {
         if ( $this->user_has_admin_access() ) {
             $accion = $this->input->get('action');
             $product_id = $this->input->get('product_id');
@@ -473,8 +472,6 @@ class Admin extends CI_Controller{
                 $data['users'] = $this->users_model->get_all_users();
                 $data['product_types'] = $this->products_model->get_product_types();
 
-                // --- CORRECCIÓN AQUÍ ---
-                // Se cambia el tipo de producto a 1 para que busque AUDIOS en lugar de videos.
                 $where['product_type_id'] = 1;
 
                 if ( isset($_GET['genero_filter']) ) {
@@ -925,8 +922,7 @@ class Admin extends CI_Controller{
         }
     }
 
-    public function pagos()
-    {
+    public function pagos() {
         if ( $this->session->userdata('is_logued_in') ) {
             if ( $this->user_has_admin_access() ) {
                 $data['title'] = "Pagos";
@@ -981,54 +977,78 @@ class Admin extends CI_Controller{
         }
     }
 
-    public function pagos_tokens()
-    {
+    public function pagos_tokens() {
         if ($this->session->userdata('is_logued_in') && $this->user_has_admin_access()) {
-
             $data['title'] = "Pagos de Tokens por DJ";
-            $data['description'] = "Pagos pendientes calculados por descargas.";
+            $data['description'] = "Pagos pendientes calculados por descargas de audios y videos.";
 
             $djs = $this->users_model->get_djs_with_download_stats();
 
-            // --- INICIO DE LA MODIFICACIÓN ---
-            // 2. Calculamos el monto a pagar para cada DJ con la nueva fórmula.
+            $precio_por_audio = 0.05;
+            $precio_por_video = 0.05;
+
             foreach ($djs as $dj) {
-                $precio_por_cancion = 0.05; // Nuevo precio fijo por descarga
-
-                // La nueva fórmula ya no usa el porcentaje del DJ.
-                $pago_calculado = $dj->total_downloads * $precio_por_cancion;
-
-                // Añadimos el nuevo dato al objeto del DJ
-                $dj->pago_calculado = $pago_calculado;
+                $pago_audios = $dj->total_audio_downloads * $precio_por_audio;
+                $pago_videos = $dj->total_video_downloads * $precio_por_video;
+                $dj->pago_audios = $pago_audios;
+                $dj->pago_videos = $pago_videos;
+                $dj->pago_total = $pago_audios + $pago_videos;
             }
-            // --- FIN DE LA MODIFICACIÓN ---
 
             $data['djs_pagos'] = $djs;
-
-            $data['aditional_scripts'] = "<script>
-                $(function(){
-                    'use strict';
-                    $('#datatable1').DataTable({
-                        responsive: true,
-                        language: {
-                            searchPlaceholder: 'Buscar...',
-                            sSearch: '',
-                            lengthMenu: '_MENU_ items/pagina',
-                        }
-                    });
-                });
-            </script>";
             $data['aditional_stylesheets'] = '<link href="'.base_url().'admin_assets/lib/datatables/jquery.dataTables.css" rel="stylesheet">';
+            $data['aditional_scripts'] = "<script>$(function(){ $('#datatable1').DataTable({ responsive: true, language: { searchPlaceholder: 'Buscar...', sSearch: '', lengthMenu: '_MENU_ items/pagina' } }); });</script>";
 
             $this->load->view('admin/head', $data);
-            $this->load->view('admin/side');
-            $this->load->view('admin/top');
+            $this->load->view('admin/side', $data);
+            $this->load->view('admin/top', $data);
             $this->load->view('admin/pagos_tokens', $data);
             $this->load->view('admin/footer');
-
         } else {
             redirect(base_url('admin/login/'));
         }
+    }
+
+    public function siguiente_mes($dj_id) {
+        if (!$this->session->userdata('is_logued_in') || !$this->user_has_admin_access()) {
+            redirect('admin/login');
+        }
+
+        $djs = $this->users_model->get_djs_with_download_stats();
+        $dj_a_pagar = null;
+
+        $precio_por_audio = 0.05;
+        $precio_por_video = 0.05;
+
+        foreach ($djs as $dj) {
+            if ($dj->id == $dj_id) {
+                // Calculamos el pago total usando el desglose
+                $pago_audios = $dj->total_audio_downloads * $precio_por_audio;
+                $pago_videos = $dj->total_video_downloads * $precio_por_video;
+                $pago_total = $pago_audios + $pago_videos;
+
+                // Guardamos el total de descargas (audios + videos)
+                $total_downloads = $dj->total_audio_downloads + $dj->total_video_downloads;
+
+                // Creamos un objeto simple para archivar
+                $dj_a_pagar = (object)[
+                    'id' => $dj->id,
+                    'pago_calculado' => $pago_total,
+                    'total_downloads' => $total_downloads
+                ];
+                break;
+            }
+        }
+
+        if ($dj_a_pagar) {
+            // 2. Archivar el pago en la tabla de pagos realizados
+            $this->orders_model->archivar_pago_dj($dj_a_pagar->id, $dj_a_pagar->pago_calculado, $dj_a_pagar->total_downloads);
+
+            // 3. Reiniciar el conteo de descargas para ese DJ (ahora en la tabla correcta)
+            $this->orders_model->reiniciar_descargas_dj($dj_a_pagar->id);
+        }
+
+        redirect('admin/pagos_tokens');
     }
 
     public function detalles_pago_dj($dj_id) {
@@ -1041,26 +1061,48 @@ class Admin extends CI_Controller{
             redirect(base_url('admin/pagos_tokens'));
         }
 
+        // Esta función del modelo nos da todos los detalles de cada descarga
         $downloads = $this->orders_model->get_download_details_by_dj($dj_id);
 
         // --- INICIO DE LA MODIFICACIÓN ---
-        // Calculamos el pago por cada descarga y el total con la nueva fórmula.
-        $precio_por_cancion = 0.05;
-        $total_payment = 0;
+        // Preparamos las variables y precios
+        $precio_por_audio = 0.05;
+        $precio_por_video = 0.10; // Puedes ajustar este valor
 
+        $total_payment_audio = 0;
+        $total_payment_video = 0;
+        $total_downloads_audio = 0;
+        $total_downloads_video = 0;
+
+        // Calculamos los pagos y conteos por separado
         foreach ($downloads as $download) {
-            // El pago unitario es ahora un valor fijo.
-            $download->pago_unitario = $precio_por_cancion;
-            $total_payment += $precio_por_cancion;
+            if ($download->product_type_id == 3) { // Es un video
+                $download->pago_unitario = $precio_por_video;
+                $total_payment_video += $precio_por_video;
+                $total_downloads_video++;
+            } else { // Es un audio (o cualquier otro tipo)
+                $download->pago_unitario = $precio_por_audio;
+                $total_payment_audio += $precio_por_audio;
+                $total_downloads_audio++;
+            }
         }
+
+        $total_payment = $total_payment_audio + $total_payment_video;
         // --- FIN DE LA MODIFICACIÓN ---
 
         $data['title'] = "Detalle de Pagos para " . $dj_info->username;
         $data['description'] = "Desglose de todas las descargas que generan pagos para este DJ.";
         $data['dj_info'] = $dj_info;
         $data['downloads'] = $downloads;
-        $data['total_payment'] = $total_payment;
 
+        // Pasamos todos los nuevos totales a la vista
+        $data['total_payment'] = $total_payment;
+        $data['total_payment_audio'] = $total_payment_audio;
+        $data['total_payment_video'] = $total_payment_video;
+        $data['total_downloads_audio'] = $total_downloads_audio;
+        $data['total_downloads_video'] = $total_downloads_video;
+
+        // El resto del código (scripts y carga de vistas) se mantiene igual
         $data['aditional_scripts'] = "<script>
             $(function(){
                 'use strict';
@@ -1076,12 +1118,11 @@ class Admin extends CI_Controller{
         $this->load->view('admin/head', $data);
         $this->load->view('admin/side');
         $this->load->view('admin/top');
-        $this->load->view('admin/details_pagos', $data);
+        $this->load->view('admin/details_pagos', $data); // Esta es la vista que modificaremos
         $this->load->view('admin/footer');
     }
 
-    public function pagos_realizados()
-    {
+    public function pagos_realizados() {
         if ( $this->session->userdata('is_logued_in') ) {
             if ( $this->user_has_admin_access() ) {
                 $data['title'] = "Pagos Realizados";
@@ -1137,37 +1178,6 @@ class Admin extends CI_Controller{
         }
     }
 
-    public function siguiente_mes($dj_id) {
-        if (!$this->session->userdata('is_logued_in') || !$this->user_has_admin_access()) {
-            redirect('admin/login');
-        }
-
-        // 1. Obtener los datos actuales del DJ para calcular el pago
-        $djs = $this->users_model->get_djs_with_download_stats();
-        $dj_a_pagar = null;
-        foreach ($djs as $dj) {
-            if ($dj->id == $dj_id) {
-                $valor_por_descarga = 1.00;
-                $ganancia_bruta = $dj->total_downloads * $valor_por_descarga;
-                $pago_calculado = $ganancia_bruta * ($dj->percentage / 100);
-                $dj->pago_calculado = $pago_calculado;
-                $dj_a_pagar = $dj;
-                break;
-            }
-        }
-
-        if ($dj_a_pagar) {
-            // 2. Archivar el pago en la nueva tabla
-            $this->orders_model->archivar_pago_dj($dj_a_pagar->id, $dj_a_pagar->pago_calculado, $dj_a_pagar->total_downloads);
-
-            // 3. Reiniciar el conteo de descargas para ese DJ
-            $this->users_model->reiniciar_descargas_dj($dj_a_pagar->id);
-        }
-
-        // 4. Redirigir de vuelta a la página de pagos pendientes
-        redirect('admin/pagos_tokens');
-    }
-
     public function pagos_realizados_tokens() {
         if (!$this->session->userdata('is_logued_in') || !$this->user_has_admin_access()) {
             redirect('admin/login');
@@ -1193,8 +1203,7 @@ class Admin extends CI_Controller{
         $this->load->view('admin/footer');
     }
 
-    public function detalles_pago()
-    {
+    public function detalles_pago(){
         $dj_id = $this->uri->segment(3);
         if ( $this->session->userdata('is_logued_in') ) {
             if ( $this->user_has_admin_access() ) {
@@ -1330,7 +1339,7 @@ class Admin extends CI_Controller{
 
                 if ( $user_role == 'is_admin' || $user_role == 'is_editor' ) {
                     $product_count = $this->products_model->count_products_by_genre($gender_id);
-                    
+
                     if ($product_count > 0) {
                         $mensaje = "Error: No se puede eliminar este género porque está asignado a " . $product_count . " producto(s).";
                     } else {
@@ -1591,8 +1600,7 @@ class Admin extends CI_Controller{
         }
     }
 
-    public function editar_producto()
-    {
+    public function editar_producto() {
         $this->load->model('users_model');
         if ( $this->session->userdata('is_logued_in') ) {
             $product_id = $this->input->get('product_id');
@@ -1787,7 +1795,6 @@ class Admin extends CI_Controller{
         foreach ($data["descargas"] as $key => $value) {
             $html .= '<tr>
           <td class="align-middle">'.$value->product_name.'</td>
-          <td class="align-middle">'.$value->artist.'</td>
           <td class="align-middle">'.$value->since.'</td>
         </tr>';
         }
@@ -2187,18 +2194,18 @@ class Admin extends CI_Controller{
                 $db_data = [
                     'created_on'      => date('Y-m-d H:i:s'),
                     'name'            => $product_data['name'],
-                    'artist'          => 'N/A', // Valor por defecto
-                    'version'         => 'N/A', // Valor por defecto
-                    'price'           => '1.99', // Precio por defecto
+                    'artist'          => 'N/A',
+                    'version'         => 'N/A',
+                    'price'           => '1.99',
                     'gender_id'       => $product_data['gender_id'],
                     'owner_id'        => $this->session->userdata('id_usuario'),
-                    'product_type_id' => 1, // 1 = Audio
+                    'product_type_id' => 1,
                     'description'     => '',
                     'bpm'             => $product_data['bpm'],
                     'demo'            => $product_data['demo'],
                     'descargable'     => $product_data['descargable'],
                     'format'          => 'audio',
-                    'duration'        => '00:00' // Puedes calcular esto después si quieres
+                    'duration'        => '00:00'
                 ];
 
                 if ($user_role == 'is_admin' || $user_role == 'is_subadmin') {
@@ -3096,6 +3103,155 @@ class Admin extends CI_Controller{
             show_404();
         }
     }
-}
 
+    /**
+     * Muestra la página principal para gestionar videos.
+     * (Por ahora solo redirige a la página de subida)
+     */
+    public function videos()
+    {
+        // Verificamos si el admin ha iniciado sesión
+        if (!$this->session->userdata('admin_id')) {
+            redirect('admin/login');
+        }
+
+        // Redirigimos directamente a la vista para añadir videos
+        redirect('admin/add_video');
+    }
+
+    /**
+     * Carga la vista para subir nuevos videos.
+     */
+    public function add_video() {
+        // Verificamos si el admin ha iniciado sesión
+        if (!$this->session->userdata('is_logued_in')) {
+            redirect('admin/login');
+        }
+
+        // Cargamos los datos necesarios para la vista (ej. géneros)
+        $data['title'] = "Subir Nuevo Video";
+        $data['description'] = "Página para subir nuevos videos al sistema.";
+        $data['generos'] = $this->genero_model->get_gender();
+
+        // Cargamos las vistas de la plantilla de admin
+        $this->load->view('admin/head' , $data);
+        $this->load->view('admin/side');
+        $this->load->view('admin/top');
+        $this->load->view('admin/add_video', $data); // Esta es la nueva vista que crearemos
+        $this->load->view('admin/footer');
+    }
+
+    public function process_video(){
+        $user_role = $this->session->userdata('role');
+        // Headers para responder en formato JSON
+        header('Content-Type: application/json');
+
+        // Verificamos si el admin ha iniciado sesión
+        if (!$this->session->userdata('is_logued_in')) {
+            echo json_encode(['success' => false, 'error' => 'No autorizado.']);
+            return;
+        }
+
+        // 1. Configurar la librería de subida de CodeIgniter
+        $upload_path = 'assets/products/descargables/'; // ¡Asegúrate de que esta carpeta exista y tenga permisos!
+        $demo_path = 'assets/products/demos/';
+
+        // Asegurarse de que las carpetas existan
+        if (!is_dir($upload_path)) { mkdir($upload_path, 0755, true); }
+        if (!is_dir($demo_path)) { mkdir($demo_path, 0755, true); }
+
+        $config['upload_path'] = $upload_path;
+        $config['allowed_types'] = 'mp4|mov|avi|mkv|webm'; // Tipos de video permitidos
+        $config['max_size'] = '102400'; // Tamaño máximo en KB (100MB)
+        $config['encrypt_name'] = TRUE; // Renombrar el archivo para evitar conflictos
+
+        $this->load->library('upload', $config);
+
+        // 2. Realizar la subida del archivo
+        if (!$this->upload->do_upload('video_file')) {
+            $error = array('error' => $this->upload->display_errors());
+            echo json_encode(['success' => false, 'error' => strip_tags($error['error'])]);
+            return;
+        }
+
+        // 3. Si la subida es exitosa, preparamos los datos para la DB
+        $upload_data = $this->upload->data();
+        $demo_filename = null;
+
+        // Prioridad 1: Subir demo manual si existe
+        if (isset($_FILES['manual_demo_file']) && $_FILES['manual_demo_file']['error'] === UPLOAD_ERR_OK) {
+            // Reconfiguramos la librería para el archivo de demo
+            $config['upload_path'] = $demo_path;
+            $this->upload->initialize($config);
+
+            if ($this->upload->do_upload('manual_demo_file')) {
+                $demo_upload_data = $this->upload->data();
+                $demo_filename = $demo_upload_data['file_name'];
+            }
+        }
+        elseif ($this->input->post('create_demo') === 'true') {
+            $sourceFile = $upload_path . $upload_data['file_name'];
+            $demoFile = $demo_path . $upload_data['file_name'];
+
+            if ($this->create_video_preview($sourceFile, $demoFile)) {
+                $demo_filename = $upload_data['file_name'];
+            }
+        }
+
+        $db_data = [
+            'name' => $this->input->post('name'),
+            'gender_id' => $this->input->post('genre_id'),
+            'bpm' => $this->input->post('bpm'),
+            'descargable' => $upload_data['file_name'],
+            'demo' => $demo_filename,
+            'product_type_id' => 3,
+            'owner_id' => $this->session->userdata('id_usuario'),
+            'created_on' => date('Y-m-d H:i:s'),
+            'time_approved' => date('Y-m-d H:i:s'),
+            'format' => 'video'
+        ];
+
+        if ($user_role == 'is_admin' || $user_role == 'is_subadmin') {
+            $db_data['approved'] = 1;
+            $db_data['time_approved'] = date("Y-m-d H:i:s");
+        } else {
+            $db_data['approved'] = 0;
+        }
+
+        // 4. Insertar en la base de datos (usando el modelo de productos)
+        if ($this->products_model->create_product($db_data)) {
+            echo json_encode(['success' => true, 'message' => '¡Video subido y guardado correctamente!']);
+        } else {
+            unlink($upload_path . $upload_data['file_name']);
+            echo json_encode(['success' => false, 'error' => 'El archivo se subió, pero hubo un error al guardar en la base de datos.']);
+        }
+    }
+
+    private function create_video_preview($sourcePath, $destPath) {
+        try {
+            if (!file_exists($sourcePath)) {
+                return false;
+            }
+
+            $previewSize = 250 * 1024 * 30; // ~7.5 MB
+
+            if ($previewSize > filesize($sourcePath)) {
+                $previewSize = filesize($sourcePath);
+            }
+
+            $fileContent = file_get_contents($sourcePath, false, null, 0, $previewSize);
+
+            if ($fileContent === false) {
+                return false;
+            }
+            if (file_put_contents($destPath, $fileContent) === false) {
+                return false;
+            }
+            return true;
+
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+}
 ?>

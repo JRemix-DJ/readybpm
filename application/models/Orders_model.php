@@ -290,17 +290,37 @@ class Orders_model extends CI_Model {
         return null;
     }
 
+    public function reiniciar_descargas_dj($dj_id) {
+        // Obtenemos todos los IDs de los productos que pertenecen al DJ
+        $this->db->select('id');
+        $this->db->from('products');
+        $this->db->where('owner_id', $dj_id);
+        $product_ids_query = $this->db->get();
+
+        if ($product_ids_query->num_rows() == 0) {
+            // Si el DJ no tiene productos, no hay nada que reiniciar
+            return true;
+        }
+
+        $product_ids = array_column($product_ids_query->result_array(), 'id');
+
+        // ¡ACCIÓN CLAVE! Eliminamos los registros de la tabla correcta 'product_downloads'
+        $this->db->where_in('product_id', $product_ids);
+        return $this->db->delete('product_downloads');
+    }
+
     public function get_download_details_by_dj($dj_id) {
-        $this->db->select([
-            'user_files.since AS download_date',
-            'products.name AS product_name',
-            'customer.username AS customer_name'
-        ]);
-        $this->db->from('user_files');
-        $this->db->join('products', 'user_files.product_id = products.id');
-        $this->db->join('users as customer', 'user_files.user_id = customer.id');
+        $this->db->select("
+        pd.date AS download_date,
+        products.name AS product_name,
+        products.product_type_id,
+        customer.username AS customer_name
+    ");
+        $this->db->from('product_downloads as pd');
+        $this->db->join('products', 'pd.product_id = products.id');
+        $this->db->join('users as customer', 'pd.user_id = customer.id');
         $this->db->where('products.owner_id', $dj_id);
-        $this->db->order_by('user_files.since', 'DESC');
+        $this->db->order_by('pd.date', 'DESC');
 
         $query = $this->db->get();
         return $query->result();

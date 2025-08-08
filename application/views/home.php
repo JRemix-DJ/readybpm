@@ -213,6 +213,99 @@
         .planeshome .contenedor .tabla:nth-child(2) .section_plan:first-child {
             padding-top: 60px !important; /* Aumenta el padding-top del primer elemento */
         }
+
+        .backgrouwnd {
+            width: 100%;
+            height: 100%; /* O la altura que necesites */
+            background-color: #5f47f3;
+            position: relative;
+            overflow: hidden;
+            height: 160px;
+            max-height: 200px;
+        }
+
+        /* Contenedor principal del footer */
+        .modern-footer-minimal {
+            background-color: #ffffff; /* Fondo blanco */
+            border-top: 1px solid #e9e9e9; /* Una línea sutil para separarlo del contenido */
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Una fuente más moderna */
+        }
+
+        /* Contenedor superior que alinea los enlaces y redes sociales */
+        .modern-footer-minimal .footer-top {
+            display: flex; /* Activa Flexbox */
+            justify-content: space-between; /* Empuja los elementos a los extremos */
+            align-items: center; /* Los centra verticalmente */
+            flex-wrap: wrap; /* Permite que se apilen en pantallas pequeñas */
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-bottom: 1px solid #e9e9e9; /* Línea divisoria */
+        }
+
+        /* Estilo para la lista de enlaces */
+        .modern-footer-minimal .footer-links-minimal {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 25px; /* Espacio entre los enlaces */
+        }
+
+        /* Estilo para los enlaces de texto */
+        .modern-footer-minimal .footer-links-minimal a {
+            color: #272727; /* Color de letra principal (negro/gris oscuro) */
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+        }
+
+        /* Efecto hover para los enlaces */
+        .modern-footer-minimal .footer-links-minimal a:hover {
+            color: #5f47f3; /* Cambia al color morado en hover */
+        }
+
+        /* Estilo para la lista de redes sociales */
+        .modern-footer-minimal .social-list-minimal {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px; /* Espacio entre los iconos */
+        }
+
+        /* Estilo para los iconos de redes sociales */
+        .modern-footer-minimal .social-list-minimal a {
+            color: #ffffff; /* Color morado principal */
+            font-size: 20px; /* Tamaño del icono */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        /* Efecto hover para redes sociales (un tono morado más intenso) */
+        .modern-footer-minimal .social-list-minimal a:hover {
+            color: #d2d2d3;
+        }
+
+        /* Contenedor inferior para el copyright */
+        .modern-footer-minimal .footer-bottom {
+            text-align: center;
+        }
+
+        /* Estilo para el texto de copyright */
+        .modern-footer-minimal .footer-bottom p {
+            margin: 0;
+            font-size: 12px; /* Letra pequeña */
+            color: #ffffff; /* Color plomo/gris claro */
+            text-transform: none; /* Quitamos el 'uppercase' para que sea más legible */
+        }
+
+        /* --- Importación de Font Awesome (si no la tienes) --- */
+        /* Añade esto a tu <head> o al inicio de tu CSS para los iconos */
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
     </style>
 </head>
 <body>
@@ -224,13 +317,17 @@
         <img id="logo" class="logo " src="<? echo base_url('images/logo-blanco.png?v=1.2'); ?>"
              alt="<? echo $title; ?>">
 
+<!--        <div id="btnvideos">-->
+<!--            <a href="--><?// echo base_url('audios/')?><!--" class="btn">Audios</a>-->
+<!--        </div>-->
         <div id="btnvideos">
-            <a href="<? echo base_url('audios/')?>" class="btn">Start Now</a>
+            <a href="<? echo base_url('videos/')?>" class="btn">Start now</a>
         </div>
 
         <p class="information-home ">Ready BPM provides exclusive content for professional DJs, carefully produced to
             enhance performance. By accessing, you confirm that you are an active DJ, will use the material solely for
-            your performances, and already own the original versions of the included tracks.</p>
+            your performances, and already own the original versions of the included tracks.
+        </p>
 
     </div>
 </section>
@@ -341,29 +438,25 @@
         </div>
     </div>
 </section>
-<div id="mc_embed_signup">
-    <div class="new_email">
-        <p class="test-new">Full compatibility with the most prominent DJ</p>
-        <p class="test-new"> software worldwide </p>
-        <img class="logo " src="<? echo base_url('images/logo3.png?v=1.2'); ?>" alt="<? echo $title; ?>"
-             style="width: 500px; max-width: 100%; margin-top: 40px;">
-    </div>
-</div>
-<footer class="doc-footer text-uppercase text-center">
-    <div class="container">
-        <ul class="style1 footer-links">
-            <li><a href="<? echo base_url(); ?>pages/become_a_member/">BE A REMIXER</a></li>
-            <li><a href="<? echo base_url(); ?>pages/terms_conditions/">TERMS AND CONDITIONS</a></li>
-        </ul>
-        <ul class="social-list style2 circular">
-            <li><a href="https://www.facebook.com/profile.php?id=61576190996039" target="_blank"
-                   class="fa fa-facebook"></a></li>
-            <li><a href="https://www.instagram.com/readybpm/" target="_blank" class="fa fa-instagram"></a></li>
-        </ul>
-        <div class="row">
-            <div class="col-xs-12">
-                <strong>&copy; Copyright <? echo date('Y'); ?> ReadyBPM</strong>
-                <p>THE BEST REMIXES FOR PROFESSIONAL DJS</p>
+
+<footer class="modern-footer-minimal">
+    <div class="backgrouwnd">
+        <div class="container">
+            <div class="footer-top">
+                <ul class="footer-links-minimal">
+                    <li><a href="<?php echo base_url(); ?>pages/become_a_member/" style="color: #ffffff !important;">BE A REMIXER</a></li>
+                    <li><a href="<?php echo base_url(); ?>pages/terms_conditions/" style="color: #ffffff !important;">TERMS AND CONDITIONS</a></li>
+                </ul>
+
+                <ul class="social-list-minimal">
+                    <li><a href="https://www.facebook.com/profile.php?id=61576190996039" target="_blank"
+                           class="fa fa-facebook"></a></li>
+                    <li><a href="https://www.instagram.com/readybpm/" target="_blank" class="fa fa-instagram"></a></li>
+                </ul>
+            </div>
+
+            <div class="footer-bottom" style="margin-bottom: 50px">
+                <p>&copy; Copyright <?php echo date('Y'); ?> ReadyBPM</p>
             </div>
         </div>
     </div>

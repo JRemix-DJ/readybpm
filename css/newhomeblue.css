@@ -80,7 +80,6 @@ section#cuerpo {
   color: white;
   line-height: 25px;
   font-weight: 300;
-  background: #272727  !important;
 }
 .home-hero .home-hero-video {
   position: absolute;
@@ -132,7 +131,7 @@ section#cuerpo {
 }
 .logo{
   justify-self: end;
-  width: 500px;
+  max-width: 623px;
 }
 .home .content #logo {
   grid-area: logo;

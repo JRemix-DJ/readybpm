@@ -12,9 +12,8 @@ class Generos extends CI_Controller {
         $this->users_model->check_payment();
     }
 
-    public function index()
-    {
-        $data['title']="Géneros - ReadyBPM.COM";
+    public function index(){
+        $data['title']="ReadyBPM.com";
         $data['description']="Géneros de los remixes en ReadyBPM";
         $data['products']=$this->products_another_model->get_products();
         $data['generos']=$this->genero_model->get_gender();
@@ -44,7 +43,7 @@ class Generos extends CI_Controller {
             }
             // --- FIN DE LA CORRECCIÓN ---
 
-            $data['title']="Géneros - ReadyBPM.COM";
+            $data['title']="ReadyBPM.com";
             $data['description']="Géneros de los remixes en ReadyBPM";
 
             $data['djs']=$this->products_another_model->get_djs();

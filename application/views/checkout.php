@@ -1,4 +1,18 @@
- <div id="ajaxArea"> 
+<style>
+    html{
+        height: 100%;
+    }
+    body{
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+    }
+    #ajaxArea{
+        flex: 1 0 auto;
+    }
+</style>
+<div id="ajaxArea">
       <section class="album-header">
             <figure class="album-cover-wrap">
                 <div class="album-cover_overlay"></div>
@@ -8,7 +22,6 @@
                    <hr>
                     <div class="clearfix text-uppercase">
                         <h1 style="padding-top: 30px">Checkout</h1>
-                        <cite class="album-author mb-20">ReadyBPM.COM</cite>
                     </div>
                 </div>
             </div>

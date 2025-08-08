@@ -158,8 +158,7 @@ class Users_model extends CI_Model {
 		return $data;
 	}
 
-	public function get_djs()
-    {
+	public function get_djs() {
         // Paso 1: Obtener una lista única de IDs de todos los usuarios que han subido al menos un producto.
         $this->db->select('owner_id');
         $this->db->distinct();
@@ -385,14 +384,25 @@ class Users_model extends CI_Model {
         }
     }
     public function get_djs_with_download_stats() {
-        $this->db->select('users.id, users.username, users.percentage, COUNT(user_files.id) as total_downloads');
+        $this->db->select("
+        users.id, 
+        users.username, 
+        users.percentage, 
+        -- Contamos las descargas de audio (product_type_id = 1)
+        COUNT(CASE WHEN products.product_type_id = 1 THEN pd.id ELSE NULL END) as total_audio_downloads,
+        -- Contamos las descargas de video (product_type_id = 3)
+        COUNT(CASE WHEN products.product_type_id = 3 THEN pd.id ELSE NULL END) as total_video_downloads
+    ");
         $this->db->from('users');
-        $this->db->join('products', 'users.id = products.owner_id', 'left');
-        $this->db->join('user_files', 'products.id = user_files.product_id', 'left');
+        // Usamos LEFT JOIN para incluir a DJs que aún no tienen descargas
+        $this->db->join('products', 'products.owner_id = users.id', 'left');
+        // UNIÓN CLAVE: Usamos la tabla correcta 'product_downloads' para contar
+        $this->db->join('product_downloads as pd', 'pd.product_id = products.id', 'left');
 
+        // Asegúrate de que los roles [2, 3] son los correctos para tus DJs
         $this->db->where_in('users.role_id', [2, 3]);
 
-        $this->db->group_by('users.id');
+        $this->db->group_by('users.id, users.username, users.percentage');
         $this->db->order_by('users.username', 'ASC');
 
         $query = $this->db->get();

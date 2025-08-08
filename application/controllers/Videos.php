@@ -14,9 +14,8 @@ class Videos extends CI_Controller {
 		$this->session->set_userdata('content_type','videos');
 	}
 
-	public function index()
-	{
-		$data['title']="Video Remix Pool";
+	public function index()	{
+		$data['title']="ReadyBPM.com";
 		$data['description']="Música para Djs y Vjs, los mejores remixes en un solo lugar";
 		//$data['products']=$this->products_model->get_products();
 		$data['generos']=$this->genero_model->get_generos2();
@@ -41,8 +40,7 @@ class Videos extends CI_Controller {
         $where['product_type_id']=3;
 		$start_index = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
 		//echo 'total records'.$total_records;
-	    if($total_records > 0)
-        {
+	    if($total_records > 0) {
         	$data["products"] = $this->products_another_model->get_current_page_records($limit_per_page, $start_index, $where, 'gender_id', $not_in);
          
             $config['base_url'] = base_url('videos');

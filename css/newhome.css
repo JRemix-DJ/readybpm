@@ -58,7 +58,6 @@ body {
 }
 .home .content #btnvideos {
   grid-area: boton1;
-  padding-right: 20px;
 }
 .home .content #btnaudios {
   grid-area: boton2;
@@ -72,4 +71,3 @@ body {
     grid-template-columns: 1fr 1fr;
   }
 }
-

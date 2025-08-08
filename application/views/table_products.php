@@ -3,21 +3,21 @@
     <tr>
         <th style="height: 40px;"></th>
         <th class="">Preview</th>
-        <th>Canción</th>
+        <th>Song</th>
         <th class="">BPM</th>
-        <th class="">Género</th>
+        <th class="">Genre</th>
         <?php if(isset($this->session->userdata['is_logued_in'])){ ?>
             <?php if($this->session->userdata('is_user_unlimited')){ ?>
-                <th class="tcenter">Descargar</th>
+                <th class="tcenter">Download</th>
             <?php } else { ?>
                 <?php if(MONEY_PAYMENTS){ ?>
                     <?php if($this->session->userdata('is_user_tokens') == false || $this->session->userdata('tokens') == 0){ ?>
                         <th class="tcenter">Comprar</th>
                     <?php } else { ?>
-                        <th class="tcenter">Descargar</th>
+                        <th class="tcenter">Download</th>
                     <?php } ?>
                 <?php } else { ?>
-                    <th class="tcenter">Descargar</th>
+                    <th class="tcenter">Download</th>
                 <?php } ?>
             <?php } ?>
         <?php } else { ?>
@@ -25,10 +25,10 @@
                 <?php if($this->session->userdata('is_user_tokens') == false || $this->session->userdata('tokens') == 0){ ?>
                     <th class="tcenter">Comprar</th>
                 <?php } else { ?>
-                    <th class="tcenter">Descargar</th>
+                    <th class="tcenter">Download</th>
                 <?php } ?>
             <?php } else { ?>
-                <th class="tcenter">Descargar</th>
+                <th class="tcenter">Download</th>
             <?php } ?>
         <?php } ?>
     </tr>

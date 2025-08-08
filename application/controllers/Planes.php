@@ -11,7 +11,7 @@ class Planes extends CI_Controller {
 	}
 
 	public function index(){
-		$data['title']="Planes - ReadyBPM";
+		$data['title']="ReadyBPM.com";
 		$data['description']="Conoce los planes para ser miembro";
 		$data['djs']=$this->users_model->get_djs();
 		$data['generos']=$this->genero_model->get_generos();
@@ -22,7 +22,7 @@ class Planes extends CI_Controller {
 	}
 
 	public function test(){
-		$data['title']="Planes - ReadyBPM";
+		$data['title']="ReadyBPM.com";
 		$data['description']="Conoce los planes para ser miembro";
 		$data['djs']=$this->users_model->get_djs();
 		$data['generos']=$this->genero_model->get_generos();

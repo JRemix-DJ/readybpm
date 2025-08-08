@@ -13,7 +13,7 @@ class Home extends CI_Controller {
 
 	public function index()
 	{
-		$data['title']="ReadyBPM";
+		$data['title']="ReadyBPM.com";
 		$data['description']="Música para Djs y Vjs, los mejores remixes en un solo lugar";
 		
 		$data['plans']=$this->plan_model->get_plans();

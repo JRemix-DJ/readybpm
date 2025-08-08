@@ -15,7 +15,7 @@
             <div class="cover-content">
                 <hr>
                 <div class="clearfix text-uppercase">
-                    <h1 style="padding-top: 30px">CONVIERTETE EN UN EDITOR</h1>
+                    <h1 style="padding-top: 30px">BE A EDITOR</h1>
                     <cite class="album-author mb-20">ReadyBPM</cite>
                 </div>
             </div>
@@ -27,42 +27,42 @@
                 <form action="">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="">Nombre</label>
+                            <label for="">Name</label>
                             <input type="text" class="form-control" name="name" id="name" required>
                         </div>
                         <div class="form-group">
-                            <label for="">País</label>
+                            <label for="">Country</label>
                             <select name="country" class="form-control" id="country" required>
-                                <option value="">Seleccione una opción</option>
+                                <option value="">Choose an option</option>
                                 <? foreach($paises as $pais){ ?>
                                 <option value="<? echo $pais->name; ?>"><? echo $pais->name; ?></option>
                                 <? } ?>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="">Experiencia</label>
+                            <label for="">Experience</label>
                             <select name="time" class="form-control" id="time" required>
-                                <option value="">Seleccione una opción</option>
-                                <option value="1">MENOS DE UN AÑO</option>
-                                <option value="2">1 A 2 AÑOS</option>
-                                <option value="3">3 A 5 AÑOS</option>
-                                <option value="4">6 O MÁS AÑOS</option>
+                                <option value="">Choose an option</option>
+                                <option value="1">Less a year</option>
+                                <option value="2">1 or 2 years</option>
+                                <option value="3">3 to 5 years</option>
+                                <option value="4">6 or more years</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="">¿Trabajas con otro servicio como este?</label>
+                            <label for="">¿Work with another service like this?</label>
                             <select name="work" id="work" class="form-control" required>
-                                <option value="">Seleccione una opcion</option>
-                                <option value="Si">Si</option>
+                                <option value="">Choose an option</option>
+                                <option value="Si">Yes</option>
                                 <option value="No">No</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="">Trabajos Realizados</label>
+                            <label for="">Work you have done</label>
                             <input type="url" name="trabajos" id="trabajos" class="form-control"
-                                   placeholder="Puede ser un enlace de soundcloud, google drive, etc." required>
+                                   placeholder="It can be a link to soundcloud, google drive, etc." required>
 
                         </div>
                         <div class="form-group">
@@ -70,11 +70,11 @@
                             <input type="text" id="email-become" name="email" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label for="">Cuentanos: ¿Porqué te gustaría ser parte de ReadyBPM?</label>
+                            <label for="">Tell us: Why would you like to be part of ReadyBPM?</label>
                             <textarea name="why" id="why" class="form-control" id="" cols="30" rows="10"
                                       required></textarea>
                         </div>
-                        <a class="btn btn-danger" id="enviarBecome">Enviar</a>
+                        <a class="btn btn-danger" id="enviarBecome">Send</a>
                     </div>
                 </form>
             </div>

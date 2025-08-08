@@ -16,21 +16,7 @@
                                placeholder="Ingrese Nombre del producto">
                     </div>
                 </div><!-- col-4 -->
-                <div class="col-lg-4">
-                    <div class="form-group">
-                        <label class="form-control-label">Precio: <span class="tx-danger">*</span></label>
-                        <div class="col-sm-8 mg-t-10 mg-sm-t-0">
-                            <select class="form-control" name="price" id="precio">
-                                <option>Seleccione un precio</option>
-                                <? foreach($precios as $precio){ ?>
-                                <option value="<? echo $precio->price; ?>" <? if ( $producto->price == $precio->price ) {
-                                    echo 'selected';
-                                } ?>><? echo $precio->price; ?></option>
-                                <? } ?>
-                            </select>
-                        </div>
-                    </div><!-- col-4 -->
-                </div><!-- row -->
+
                 <div class="row">
                     <div class="col-md-8 hidden">
                         <div class="form-group">
@@ -41,27 +27,13 @@
                     </div>
                     <input type="hidden" name="paginationnumber" value="<? echo $_GET['paginationnumber']; ?>">
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="form-control-label">ARTIST: <span class="tx-danger">*</span></label>
-                            <input type="text" class="form-control" name="artist" placeholder="Artista para el producto"
-                                   value="<? echo $producto->artist; ?>">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="form-control-label">VERSION: <span class="tx-danger">*</span></label>
-                            <input type="text" class="form-control" name="version"
-                                   placeholder="Version para el producto" value="<? echo $producto->version; ?>">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
+                        <div class="form-group" style="margin-left: 15px;>
                             <label class="form-control-label">BPM: <span class="tx-danger">*</span></label>
                             <input type="text" class="form-control" name="bpm" placeholder="BPM para el producto"
-                                   value="<? echo $producto->bpm; ?>">
+                                   value="<? echo $producto->bpm; ?>" style="margin-top: 8px">
                         </div>
-
                     </div>
+
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-control-label">Género: <span class="tx-danger">*</span></label>
@@ -71,19 +43,6 @@
                                 <option value="<? echo $genero->id; ?>" <? if ( $genero->id == $producto->gender_id ) {
                                     echo "selected";
                                 } ?>><? echo $genero->name; ?></option>
-                                <? } ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="form-control-label">Tipo de Producto: <span class="tx-danger">*</span></label>
-                            <select name="product_type_id" id="product_type_id" class="form-control">
-                                <option>Seleccione una Opción</option>
-                                <? foreach($product_types as $product_type){ ?>
-                                <option value="<? echo $product_type->id; ?>" <? if ( $product_type->id == $producto->product_type_id ) {
-                                    echo "selected";
-                                } ?>><? echo $product_type->name; ?></option>
                                 <? } ?>
                             </select>
                         </div>
@@ -103,7 +62,7 @@
                             </div>
                             <? if($producto->product_type_id == 3){ ?>
                             <video class="col-md-8"
-                                   src="<? echo base_url() . 'assets/products/descargables/videos/' . $producto->descargable; ?>"
+                                   src="<? echo base_url() . 'assets/products/descargables/' . $producto->descargable; ?>"
                                    controls></video>
                             <? }else{ ?>
                             <audio class="col-md-8"
@@ -124,7 +83,7 @@
                             </div>
                             <? if($producto->product_type_id == 3){ ?>
                             <video class="col-md-8"
-                                   src="<? echo base_url() . 'assets/products/demos/videos/' . $producto->descargable; ?>"
+                                   src="<? echo base_url() . 'assets/products/demos/' . $producto->demo; ?>"
                                    controls></video>
                             <? }else{ ?>
                             <audio class="col-md-8"
@@ -138,12 +97,16 @@
 
             <div class="form-layout-footer">
                 <button class="btn btn-info mg-r-5">Actualizar</button>
-                <? if ( $producto->approved == 0 ) {
-                    $aprobacion = "?aprobacion=1";
-                } else {
-                    $aprobacion = "";
+                <? $aprobacion_param = ($producto->approved == 0) ? "?aprobacion=1" : "";
+
+                // 2. Determinar la URL base según el tipo de producto
+                $cancel_base_url = '';
+                if ($producto->product_type_id == 3) { // El ID 3 es para videos
+                    $cancel_base_url = site_url('admin/listar_videos/');
+                } else { // Para cualquier otro tipo, usamos la lista de audios/productos
+                    $cancel_base_url = site_url('admin/listar_productos/');
                 }?>
-                <a class="btn btn-secondary" href="<? echo base_url('admin/listar_productos/') . $aprobacion; ?>">Cancelar</a>
+                <a class="btn btn-secondary" href="<?php echo $cancel_base_url . $aprobacion_param; ?>">Cancelar</a>
             </div><!-- form-layout-footer -->
 
             <? echo form_close(); ?>
@@ -153,6 +116,4 @@
             <? } ?>
         </div><!-- form-layout -->
     </div><!-- card -->
-
-
 </div><!-- sl-pagebody -->
