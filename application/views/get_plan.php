@@ -15,6 +15,12 @@
     #ajaxArea{
         flex: 1 0 auto;
     }
+    .btn-default{
+        color: #ffffff;
+    }
+    .btn-default:hover {
+        color: #ffffff;
+    }
 </style>
 
 <div id="ajaxArea">
