@@ -1,4 +1,8 @@
 <style>
+    .row{
+        border: 2px solid #5F47F3;
+        border-radius: 25px;
+    }
     html{
         height: 100%;
     }

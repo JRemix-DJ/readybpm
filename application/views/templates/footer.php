@@ -1,7 +1,33 @@
 <style>
+    .modal-content{
+        background-color: #5f47f3;
+        color: rgb(255, 255, 255);
+        border-radius: 20px !important;
+    }
+    .close{
+        opacity: 100 !important;
+        color: rgb(255, 255, 255);
+    }
+    .close:hover{
+        opacity: 100 !important;
+        color: rgb(255, 255, 255);
+    }
+    label {
+        color: #ffffff !important;
+    }
+    a{
+        color: #ffffff;
+    }
+    .btn-primary{
+        color: #000000;
+    }
+    .btn-primary:hover{
+        color: #000000;
+    }
+
     .backgrouwnd {
         width: 100%;
-        height: 100%; /* O la altura que necesites */
+        height: 100%;
         background-color: #5f47f3;
         position: relative;
         overflow: hidden;
@@ -88,8 +114,6 @@
         text-transform: none; /* Quitamos el 'uppercase' para que sea más legible */
     }
 
-    /* --- Importación de Font Awesome (si no la tienes) --- */
-    /* Añade esto a tu <head> o al inicio de tu CSS para los iconos */
     @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 </style>
 
@@ -359,15 +383,11 @@ if($this->session->userdata('content_type') == 'videos'){?>
 
 <div class="modal" id="myModalTerms" tabindex="-1" role="dialog" aria-labelledby="Terms" data-keyboard="false"
      data-backdrop="static">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
+    <div class="modal-dialog" role="document" style="background-color: rgb(255,255,255); border-radius: 10px;">
             <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabel">Terms</h4>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <img src="<? echo base_url(); ?>images/logocorto.png" alt="" class="col-md-4 col-md-offset-4">
-                </div>
                 <p>ReadyBPM is a remix service designed to be used mainly by DJs who seek to improve their
                     performance on stage.</p>
                 <p>The remixes contained on our website are produced by professional DJs and music producers from around
@@ -387,7 +407,6 @@ if($this->session->userdata('content_type') == 'videos'){?>
                 <a href="https://readybpm.com" class="btn btn-success btn-lg" data-dismiss="modal"
                    id="accept-terms">I ACCEPT</a>
             </div>
-        </div>
     </div>
 </div>
 
@@ -492,6 +511,27 @@ Script Source
         });
     });
 </script>
+
+<?php
+$error_message = $this->session->flashdata('error_popup');
+
+if ($error_message) {
+    $this->session->unset_userdata('error_popup');
+}
+
+if ($error_message):
+    ?>
+    <script>
+        $(document).ready(function() {
+            var errorModal = $('#messagesModal');
+
+            errorModal.find('.modal-title').text('Aviso Importante');
+            errorModal.find('.modal-body').html('<p class="text-center" style="font-size: 16px;"><?php echo addslashes($error_message); ?></p>');
+
+            errorModal.modal('show');
+        });
+    </script>
+<?php endif; ?>
 
 </body>
 </html>

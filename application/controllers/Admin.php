@@ -1782,8 +1782,7 @@ class Admin extends CI_Controller{
         }
     }
 
-    public function mostrar_descarga()
-    {
+    public function mostrar_descarga() {
         $numeropagina = $this->input->post("nropagina");
         $cantidad = $this->input->post("cantidad");
         $user_id = $this->input->post("user_id");
@@ -1802,8 +1801,7 @@ class Admin extends CI_Controller{
         echo json_encode($data);
     }
 
-    public function listar_djs()
-    {
+    public function listar_djs() {
         $accion = $this->input->get('action');
         $user_id = $this->input->get('user_id');
         $user_role = $this->session->userdata('role');
@@ -2844,8 +2842,7 @@ class Admin extends CI_Controller{
         }
     }
 
-    public function listar_ordenes_tokens()
-    {
+    public function listar_ordenes_tokens() {
         if ( $this->session->userdata('is_logued_in') ) {
             $where = ' AND is_plan=1 ';
             if ( isset($_GET['time']) ) {

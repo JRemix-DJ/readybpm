@@ -14,8 +14,7 @@ class Audios extends CI_Controller {
 		$this->session->set_userdata('content_type','audios');
 	}
 
-	public function index()
-	{
+	public function index()	{
 		$data['title']="ReadyBPM.com";
 		$data['description']="Música para Djs y Vjs, los mejores remixes en un solo lugar";
 		//$data['products']=$this->products_model->get_products();

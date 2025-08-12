@@ -435,4 +435,25 @@ class Users_model extends CI_Model {
         $this->db->where('id', $user_id);
         return $this->db->update('users', $data);
     }
+
+    public function get_user_file_details($user_id, $product_id) {
+        $this->db->where('user_id', $user_id);
+        $this->db->where('product_id', $product_id);
+        $query = $this->db->get('user_files');
+
+        if ($query->num_rows() > 0) {
+            return $query->row(); // Devuelve la fila completa del archivo del usuario
+        }
+        return null; // El usuario no posee este archivo
+    }
+
+    public function decrement_download_count($user_id, $product_id) {
+        // Usamos set() para realizar una operación matemática directamente en la base de datos
+        $this->db->set('downloads_left', 'downloads_left - 1', FALSE);
+        $this->db->where('user_id', $user_id);
+        $this->db->where('product_id', $product_id);
+        $this->db->where('downloads_left >', 0); // Una seguridad extra para no dejar el contador en negativo
+
+        return $this->db->update('user_files');
+    }
 }

@@ -314,14 +314,14 @@
 </section>
 <section class="home">
     <div class="content homecontent">
-        <img id="logo" class="logo " src="<? echo base_url('images/logo-blanco.png?v=1.2'); ?>"
+        <img id="logo" class="logo " src="<? echo base_url('images/logocorto.png?v=1.2'); ?>"
              alt="<? echo $title; ?>">
 
 <!--        <div id="btnvideos">-->
 <!--            <a href="--><?// echo base_url('audios/')?><!--" class="btn">Audios</a>-->
 <!--        </div>-->
         <div id="btnvideos">
-            <a href="<? echo base_url('videos/')?>" class="btn">Start now</a>
+            <a href="<? echo base_url('videos/')?>" class="btn">START NOW</a>
         </div>
 
         <p class="information-home ">Ready BPM provides exclusive content for professional DJs, carefully produced to

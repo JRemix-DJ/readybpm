@@ -33,7 +33,7 @@ button.btn.btn-green.anadido{
 
 .btn-default:hover{
 	background:rgb(0, 73, 175);
-	color: white;
+	color: #070707;
 }
 #audio-player{
 	line-height: 75px;
@@ -83,7 +83,7 @@ a:hover{
 	border-color: #5F47F3;
 }
 .xv-menuwrapper .dl-menu > li > a:hover, .xv-menuwrapper .dl-menu > li.active > a:hover{
-	background: lightgrey;
+	background: #ffffff;
 }
 
 .panel-default>.panel-heading{

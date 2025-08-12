@@ -51,11 +51,13 @@
                     </div>
                 </td>
 
-                <?php // Tu lógica existente para los botones de acción sigue igual ?>
                 <?php
-                $esuserfile = 0;
-                if (isset($_SESSION['user_products']) && in_array($producto->id, $_SESSION['user_products'])) {
-                    $esuserfile = 1;
+                $user_file_info = null;
+                if (isset($user_files) && !empty($user_files)) {
+                    $file_key = array_search($producto->id, array_column($user_files, 'product_id'));
+                    if ($file_key !== false) {
+                        $user_file_info = $user_files[$file_key];
+                    }
                 }
                 ?>
                 <?php if($producto->gender_id == 45): ?>

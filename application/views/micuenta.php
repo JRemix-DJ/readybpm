@@ -19,18 +19,18 @@
  			<div class="container">
  				<div class="row">
  					<div class="col-md-12">
- 						<h1>Hola <? echo $this->session->userdata('username'); ?></h1>
+ 						<h1>Hi <? echo $this->session->userdata('username'); ?>!</h1>
 						 <? //print_r($_SESSION); ?>
  					</div>
  				</div>
 				<div class="row">
 					<div class="col-md-6">
-						<h3>MIS ULTIMAS COMPRAS</h3>
+						<h3>My latest purchases</h3>
 						<table class="table">
 							<tr>
-								<th>Fecha</th>
-								<th>Orden ID</th>
-								<th>Precio Total</th>
+								<th>Date</th>
+								<th>Order ID</th>
+								<th>Total Price</th>
 							</tr>
 							<? foreach($orders as $orden){ ?>
 							<tr>

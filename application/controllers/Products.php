@@ -6,15 +6,22 @@ class Products extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
         $this->load->helper(array('url', 'form', 'download'));
-        $this->load->library(array('session','form_validation', 'pagination'));
+        $this->load->library(array('session','form_validation', 'pagination', 'user_agent'));
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger" role="alert">', '</div>');
 		$this->load->model(array('products_model', 'genero_model', 'orders_model', 'users_model'));
 		$this->load->database('default');
 	}
 
-	// public function get_all_products(){
-	// 	$data['products']=$this->products_model->get_products();
-	// }
+    private function show_error_popup($message) {
+        $this->session->set_flashdata('error_popup', $message);
+        // Redirigimos al usuario a la página desde la que hizo clic en "Download"
+        if ($this->session->userdata('previous_url')) {
+            redirect($this->session->userdata('previous_url'));
+        } else {
+            // Si por alguna razón extrema no hay URL, lo mandamos a 'videos' como respaldo.
+            redirect('videos');
+        }
+    }
 
 	public function edit_product(){
 		$this->load->model('users_model');
@@ -94,6 +101,12 @@ class Products extends CI_Controller {
 			$product_id=$this->uri->segment(3);
 			if($this->user_pay_for_it($this->session->userdata('id_usuario'), $product_id)){
 				$user_file = $this->orders_model->user_files($this->session->userdata('id_usuario'), $product_id);
+
+                if (empty($user_file) || $user_file[0]->downloads_left <= 0) {
+                    $this->show_error_popup("Has agotado todas tus oportunidades de descarga para este archivo.");
+                    return; // Detenemos la ejecución
+                }
+
 				$product = $this->products_model->load_product_info($product_id);
 				$genero = $this->genero_model->load_genero_info($product->gender_id);
 				$dj = $this->users_model->load_user_info($product->owner_id);
@@ -116,15 +129,13 @@ class Products extends CI_Controller {
 					$tamano=@filesize('/var/www/readybpm.com/assets/products/descargables/'.$product->descargable);
 					$file_url='/var/www/readybpm.com/assets/products/descargables/'.$product->descargable;
 				}
-				//echo $file_url;
+
 				$tamano=@filesize($file_url);
-				//echo $tamano;
-				//echo $file_url;
-				$new_downloads_left=$user_file[0]->downloads_left - 1;
-				$data = array(
-					'downloads_left' => $new_downloads_left
-				);
-				$this->orders_model->update_user_files_item($user_file[0]->id, $data);
+
+                $new_downloads_left=$user_file[0]->downloads_left - 1;
+                $data = array('downloads_left' => $new_downloads_left);
+                $this->orders_model->update_user_files_item($user_file[0]->id, $data);
+
 				if(file_exists($file_url)) {
 					header("Pragma: no-cache");
 					header('Expires: 0');
@@ -401,66 +412,52 @@ class Products extends CI_Controller {
             die("Error: No se ha especificado un producto para descargar.");
         }
 
-        // Usamos la función correcta para obtener tokens ACTIVOS
-        $tokenstotal = $this->users_model->hasTokensVideo($user_id);
         $is_unlimited = $this->users_model->isUnlimited($user_id);
+        $user_file_data = $this->orders_model->user_files($user_id, $product_id);
+        $has_purchased = !empty($user_file_data);
 
-        // Comprobar si el usuario tiene permiso para descargar
-        if($tokenstotal > 0 || $this->users_model->isUserFile($user_id, $product_id) || $this->session->userdata('is_user_unlimited') == true){
-
-            $product = $this->products_model->load_product_info($product_id);
-            if(!$product){
-                die("Error: El producto solicitado no existe.");
-            }
-
-            $genero = $this->genero_model->load_genero_info($product->gender_id);
-            $genero_name = ($genero) ? $genero->name : 'Genero';
-
-            // Construir un nombre de archivo amigable para el usuario
-            $ext = pathinfo($product->descargable, PATHINFO_EXTENSION);
-            $file_name_formatted = "{$product->name} - {$product->artist} - {$genero_name} - {$product->version} - {$product->bpm}BPM - ReadyBPM.{$ext}";
-
-            $file_path = FCPATH . 'assets/products/descargables/' . $product->descargable;
-
-            if(file_exists($file_path)) {
-                // Lógica para descontar tokens y registrar la descarga
-                $user_products = $this->users_model->get_user_products($user_id);
-                $user_product_ids = array_column($user_products, 'product_id');
-
-                if(!in_array($product_id, $user_product_ids) && $is_unlimited == false){
-                    // Descontamos tokens de VIDEO, según solicitado
-                    $this->reduce_tokens_video($user_id);
+        if ($has_purchased) {
+            // MODO RE-DESCARGA: El usuario ya posee el archivo.
+            $user_file = $user_file_data[0];
+            if ($user_file->downloads_left > 0 || $is_unlimited) {
+                if (!$is_unlimited) {
+                    // Si no es ilimitado, se descuenta el contador.
+                    $new_downloads_left = $user_file->downloads_left - 1;
+                    $this->orders_model->update_user_files_item($user_file->id, ['downloads_left' => $new_downloads_left]);
                 }
-
-                $today = date('Y-m-d');
-                $data_user_file = array(
-                    'user_id' => $user_id,
-                    'product_id' => $product_id,
-                    'downloads_left' => 3,
-                    'since' => $today
-                );
-                $this->users_model->add_file_to_user($data_user_file);
-
-                $data_download = array(
-                    'product_id' => $product_id,
-                    'user_id' => $user_id,
-                    'date' => $today
-                );
-                $this->products_model->add_download($data_download);
-
-                // Usar el helper de CodeIgniter para forzar la descarga del archivo
-                force_download($file_name_formatted, file_get_contents($file_path));
-
+                $this->serve_file($product_id); // Procede a la descarga.
             } else {
-                die("Error: El archivo físico no se encuentra en el servidor.");
+                $this->show_error_popup("Has agotado todas tus oportunidades de descarga para este archivo.");
             }
-
         } else {
-            // Si no tiene tokens, detenemos la ejecución con un mensaje claro.
-            die("No tienes descargas disponibles. Por favor, adquiere un plan.");
+            // MODO PRIMERA DESCARGA: El usuario no posee el archivo.
+            $tokens = $this->users_model->hasTokensVideo($user_id); // Asumo que esta función existe para audios
+            $has_tokens = ($tokens && $tokens[0]->total > 0);
+
+            if ($is_unlimited || $has_tokens) {
+                if (!$is_unlimited) {
+                    $this->reduce_tokens_video($user_id); // Descontar token de audio.
+                }
+                // Añade el archivo a la lista del usuario, gastando la primera descarga.
+                $this->users_model->add_file_to_user([
+                    'user_id' => $user_id,
+                    'product_id' => $product_id,
+                    'downloads_left' => 2, // Le quedan 2 de 3 oportunidades.
+                    'since' => date('Y-m-d H:i:s')
+                ]);
+                $this->products_model->add_download([
+                    'product_id' => $product_id,
+                    'user_id' => $user_id,
+                    'date' => date('Y-m-d H:i:s')
+                ]);
+                $this->serve_file($product_id); // Procede a la descarga.
+            } else {
+                die("No tienes descargas disponibles. Por favor, adquiere un plan.");
+            }
         }
     }
 
+    // --- FUNCIÓN DE DESCARGA DE VIDEOS CORREGIDA ---
     public function descargar_producto_video() {
         if (!$this->session->userdata('is_logued_in')) {
             redirect(base_url());
@@ -474,66 +471,72 @@ class Products extends CI_Controller {
             die("Error: No se especificó un producto.");
         }
 
-        // --- 1. VERIFICAR PERMISOS DE DESCARGA ---
         $is_unlimited = $this->users_model->isUnlimited($user_id);
-        $has_purchased = $this->users_model->isUserFile($user_id, $product_id);
+        $user_file_data = $this->orders_model->user_files($user_id, $product_id);
+        $has_purchased = !empty($user_file_data);
 
-        $tokens_video = $this->users_model->hasTokensVideo($user_id);
-        $has_tokens = ($tokens_video && $tokens_video[0]->total > 0);
+        // --- LÓGICA CORREGIDA ---
+        if ($has_purchased) {
+            // MODO RE-DESCARGA: El usuario ya tiene este video.
+            $user_file = $user_file_data[0];
+            if ($user_file->downloads_left > 0 || $is_unlimited) {
+                if (!$is_unlimited) {
+                    $new_downloads_left = $user_file->downloads_left - 1;
+                    $this->orders_model->update_user_files_item($user_file->id, ['downloads_left' => $new_downloads_left]);
+                }
+                $this->serve_file($product_id);
+            } else {
+                $this->show_error_popup("Has agotado todas tus oportunidades de descarga para este archivo.");
+            }
+        } else {
+            // MODO PRIMERA DESCARGA: El usuario va a usar un token o es ilimitado.
+            $tokens_video = $this->users_model->hasTokensVideo($user_id);
+            $has_tokens = ($tokens_video && $tokens_video[0]->total > 0);
 
-        // Si el usuario no tiene permisos, detenemos la ejecución.
-        if (!$is_unlimited && !$has_purchased && !$has_tokens) {
-            // Podrías redirigir a una página de "sin tokens" en el futuro
-            die("No tienes descargas de video disponibles. Por favor, adquiere un plan.");
+            if ($is_unlimited || $has_tokens) {
+                if (!$is_unlimited) {
+                    $this->users_model->update_tokens_video($user_id); // Descontar token.
+                }
+                $this->users_model->add_file_to_user([
+                    'user_id' => $user_id,
+                    'product_id' => $product_id,
+                    'downloads_left' => 2, // Le quedan 2 de 3.
+                    'since' => date('Y-m-d H:i:s')
+                ]);
+                $this->products_model->add_download([
+                    'product_id' => $product_id,
+                    'user_id' => $user_id,
+                    'date' => date('Y-m-d H:i:s')
+                ]);
+                $this->serve_file($product_id);
+            } else {
+                die("No tienes descargas de video disponibles. Por favor, adquiere un plan.");
+            }
         }
+    }
 
+    /**
+     * Función privada para servir el archivo y evitar duplicar código.
+     */
+    private function serve_file($product_id) {
         $product = $this->products_model->load_product_info($product_id);
-        if (!$product || $product->product_type_id != 3) { // Asegurarnos de que es un video
-            die("Error: El producto de video solicitado no existe.");
+        if (!$product) {
+            die("Error: El producto solicitado no existe.");
         }
 
-        // --- 2. REGISTRAR DESCARGA Y PAGO (SI ES UNA DESCARGA NUEVA) ---
-        // Solo registramos y descontamos si es la primera vez que lo descarga y no es ilimitado
-        if (!$has_purchased && !$is_unlimited) {
-
-            // Descontamos un token de video
-            $this->users_model->update_tokens_video($user_id);
-
-            // Añadimos el archivo a la lista del usuario para permitir futuras re-descargas gratuitas
-            $this->users_model->add_file_to_user([
-                'user_id' => $user_id,
-                'product_id' => $product_id,
-                'downloads_left' => 3, // O el número que prefieras
-                'since' => date('Y-m-d H:i:s')
-            ]);
-
-            // ¡ESTA ES LA LÍNEA CLAVE PARA LA MONETIZACIÓN!
-            // Registra la descarga en la tabla que cuenta los pagos para los DJs.
-            $this->products_model->add_download([
-                'product_id' => $product_id,
-                'user_id' => $user_id, // El ID del cliente que descarga
-                'date' => date('Y-m-d H:i:s')
-            ]);
-        }
-
-        // --- 3. PREPARAR Y FORZAR LA DESCARGA DEL ARCHIVO ---
         $genero = $this->genero_model->load_genero_info($product->gender_id);
         $dj = $this->users_model->load_user_info($product->owner_id);
-        $dj_username = $dj ? $dj->username : 'N/A';
         $genero_name = $genero ? $genero->name : 'N/A';
         $ext = pathinfo($product->descargable, PATHINFO_EXTENSION);
+        $friendly_filename = "{$product->name} {$genero_name} {$product->bpm}BPM - ReadyBPM.{$ext}";
 
-        $friendly_filename = "{$product->name} - {$dj_username} - {$genero_name} - {$product->bpm}BPM - ReadyBPM.{$ext}";
-
-        // Construcción de ruta dinámica y segura
-        $file_path = FCPATH . 'assets/products/descargables/videos/' . $product->descargable;
+        $file_path = FCPATH . 'assets/products/descargables/' . $product->descargable;
 
         if (file_exists($file_path)) {
-            // Usar el helper de CodeIgniter para forzar la descarga
             force_download($friendly_filename, file_get_contents($file_path));
         } else {
-            log_message('error', 'Archivo de video no encontrado para descarga: ' . $file_path);
-            die("Error: El archivo físico no se encuentra en el servidor.");
+            log_message('error', 'Archivo no encontrado para descarga: ' . $file_path);
+            $this->show_error_popup("El archivo físico no se encuentra en el servidor.");
         }
     }
 

@@ -9,7 +9,6 @@ class Orders_model extends CI_Model {
 	public function user_files($user_id, $product_id){
 		$this->db->where('user_id', $user_id);
 		$this->db->where('product_id', $product_id);
-		$this->db->where('downloads_left >', 0);
 		$query = $this->db->get('user_files');
 		$data = $query->result();
 		return $data;
@@ -35,18 +34,8 @@ class Orders_model extends CI_Model {
 	}
 
 	public function get_orders($where_parameter=null){
-		$this->db->where('status', 1);
 		$this->db->order_by('date_order', 'DESC');
-		$parametros = is_null($where_parameter)? 'nulo': $where_parameter;
-        if($parametros!= 'nulo'){
-            // while(list($clave, $valor) = each($parametros)){
-            //     $this->db->where($clave, $valor);
-            // }
-            foreach($parametros as $clave => $valor){
-                $this->db->where($clave, $valor);
-            }
 
-        }
 		$query = $this->db->get('orders');
 		$data = $query->result();
 		return $data;
