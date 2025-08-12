@@ -11,6 +11,10 @@
     #ajaxArea{
         flex: 1 0 auto;
     }
+
+    .btn-primary {
+        color: #ffffff !important;
+    }
 </style>
 
 <div id="ajaxArea" style="margin-top: 40px">

@@ -1126,7 +1126,7 @@ a.navbar-brand img {
     left: 0;
     top: 100%;
     min-width: 215px;
-    background: #222;
+    background: #5f47f3;
     visibility: hidden;
     opacity: 0;
     transform: translateY(10px);
@@ -1177,7 +1177,7 @@ a.navbar-brand img {
 
 .xv-menuwrapper .dl-menu > li.parent > ul > li > a:hover,
 .xv-menuwrapper .dl-menu > li.parent > ul > li.parent ul li a:hover{
-    color: #f06c40;
+    color: #d6ceec;
 }
 .xv-menuwrapper .dl-menu > li.parent > ul > li > a,
 .xv-menuwrapper .dl-menu > li.parent > ul > li.parent ul li a {
