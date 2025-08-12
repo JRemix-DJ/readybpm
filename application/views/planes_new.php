@@ -173,6 +173,11 @@
         padding-top: 60px !important; /* Aumenta el padding-top del primer elemento */
     }
 
+    .btn-default {
+        background: #7cbf1d;
+        color: #ffffff !important;
+    }
+
     html{
         height: 100%;
     }
