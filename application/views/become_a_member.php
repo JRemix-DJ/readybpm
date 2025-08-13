@@ -5,6 +5,23 @@
         -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #5F47F3;
         box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #5F47F3;
     }
+    html{
+        height: 100%;
+    }
+    body{
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+    }
+    #ajaxArea{
+        flex: 1 0 auto;
+    }
+    @media (max-width: 768px) {
+        .text-uppercase{
+            padding-top: 40px;
+        }
+    }
 </style>
 <div id="ajaxArea">
     <section class="album-header">
@@ -16,7 +33,6 @@
                 <hr>
                 <div class="clearfix text-uppercase">
                     <h1 style="padding-top: 30px">BE A EDITOR</h1>
-                    <cite class="album-author mb-20">ReadyBPM</cite>
                 </div>
             </div>
         </div>
@@ -50,7 +66,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="">¿Work with another service like this?</label>
+                            <label for="">Do you work with another service like this?</label>
                             <select name="work" id="work" class="form-control" required>
                                 <option value="">Choose an option</option>
                                 <option value="Si">Yes</option>

@@ -467,13 +467,13 @@ class Users_model extends CI_Model {
         return $query->row();
     }
 
-    public function update_password($email, $password) {
-        $this->db->where('email', $email);
+    public function update_password($user_id, $new_password) {
         $data = array(
-            'password' => md5($password), // Asegúrate de que tu sistema de login use md5() o cámbialo a password_hash()
+            'password' => password_hash($new_password, PASSWORD_BCRYPT),
             'reset_token' => null,
             'reset_expires' => null
         );
+        $this->db->where('id', $user_id);
         return $this->db->update('users', $data);
     }
 }

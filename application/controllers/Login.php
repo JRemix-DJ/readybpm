@@ -292,13 +292,13 @@ class Login extends CI_Controller{
             $message_body = str_replace('{username}', $user->username, $message_body);
             $message_body = str_replace('{reset_link}', $reset_link, $message_body);
 
-            $this->email->from(EMAIL_NOREPLY, 'Soporte ReadyBPM');
+            $this->email->from(EMAIL_NOREPLY, 'Support ReadyBPM');
             $this->email->to($user->email);
-            $this->email->subject('Restablece tu contraseña de ReadyBPM');
+            $this->email->subject('Reset your ReadyBPM password');
             $this->email->message($message_body);
 
             if (!$this->email->send()) {
-                log_message('error', 'Error al enviar correo de reseteo: ' . $this->email->print_debugger(['headers']));
+                log_message('error', 'Error sending reset email: ' . $this->email->print_debugger(['headers']));
             }
         }
 
@@ -306,7 +306,7 @@ class Login extends CI_Controller{
             ->set_content_type('application/json')
             ->set_output(json_encode([
                 'success' => true,
-                'message' => 'Si tu correo electrónico está en nuestros registros, recibirás un enlace para restablecer tu contraseña en breve.'
+                'message' => 'If your email address is on file, you will receive a password reset link shortly.'
             ]));
     }
 
@@ -315,13 +315,13 @@ class Login extends CI_Controller{
 
         if ($data['user']) {
             $data['token'] = $token;
-            $data['title'] = 'Restablecer Contraseña';
+            $data['title'] = 'Reset Password';
             
             $this->load->view('templates/header', $data);
             $this->load->view('reset_password_form', $data);
             $this->load->view('templates/footer');
         } else {
-            $data['title'] = 'Enlace Inválido';
+            $data['title'] = 'Invalid Link';
             $this->load->view('templates/header', $data);
             $this->load->view('invalid_token_view');
             $this->load->view('templates/footer');
@@ -344,14 +344,14 @@ class Login extends CI_Controller{
 
         if ($password !== $passconf) {
 
-            echo "Las contraseñas no coinciden. Por favor, vuelve atrás e inténtalo de nuevo.";
+            echo "The passwords don't match. Please go back and try again.";
             return;
         }
 
         $this->users_model->update_password($user->id, $password);
 
         // Mostramos la página de éxito
-        $data['title'] = 'Contraseña Actualizada';
+        $data['title'] = 'Password Updated';
         $this->load->view('templates/header', $data);
         $this->load->view('reset_password_success');
         $this->load->view('templates/footer');

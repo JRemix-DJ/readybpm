@@ -11,9 +11,14 @@
     #ajaxArea{
         flex: 1 0 auto;
     }
+    @media (max-width: 768px) {
+        .terms{
+            padding-top: 40px;
+        }
+    }
 </style>
-<div id="ajaxArea" style="margin-top: 40px">
-    <div style="padding: 50px; width:fit-content; box-sizing: border-box;"><br><br>
+<div id="ajaxArea" class="terms" style="max-width: 800px; margin: 0 auto; box-sizing: border-box; text-align: justify;">
+    <div style="padding: 50px; width:fit-content; box-sizing: border-box;">
        <strong>TERMS AND CONDITIONS:</strong><br>
 
 

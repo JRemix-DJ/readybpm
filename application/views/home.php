@@ -53,6 +53,35 @@
 
     <style>
         @media (max-width: 768px) {
+            .home .content {
+                max-width: 100%;
+                padding: 20px;
+                box-sizing: border-box;
+                display: flex !important;
+                grid-template-columns: 100%;
+                flex-direction: column !important;
+                justify-content: flex-start !important;
+                align-items: start !important;
+                top: 20px;
+                left: 0 !important;
+            }
+
+            .home .content #btnvideos {
+                grid-area: boton1;
+                width: 100%;
+                display: flex;
+                justify-self: start;
+            }
+
+            .btn {
+                background-color: rgb(255, 255, 255) !important;
+                color: rgb(95, 71, 243)!important;
+                width: 30% !important;
+                font-size: 12px !important;
+                border: none; /* Quitamos el borde para un look más limpio */
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* La sombra principal */
+                transition: all 0.2s ease-in-out; /* Animación suave para los efectos */
+            }
 
             /* Ajustamos la sección principal para que sea más flexible */
             .home .content {
@@ -74,7 +103,7 @@
 
             /* Hacemos el logo un poco más pequeño en móviles */
             .home .homecontent .logo {
-                max-width: 250px;
+                max-width: 450px;
                 margin-bottom: 25px;
             }
 
@@ -97,9 +126,20 @@
             }
             .logo{
                 background-color: #ffffff;
-                padding: 10px;
                 border-radius: 10px;
+                padding: 5px;
+
             }
+            .logo-background{
+                display: inline-flex !important;
+                background-color: rgb(255, 255, 255);
+                margin-bottom: 10px;
+                border-radius: 5px;
+            }
+        }
+
+        .logo-background {
+            display: contents;
         }
 
         .planeshome .contenedor {
@@ -367,8 +407,10 @@
 </section>
 <section class="home">
     <div class="content homecontent">
-        <img id="logo" class="logo " src="<? echo base_url('images/logocorto.png?v=1.2'); ?>"
-             alt="<? echo $title; ?>">
+        <div class="logo-background">
+            <img id="logo" class="logo " src="<? echo base_url('images/logocorto.png?v=1.2'); ?>"
+                 alt="<? echo $title; ?>">
+        </div>
 
 <!--        <div id="btnvideos">-->
 <!--            <a href="--><?// echo base_url('audios/')?><!--" class="btn">Audios</a>-->

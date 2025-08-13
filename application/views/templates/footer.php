@@ -1,30 +1,39 @@
 <style>
     .modal-content{
-        background-color: #5f47f3;
         color: rgb(255, 255, 255);
         border-radius: 20px !important;
     }
     .close{
         opacity: 100 !important;
-        color: rgb(255, 255, 255);
+        color: rgb(255, 255, 255) !important;
     }
     .close:hover{
         opacity: 100 !important;
-        color: rgb(255, 255, 255);
+        color: rgb(255, 255, 255) !important;
     }
-    label {
-        color: #ffffff !important;
-    }
-    a{
+    .btn-default:hover{
         color: #ffffff;
     }
+    label {
+        color: #5f47f3 !important;
+    }
+    a{
+        color: #5f47f3;
+    }
+    a:hover{
+        color: #5f47f3;
+    }
     .btn-primary{
-        color: #000000;
-        background-color: rgb(255, 255, 255);
+        color: #ffffff;
+        background-color: rgb(95, 71, 243);
     }
     .btn-primary:hover{
-        color: #000000;
-        background-color: rgb(255, 255, 255);
+        color: #ffffff;
+        background-color: rgb(95, 71, 243);
+    }
+
+    .modal-header{
+        color: #5f47f3;
     }
 
     .backgrouwnd {
@@ -116,6 +125,20 @@
         text-transform: none; /* Quitamos el 'uppercase' para que sea más legible */
     }
 
+    @media (max-width: 768px) {
+        .modern-footer-minimal .footer-links-minimal a {
+            color: #272727;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+        }
+        .modal-content{
+            top: 150px;
+        }
+    }
+
     @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 </style>
 
@@ -158,12 +181,12 @@
                     <input type="text" name="email" id="email">
                     <label for="">Password: </label>
                     <input type="password" name="password" id="password">
-                    <a href="#" data-toggle="modal" data-target="#myModalRecuperar">¿Olvidaste tu contraseña?</a>
+                    <a href="#" data-toggle="modal" data-target="#myModalRecuperar">Forgot your password?</a>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" id="login-btn">Ingresar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="login-btn">Login</button>
             </div>
         </div>
     </div>
@@ -186,8 +209,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" id="recuperar-btn">Recuperar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="recuperar-btn">Recover</button>
             </div>
         </div>
     </div>
@@ -205,7 +228,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -217,7 +240,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel">Registro</h4>
+                <h4 class="modal-title" id="myModalLabel">Register</h4>
             </div>
             <div class="modal-body">
                 <form action="#" id="registrar-form">
@@ -234,8 +257,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" id="registrar-btn">Registrarme</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="registrar-btn">Register</button>
             </div>
         </div>
     </div>
@@ -479,7 +502,7 @@ Script Source
 
             // Validación simple para que el correo no esté vacío
             if (email.trim() === '') {
-                alert('Por favor, ingresa tu correo electrónico.');
+                alert('Pleas, enter your e-mail.');
                 return;
             }
 
@@ -497,17 +520,17 @@ Script Source
                     $('#myModalRecuperar').modal('hide');
 
                     // 2. Usar tu modal de mensajes para mostrar la confirmación
-                    $('#messagesModal .modal-title').text('Solicitud Enviada');
-                    $('#messagesModal .modal-body').html('<p>' + response.message + '</p>');
+                    $('#messagesModal .modal-title').text('Request Sent');
+                    $('#messagesModal .modal-body').html('<p style="color: black;">' + response.message + '</p>');
                     $('#messagesModal').modal('show');
                 },
                 error: function() {
                     // En caso de un error inesperado en el servidor
-                    alert('Ocurrió un error al procesar tu solicitud. Por favor, intenta de nuevo.');
+                    alert('An error occurred while processing your request. Please try again.');
                 },
                 complete: function() {
                     // Devolver el botón a su estado original
-                    btn.text('Recuperar').prop('disabled', false);
+                    btn.text('Recover').prop('disabled', false);
                 }
             });
         });
@@ -527,8 +550,8 @@ if ($error_message):
         $(document).ready(function() {
             var errorModal = $('#messagesModal');
 
-            errorModal.find('.modal-title').text('Aviso Importante');
-            errorModal.find('.modal-body').html('<p class="text-center" style="font-size: 16px;"><?php echo addslashes($error_message); ?></p>');
+            errorModal.find('.modal-title').text('Important Notice');
+            errorModal.find('.modal-body').html('<p class="text-center" style="font-size: 16px; color: rgb(0 0 0);"><?php echo addslashes($error_message); ?></p>');
 
             errorModal.modal('show');
         });

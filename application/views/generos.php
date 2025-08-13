@@ -47,6 +47,21 @@
     #ajaxArea{
         flex: 1 0 auto;
     }
+
+    @media (max-width: 768px) {
+        .album-unit figure img {
+            width: auto !important;
+            height: 100%;
+            object-fit: cover; /* La propiedad clave: recorta la imagen para que encaje perfectamente */
+            object-position: center; /* Asegura que la imagen esté centrada dentro del cuadrado */
+        }
+        .album-unit figure {
+            width: 95px;
+            height: 95px;
+            overflow: hidden; /* Muy importante: oculta las partes de la imagen que se salen del cuadrado */
+            background-color: #1a1a1a; /* Un color de fondo oscuro mientras carga la imagen */
+        }
+    }
 </style>
 
 <div id="ajaxArea" style="margin-top: 40px">
@@ -66,7 +81,6 @@
                                     ?>
                                     <a href="<?php echo base_url(); ?>genero/<?php echo $genero->id; ?>" class="album-unit">
                                         <figure>
-                                            <!-- CORRECCIÓN AQUÍ: Se usa la ruta de imagen dinámica -->
                                             <img src="<?php echo $image_path; ?>" alt="<?php echo $genero->name; ?>" width="265" height="265">
                                             <figcaption>
                                                 <span></span>

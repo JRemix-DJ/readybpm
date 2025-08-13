@@ -103,7 +103,7 @@ class Products extends CI_Controller {
 				$user_file = $this->orders_model->user_files($this->session->userdata('id_usuario'), $product_id);
 
                 if (empty($user_file) || $user_file[0]->downloads_left <= 0) {
-                    $this->show_error_popup("Has agotado todas tus oportunidades de descarga para este archivo.");
+                    $this->show_error_popup("You have exhausted all your download opportunities for this file.");
                     return; // Detenemos la ejecución
                 }
 
@@ -427,7 +427,7 @@ class Products extends CI_Controller {
                 }
                 $this->serve_file($product_id); // Procede a la descarga.
             } else {
-                $this->show_error_popup("Has agotado todas tus oportunidades de descarga para este archivo.");
+                $this->show_error_popup("You have exhausted all your download opportunities for this file.");
             }
         } else {
             // MODO PRIMERA DESCARGA: El usuario no posee el archivo.
@@ -486,7 +486,7 @@ class Products extends CI_Controller {
                 }
                 $this->serve_file($product_id);
             } else {
-                $this->show_error_popup("Has agotado todas tus oportunidades de descarga para este archivo.");
+                $this->show_error_popup("You have exhausted all your download opportunities for this file.");
             }
         } else {
             // MODO PRIMERA DESCARGA: El usuario va a usar un token o es ilimitado.

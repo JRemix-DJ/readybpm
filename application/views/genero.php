@@ -11,6 +11,11 @@
     #ajaxArea{
         flex: 1 0 auto;
     }
+    @media (max-width: 768px) {
+        .text-uppercase{
+            padding-top: 40px;
+        }
+    }
 </style>
 <div id="ajaxArea">
     <pre style="display:none;"><?php print_r($products) ?></pre>
@@ -22,7 +27,6 @@
             <div class="cover-content">
                 <hr>
                 <div class="clearfix text-uppercase">
-                    <!-- CORRECCIÓN AQUÍ: Se cambió $generos por $genero -->
                     <h1 style="padding-top: 30px"><?php echo $genero->name; ?></h1>
 
                     <cite class="album-author mb-20"></cite>

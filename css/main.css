@@ -210,7 +210,7 @@ header h2 {
 
 .btn-default {
     background: #7cbf1d;
-    color: #000000;
+    color: #ffffff;
 }
 
 .btn {
@@ -4203,10 +4203,6 @@ ul.pagination{
     }
     .album-grid-wrap.style4 .album-unit {
         width: 33.333%;
-    }
-    
-    .album-grid-wrap.style2 .album-unit,.album-grid-wrap.style3 .album-unit{
-        width: 50%;
     }
     .ele-masonry {
         width: 98%;

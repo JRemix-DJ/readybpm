@@ -177,7 +177,7 @@ jQuery(function($) {
                 if(data.message=="NOLOGGUEDIN"){
                     $('#myModal').modal('show');
                     $('#myModal .modal-body .alert').remove();
-                    $('#myModal .modal-body').append('<div class="alert alert-danger">Necesitas estar logueado y adquirir uno de nuestros planes para poder descargar este contenido</div>');
+                    $('#myModal .modal-body').append('<div class="alert alert-danger">You need to be logged in and purchase one of our plans to download this content.</div>');
                 }
                 console.log(data.message);
                 //alert(data.message);
@@ -227,7 +227,7 @@ jQuery(function($) {
                     if(data.message=="NOLOGGUEDIN"){
                         $('#myModal').modal('show');
                         $('#myModal .modal-body .alert').remove();
-                        $('#myModal .modal-body').append('<div class="alert alert-danger">Necesitas estar logueado y adquirir uno de nuestros planes para poder descargar este contenido</div>');
+                        $('#myModal .modal-body').append('<div class="alert alert-danger">You need to be logged in and purchase one of our plans to download this content.</div>');
                     }
                     console.log(data.message);
                     //alert(data.message);
@@ -247,7 +247,7 @@ jQuery(function($) {
             }).done(function(data2){
                 if(!data2.success){
                     if(data2.message="NOTLOGGEDIN"){
-                        alert("Debes estar logueado y contar con un plan para descargar. ");
+
                     }
                 }else{
                     if(!data2.is_unlimited){

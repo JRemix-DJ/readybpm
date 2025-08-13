@@ -89,27 +89,25 @@
                         <table border="0" cellpadding="0" cellspacing="0" width="100%">
                             <tr>
                                 <td style="color: #111111; font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: bold; text-align: center;">
-                                    Restablecer Contraseña
+                                    Reset Password
                                 </td>
                             </tr>
                             <tr>
                                 <td style="padding: 20px 0 30px 0; color: #555555; font-family: Arial, sans-serif; font-size: 16px; line-height: 24px;">
-                                    <p>Hola {username},</p>
-                                    <p>Recibimos una solicitud para restablecer la contraseña de tu cuenta. Haz clic en
-                                        el botón de abajo para elegir una nueva.</p>
+                                    <p>Hi {username},</p>
+                                    <p>We've received a request to reset your account password. Click the button below to choose a new one.</p>
                                 </td>
                             </tr>
                             <tr>
                                 <td align="center">
                                     <a href="{reset_link}" target="_blank" class="botoncito">
-                                        RESTABLECER CONTRASEÑA</a>
+                                        RESET PASSWORD</a>
                                 </td>
                             </tr>
                             <tr>
                                 <td style="padding: 30px 0 0 0; color: #555555; font-family: Arial, sans-serif; font-size: 16px; line-height: 24px;">
-                                    <p>Si no solicitaste un cambio de contraseña, puedes ignorar este correo electrónico
-                                        de forma segura.</p>
-                                    <p>Gracias,<br>El equipo de ReadyBPM</p>
+                                    <p>If you didn't request a password change, you can safely ignore this email.</p>
+                                    <p>Thanks,<br>The ReadyBPM team</p>
                                 </td>
                             </tr>
                         </table>
@@ -134,7 +132,7 @@
                             </tr>
                             <tr>
                                 <td align="center" class="final-footer">
-                                    &copy; <?php echo date('Y'); ?> ReadyBPM. Todos los derechos reservados.<br>
+                                    &copy; <?php echo date('Y'); ?> ReadyBPM. All rights reserved.<br>
                                     <a href="https://readybpm.com" style="color: #969AA1; text-decoration: none;">readybpm.com</a>
                                 </td>
                             </tr>

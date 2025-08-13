@@ -103,30 +103,36 @@
             width: 100%;
             max-width: 450px;
             margin: 0 auto;
-            flex-direction: column;
-            padding: 10px 15px;
-            gap: 10px;
+            flex-direction: row;
+            padding: 5px 15px;
+            align-items: center;
+            gap: 0px;
         }
 
         .search-form-inner select,
         .search-form-inner input#sname {
-            width: 100%;
+            width: auto;
             border-right: none;
-            border-bottom: 1px solid #eee;
-            margin-right: 0;
+            border-bottom: none;
             padding: 8px 0;
-            text-align: center;
+            text-align: left;
         }
 
         /* --- CAMBIOS PARA EL SELECTOR DE GÉNERO --- */
-        .search-form-inner select {
-            padding: 12px 10px;        /* Aumentamos el padding para hacerlo más alto ("estirarlo") */
-            text-align-last: center;   /* Centra el texto de la opción seleccionada */
+        .search-form-inner select.form-control {
+            flex-basis: 130px;
+            flex-shrink: 0;
+            border-right: 1px solid #EEEEEE;
+            margin-right: 10px;
+            padding-right: 10px;
+            padding-left: 5px;
+            text-align-last: left;
+            text-align: left;
         }
         /* --- FIN DE LOS CAMBIOS --- */
 
         .search-form-inner input#sname {
-            border-bottom: none;
+            flex-grow: 1;
         }
 
         .search-form-inner button#buscar-ahora {
@@ -134,14 +140,7 @@
             max-width: 450px;
             height: 50px;
         }
-        .form-control{
-            width: 100%;
-            border-right: none;
-            border-bottom: 1px solid #eee;
-            margin-right: 0;
-            padding: 8px 0;
-            text-align: center;
-        }
+
     }
 </style>
 <div class="search-hero-section">

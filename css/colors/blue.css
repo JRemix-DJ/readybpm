@@ -37,7 +37,7 @@ button.btn.btn-green.anadido{
 }
 #audio-player{
 	line-height: 75px;
-	color: white;
+	color: #5f47f3;
 	padding: 0px 20px;
 }
 a:hover{
@@ -136,7 +136,7 @@ ul.pagination{
     background-color: transparent;
 }
 .the-xv-Jplayer{
-	background: #5F47F3;
+	background: #ffffff;
 }
 
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{

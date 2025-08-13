@@ -29,7 +29,7 @@
                     <span class="intro"><?php if ($producto->version != null) { echo html_escape($producto->version); } ?></span>
                 </td>
 
-                <td class="song-bpm align-middle"><?php echo $producto->bpm; ?></td>
+                <td class="song-bpm align-middle"><?php echo $producto->bpm; ?> BPM</td>
 
                 <td class="align-middle">
                     <?php if ($genero_info): ?>
@@ -46,6 +46,7 @@
                          data-video-src="<?php echo base_url('assets/products/demos/' . $producto->demo); ?>"
                          data-video-title="<?php echo html_escape($producto->name); ?>">
                         <div class="new-ver-video">
+                            <span class="preview">Preview: </span>
                             <img src="<?php echo base_url('/images/television.png'); ?>" alt="" class="video_thumb">
                         </div>
                     </div>
@@ -173,6 +174,83 @@
         display: block; /* Elimina espacio extra debajo del video */
         width: 100%;
         border-radius: 0 0 8px 8px; /* Redondea las esquinas inferiores */
+    }
+    .preview{
+        display: none;
+    }
+    @media (max-width: 768px) {
+        .preview{
+            display: inline-flex !important;
+            margin-right: 20px;
+            color: #5f47f3;
+        }
+
+        .canciones tbody tr.song-unit {
+            display: flex;
+            flex-wrap: wrap; /* Permite que los elementos se muevan a la siguiente línea */
+            align-items: center;
+            border-bottom: 1px solid #f0f0f0;
+            padding: 12px 5px;
+            justify-content: center;
+        }
+
+        /* 3. Ocultamos la celda de la imagen del género */
+        .canciones tbody tr td:nth-child(1) {
+            display: none;
+        }
+
+        .canciones tbody tr .song-info-container {
+            flex-basis: 100%; /* Ocupa el 100% del ancho */
+            order: 1; /* Lo colocamos primero */
+            display: flex;
+            flex-direction: column; /* Apilamos el nombre y los detalles */
+            text-align: center;
+            align-items: center;
+            margin-bottom: 10px; /* Espacio antes de los botones */
+        }
+
+        /* Estilos para el nombre de la canción */
+        .canciones tbody tr td.song-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            padding: 0;
+        }
+
+        .song-details-mobile {
+            display: flex;
+            align-items: center;
+            gap: 8px; /* Espacio entre BPM y Género */
+            font-size: 0.9em;
+            color: #777;
+            margin-top: 4px;
+            justify-content: center;
+        }
+
+        .canciones tbody tr td:nth-child(5), /* Celda del Preview */
+        .canciones tbody tr td:last-child {  /* Celda del Download */
+            order: 2; /* Los colocamos segundos */
+            flex-basis: 50%; /* Cada uno ocupa la mitad del espacio */
+            padding: 0 5px;
+            border: none; /* Quitamos cualquier borde de tabla */
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Ajustamos el botón de descarga para que no sea tan grande */
+        .canciones tbody tr td .downloadButton {
+            padding: 8px 20px;
+        }
+
+        .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+            padding: 8px;
+            line-height: 1.42857143;
+            vertical-align: top;
+            border-top: 0px solid rgba(221, 221, 221, 0);
+        }
+        .canciones td.song-bpm::after {
+            margin: 0 8px; /* Espacio a cada lado del separador */
+            color: #ccc;
+        }
     }
 </style>
 
