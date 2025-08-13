@@ -73,7 +73,7 @@
     <meta property="og:description" content="La mejor página para obtener tus remix."/>
 
 </head>
-<body>
+<body class="<?php if ($this->session->userdata('is_logued_in')) { echo 'user-logged-in'; } ?>">
 <style>
     #generalmenu .dl-menu > li > a:hover {
         background-color: #FFFFFF !important; /* Fondo blanco al pasar el mouse */
@@ -109,6 +109,16 @@
 
         /* Pequeña sombra para darle profundidad y separarla del contenido */
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    }
+    @media (max-width: 768px) {
+        .navbar-brand{
+            padding: 0px;
+        }
+        .logo-header{
+            padding-right: 0px !important;
+            max-width: 100px !important;
+            width: 130px;
+        }
     }
 </style>
 <!--===============================

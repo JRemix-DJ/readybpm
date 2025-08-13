@@ -456,4 +456,24 @@ class Users_model extends CI_Model {
 
         return $this->db->update('user_files');
     }
+
+    public function get_user_by_reset_token($token) {
+        if (empty($token)) {
+            return null;
+        }
+        $this->db->where('reset_token', $token);
+        $this->db->where('reset_expires >', date('Y-m-d H:i:s')); // Comprueba que la fecha de expiración sea futura
+        $query = $this->db->get('users');
+        return $query->row();
+    }
+
+    public function update_password($email, $password) {
+        $this->db->where('email', $email);
+        $data = array(
+            'password' => md5($password), // Asegúrate de que tu sistema de login use md5() o cámbialo a password_hash()
+            'reset_token' => null,
+            'reset_expires' => null
+        );
+        return $this->db->update('users', $data);
+    }
 }

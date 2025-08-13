@@ -1,3 +1,33 @@
+<style>
+    @media (max-width: 768px) {
+        /* Limitamos la altura máxima del slider en móviles para que no sea tan grande */
+        .custom-slider,
+        .custom-slider .flexslider {
+            max-height: 250px; /* Puedes ajustar este valor, ej. 200px */
+            overflow: hidden;  /* Oculta cualquier parte de la imagen que se desborde */
+        }
+
+        /* Hacemos que la imagen dentro del slider ocupe todo el espacio disponible
+           sin deformarse, recortándose si es necesario. */
+        .custom-slider .slides img {
+            width: 100%;
+            object-fit: cover; /* La propiedad mágica para que la imagen se ajuste bien */
+        }
+        .custom-slider{
+            margin-top: 55px;
+            height: 100%;
+        }
+        .xv_slide{
+            width: auto;
+            max-width: 500px;
+            object-fit: cover;
+            object-position: center;
+        }
+        .user-logged-in .custom-slider {
+            margin-top: 130px;
+        }
+    }
+</style>
 <div id="ajaxArea">
     <!--=================================
     Main Slider

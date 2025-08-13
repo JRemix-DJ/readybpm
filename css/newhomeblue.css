@@ -125,14 +125,14 @@ section#cuerpo {
       ". boton1"
       "information-home information-home";
     max-width: 600px;
-    padding-right: 200px;
+    padding-right: 150px;
     justify-content: end;
     align-items: end;
     grid-gap: 23px;
     top: auto;
     left: auto;
-    margin-right: 25px;
     margin-left: auto;
+    margin-bottom: 150px;
     justify-items: end;
 }
 

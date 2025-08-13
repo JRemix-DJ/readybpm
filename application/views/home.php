@@ -52,6 +52,56 @@
     </script>
 
     <style>
+        @media (max-width: 768px) {
+
+            /* Ajustamos la sección principal para que sea más flexible */
+            .home .content {
+                display: flex;
+                align-items: center; /* Centra verticalmente el contenido */
+                justify-content: center; /* Centra horizontalmente el contenido */
+                padding: 40px 15px; /* Añade un poco de espacio interno */
+                min-height: auto; /* Quitamos alturas mínimas que puedan causar problemas */
+                margin-bottom: 500px;
+            }
+
+            /* Reducimos el espaciado y el tamaño de los elementos dentro del héroe */
+            .home .homecontent {
+                position: static; /* Cambiamos el posicionamiento para un flujo normal */
+                transform: none;  /* Reseteamos cualquier transformación */
+                width: 100%;      /* Ocupa todo el ancho disponible */
+                padding-top: 20px; /* Reducimos el espacio superior */
+            }
+
+            /* Hacemos el logo un poco más pequeño en móviles */
+            .home .homecontent .logo {
+                max-width: 250px;
+                margin-bottom: 25px;
+            }
+
+            /* Ajustamos el margen del botón */
+            .home .homecontent #btnvideos {
+                margin-bottom: 20px;
+            }
+
+            /* Hacemos el texto de información un poco más pequeño */
+            .home .homecontent .information-home {
+                font-size: 10px;
+                line-height: 1.6;
+                text-align: left;
+                padding-right: 100px;
+            }
+
+            /* Reducimos el espaciado de la sección "WHY US?" para que no haya tanto hueco */
+            .why-us-section {
+                padding: 40px 20px;
+            }
+            .logo{
+                background-color: #ffffff;
+                padding: 10px;
+                border-radius: 10px;
+            }
+        }
+
         .planeshome .contenedor {
             display: flex;
             flex-wrap: wrap;
@@ -123,6 +173,9 @@
 
             .why-us-section {
                 padding: 60px 20px;
+            }
+            .information-home {
+                display: none;
             }
         }
         .section_plan {

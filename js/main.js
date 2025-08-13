@@ -389,30 +389,6 @@ jQuery(function($) {
         $('#myModal').modal('hide');
     })
 
-    $("#recuperar-btn").on('click', function(e){
-        console.log('recuperando');
-        $.ajax({
-            data:{
-                email: $('#recuperar-email').val()
-            },
-            type: "POST",
-            //contentType: "application/json",
-            dataType: "json",
-            url: base_url+"login/recuperar_contrasena/"
-        })
-        .done(function(data){
-            if(data.success){
-                alert(data.message);
-                location.reload();
-            }else{
-                alert(data.message);
-            }
-        })
-        .fail(function(){ 
-            alert('Algo extraño ha ocurrido 🤔 envía un mensaje a soporte para corregirlo lo antes posible a: support@videoremixpool.com');
-        });
-    });
-
     $('#cambiarpass').on('click', function(e){
         console.log('cambiando pass');
         //$(e).preventDefault();

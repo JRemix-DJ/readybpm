@@ -20,9 +20,11 @@
     }
     .btn-primary{
         color: #000000;
+        background-color: rgb(255, 255, 255);
     }
     .btn-primary:hover{
         color: #000000;
+        background-color: rgb(255, 255, 255);
     }
 
     .backgrouwnd {

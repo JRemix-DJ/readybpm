@@ -1,23 +1,36 @@
+<style>
+    html{
+        height: 100%;
+    }
+    body{
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+    }
+    #ajaxArea{
+        flex: 1 0 auto;
+    }
+</style>
+<div id="ajaxArea" style="margin-top: 40px">
     <div style="padding: 50px; width:fit-content; box-sizing: border-box;"><br><br>
-       <strong>TÉRMINOS Y CONDICIONES:</strong><br>
+       <strong>TERMS AND CONDITIONS:</strong><br>
 
 
-        <br>•	Al ser parte de Ready BPM, certificas que aceptas todos los términos aquí descritos. Nuestro contenido es propiedad exclusiva del sitio, y queda estrictamente prohibido copiarlo, revenderlo o redistribuirlo. En caso de incumplimiento, podremos cancelar tu cuenta sin previo aviso y sin derecho a reembolso.<br>
+        <br>•	By being a part of Ready BPM, you certify that you accept all the terms described herein. Our content is the exclusive property of the site, and it is strictly prohibited to copy, resell, or redistribute it. In case of non-compliance, we may terminate your account without prior notice and without the right to a refund.<br>
 
-        <br>•	Tu seguridad también es prioridad: como usuario, es tu responsabilidad mantener segura tu cuenta y contraseña. No compartas tus credenciales con nadie. Aunque hacemos todo lo posible por proteger tu información, ningún sistema es 100% invulnerable. Te invitamos a conocer más en nuestra Política de Privacidad.<br>
+        <br>•	Your security is also a priority: as a user, it is your responsibility to keep your account and password secure. Do not share your credentials with anyone. Although we do everything possible to protect your information, no system is 100% invulnerable. We invite you to learn more in our Privacy Policy.<br>
 
-        <br>•	Como toda plataforma digital, pueden presentarse interrupciones o fallas técnicas. Pero no te preocupes: nuestro equipo de desarrolladores está listo para resolver cualquier inconveniente en el menor tiempo posible.<br>
+        <br>•	Like any digital platform, interruptions or technical failures may occur. But don't worry: our team of developers is ready to resolve any issue as quickly as possible.<br>
 
-        <br>•	Ready BPM no se hace responsable por consecuencias indirectas derivadas del uso del sitio. Si se detecta una violación a nuestros términos, nos reservamos el derecho de cancelar tu cuenta sin aviso previo y sin realizar reembolsos.<br>
+        <br>•	Ready BPM is not responsible for indirect consequences arising from the use of the site. If a violation of our terms is detected, we reserve the right to terminate your account without prior notice and without issuing a refund.<br>
 
-        <br>•	Ten en cuenta que no realizamos reembolsos por pagos ya procesados, ni gestionamos cancelaciones automáticas. Si necesitas ayuda personalizada, siempre puedes contactarnos vía correo electrónico.<br>
+        <br>•	Please note that we do not issue refunds for payments already processed, nor do we manage automatic cancellations. If you need personalized assistance, you can always contact us via email.<br>
 
-        <br>•	Este servicio está diseñado exclusivamente para DJs que desean elevar su desempeño en el escenario. Todos nuestros remixes son creados por DJs y productores profesionales de todo el mundo, garantizando calidad y precisión en cada edición.<br>
+        <br>•	This service is exclusively designed for DJs who wish to elevate their performance on stage. All our remixes are created by professional DJs and music producers from around the world, ensuring quality and precision in every edit.<br>
 
-        <br>•	Al realizar una compra, certificas que eres un DJ en activo, que utilizarás nuestro contenido solo para mejorar tu trabajo en cabina y que no revenderás, redistribuirás ni compartirás ninguno de los archivos obtenidos.<br>
+        <br>•   By making a purchase, you certify that you are an active DJ, that you will use our content solely to improve your work in the DJ booth, and that you will not resell, redistribute, or share any of the files obtained.<br>
 
-        <br>•	Además, confirmas que ya posees las versiones originales de las canciones remezcladas. Ready BPM no vende música, ofrece un servicio de edición diseñado para que destaques.<br>
+        <br>•   Furthermore, you confirm that you already own the original versions of the remixed songs. Ready BPM does not sell music; it offers an editing service designed to make you stand out.<br>
     </div>
-  
-
-   
+</div>

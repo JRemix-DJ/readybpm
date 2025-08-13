@@ -25,6 +25,7 @@
 
     .form-control{
         height: 45px;
+        width: 200px;
     }
 
     /* Wrapper que contiene el dropdown y el campo de texto */
@@ -84,6 +85,64 @@
         background-color: #ffe432; /* Color al pasar el mouse */
         cursor: pointer;
     }
+
+    @media (max-width: 768px) {
+        /* --- ESTILOS PARA EL NUEVO BUSCADOR EN MÓVILES --- */
+
+        .search-hero-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .search-form-inner {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-control-wrapper {
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+            flex-direction: column;
+            padding: 10px 15px;
+            gap: 10px;
+        }
+
+        .search-form-inner select,
+        .search-form-inner input#sname {
+            width: 100%;
+            border-right: none;
+            border-bottom: 1px solid #eee;
+            margin-right: 0;
+            padding: 8px 0;
+            text-align: center;
+        }
+
+        /* --- CAMBIOS PARA EL SELECTOR DE GÉNERO --- */
+        .search-form-inner select {
+            padding: 12px 10px;        /* Aumentamos el padding para hacerlo más alto ("estirarlo") */
+            text-align-last: center;   /* Centra el texto de la opción seleccionada */
+        }
+        /* --- FIN DE LOS CAMBIOS --- */
+
+        .search-form-inner input#sname {
+            border-bottom: none;
+        }
+
+        .search-form-inner button#buscar-ahora {
+            width: 100%;
+            max-width: 450px;
+            height: 50px;
+        }
+        .form-control{
+            width: 100%;
+            border-right: none;
+            border-bottom: 1px solid #eee;
+            margin-right: 0;
+            padding: 8px 0;
+            text-align: center;
+        }
+    }
 </style>
 <div class="search-hero-section">
     <div class="container" style="background-color: #5F47F3;">
@@ -93,7 +152,7 @@
             <div class="search-form-inner">
 
                 <div class="form-control-wrapper">
-                    <select name="sgenero" id="sgenero" class="form-control" style="width: 200px;">
+                    <select name="sgenero" id="sgenero" class="form-control">
                         <option value="">Genre</option>
                         <?php foreach ($generos as $genero_) { ?>
                             <option value="<?php echo html_escape($genero_->id); ?>" <?php
